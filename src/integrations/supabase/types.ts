@@ -9,16 +9,61 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      shares: {
+        Row: {
+          code: string
+          content: string | null
+          created_at: string
+          download_count: number
+          expires_at: string | null
+          file_name: string | null
+          file_path: string | null
+          file_size: number | null
+          max_downloads: number | null
+          type: Database["public"]["Enums"]["share_type"]
+        }
+        Insert: {
+          code: string
+          content?: string | null
+          created_at?: string
+          download_count?: number
+          expires_at?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          file_size?: number | null
+          max_downloads?: number | null
+          type: Database["public"]["Enums"]["share_type"]
+        }
+        Update: {
+          code?: string
+          content?: string | null
+          created_at?: string
+          download_count?: number
+          expires_at?: string | null
+          file_name?: string | null
+          file_path?: string | null
+          file_size?: number | null
+          max_downloads?: number | null
+          type?: Database["public"]["Enums"]["share_type"]
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      cleanup_expired_shares: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
+      generate_unique_code: {
+        Args: { code_length?: number }
+        Returns: string
+      }
     }
     Enums: {
-      [_ in never]: never
+      share_type: "clipboard" | "notepad" | "file"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +178,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      share_type: ["clipboard", "notepad", "file"],
+    },
   },
 } as const
