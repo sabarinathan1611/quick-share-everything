@@ -14,7 +14,7 @@ const AdUnit: React.FC<AdUnitProps> = ({
   style = {},
   className = ''
 }) => {
-  const adRef = useRef<HTMLDivElement>(null);
+  const adRef = useRef<HTMLModElement>(null);
 
   useEffect(() => {
     try {
