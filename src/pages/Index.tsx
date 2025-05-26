@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Copy, FileText, Share, Upload, Download, Edit3, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import CodeInput from '@/components/CodeInput';
 import ShareResult from '@/components/ShareResult';
+import AdUnit from '@/components/AdUnit';
 import { createClipboardShare, createNotepadShare, createFileShare, getShareByCode, Share as ShareType } from '@/utils/shareService';
 
 const Index = () => {
@@ -183,6 +185,15 @@ const Index = () => {
 
         <main className="container mx-auto px-4 py-8">
           <ShareResult share={currentShare} onBack={handleBackToHome} />
+          
+          {/* Ad placement after content */}
+          <div className="mt-8 flex justify-center">
+            <AdUnit 
+              adSlot="1234567890" 
+              adFormat="rectangle"
+              className="max-w-md"
+            />
+          </div>
         </main>
 
         {/* Footer */}
@@ -282,6 +293,15 @@ const Index = () => {
 
             <div className="space-y-8">
               <CodeInput onCodeSubmit={handleCodeSubmit} isLoading={isLoading} />
+              
+              {/* Top banner ad */}
+              <div className="flex justify-center">
+                <AdUnit 
+                  adSlot="1234567890" 
+                  adFormat="horizontal"
+                  className="w-full max-w-2xl"
+                />
+              </div>
               
               <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 <Card className="group hover:shadow-lg transition-shadow cursor-pointer" onClick={() => setActiveTab('clipboard')}>
@@ -390,6 +410,15 @@ const Index = () => {
                   </div>
                 </CardContent>
               </Card>
+              
+              {/* Sidebar ad for clipboard */}
+              <div className="mt-6 flex justify-center">
+                <AdUnit 
+                  adSlot="2345678901" 
+                  adFormat="rectangle"
+                  className="max-w-sm"
+                />
+              </div>
             </div>
           </TabsContent>
 
@@ -435,6 +464,15 @@ const Index = () => {
                   </div>
                 </CardContent>
               </Card>
+              
+              {/* Sidebar ad for notepad */}
+              <div className="mt-6 flex justify-center">
+                <AdUnit 
+                  adSlot="3456789012" 
+                  adFormat="rectangle"
+                  className="max-w-sm"
+                />
+              </div>
             </div>
           </TabsContent>
 
@@ -492,6 +530,15 @@ const Index = () => {
                   </div>
                 </CardContent>
               </Card>
+              
+              {/* Sidebar ad for file share */}
+              <div className="mt-6 flex justify-center">
+                <AdUnit 
+                  adSlot="4567890123" 
+                  adFormat="rectangle"
+                  className="max-w-sm"
+                />
+              </div>
             </div>
           </TabsContent>
         </Tabs>
