@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Copy, FileText, Share, Upload, Download, Edit3, Search } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -11,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import CodeInput from '@/components/CodeInput';
 import ShareResult from '@/components/ShareResult';
 import AdUnit from '@/components/AdUnit';
+import RichTextEditor from '@/components/RichTextEditor';
 import { createClipboardShare, createNotepadShare, createFileShare, getShareByCode, Share as ShareType } from '@/utils/shareService';
 
 const Index = () => {
@@ -432,18 +432,17 @@ const Index = () => {
                     <span>Online Notepad</span>
                   </CardTitle>
                   <CardDescription>
-                    Write your notes below and generate a persistent sharing code.
+                    Write your notes below with rich text formatting and generate a persistent sharing code.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="notepad-text">Your Note</Label>
-                    <Textarea
-                      id="notepad-text"
-                      placeholder="Start writing your note here..."
+                    <RichTextEditor
                       value={notepadText}
-                      onChange={(e) => setNotepadText(e.target.value)}
-                      className="min-h-[300px] resize-y"
+                      onChange={setNotepadText}
+                      placeholder="Start writing your note here..."
+                      className="border rounded-md"
                     />
                   </div>
                   <Button onClick={handleSaveNotepad} className="w-full" disabled={isLoading}>
