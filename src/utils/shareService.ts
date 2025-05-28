@@ -1,129 +1,120 @@
 
 import { supabase } from '@/integrations/supabase/client';
 
-export type ShareType = 'clipboard' | 'notepad' | 'file';
-
 export interface Share {
+  id: string;
   code: string;
-  type: ShareType;
+  type: 'clipboard' | 'notepad' | 'file';
   content?: string;
   file_name?: string;
-  file_path?: string;
   file_size?: number;
+  file_path?: string;
+  max_downloads?: number;
+  download_count: number;
   created_at: string;
   expires_at?: string;
-  download_count: number;
-  max_downloads?: number;
 }
 
-export const createClipboardShare = async (content: string): Promise<string> => {
-  const { generateCode } = await import('./codeGenerator');
-  const code = await generateCode();
-  
+export const createShare = async (data: {
+  type: 'clipboard' | 'notepad';
+  content: string;
+}): Promise<Share> => {
+  const expirationHours = data.type === 'clipboard' ? 24 : 168; // 24h for clipboard, 7 days for notepad
   const expiresAt = new Date();
-  expiresAt.setHours(expiresAt.getHours() + 24); // 24 hour expiry
-  
-  const { error } = await supabase
+  expiresAt.setHours(expiresAt.getHours() + expirationHours);
+
+  const { data: share, error } = await supabase
     .from('shares')
     .insert({
-      code,
-      type: 'clipboard',
-      content,
-      expires_at: expiresAt.toISOString()
-    });
-  
+      type: data.type,
+      content: data.content,
+      expires_at: expiresAt.toISOString(),
+    })
+    .select()
+    .single();
+
   if (error) throw error;
-  return code;
+  return share;
 };
 
-export const createNotepadShare = async (content: string): Promise<string> => {
-  const { generateCode } = await import('./codeGenerator');
-  const code = await generateCode();
-  
-  const { error } = await supabase
-    .from('shares')
-    .insert({
-      code,
-      type: 'notepad',
-      content
-      // No expiry for notepad
-    });
-  
-  if (error) throw error;
-  return code;
-};
-
-export const createFileShare = async (file: File): Promise<string> => {
-  const { generateCode } = await import('./codeGenerator');
-  const code = await generateCode();
-  
-  // Upload file to Supabase Storage
+export const createFileShare = async (
+  file: File,
+  maxDownloads: number = 10
+): Promise<Share> => {
+  // Upload file to storage
   const fileExt = file.name.split('.').pop();
-  const fileName = `${code}.${fileExt}`;
-  const filePath = `files/${fileName}`;
-  
+  const fileName = `${Date.now()}.${fileExt}`;
+  const filePath = `${fileName}`;
+
   const { error: uploadError } = await supabase.storage
     .from('shared-files')
     .upload(filePath, file);
-  
+
   if (uploadError) throw uploadError;
-  
+
+  // Create share record
   const expiresAt = new Date();
-  expiresAt.setDate(expiresAt.getDate() + 7); // 7 day expiry
-  
-  const { error } = await supabase
+  expiresAt.setHours(expiresAt.getHours() + 48); // 48 hours for files
+
+  const { data: share, error } = await supabase
     .from('shares')
     .insert({
-      code,
       type: 'file',
       file_name: file.name,
-      file_path: filePath,
       file_size: file.size,
+      file_path: filePath,
+      max_downloads: maxDownloads,
       expires_at: expiresAt.toISOString(),
-      max_downloads: 100
-    });
-  
+    })
+    .select()
+    .single();
+
   if (error) throw error;
-  return code;
+  return share;
 };
 
-export const getShareByCode = async (code: string): Promise<Share | null> => {
-  const { data, error } = await supabase
+export const getShare = async (code: string): Promise<Share> => {
+  const { data: share, error } = await supabase
     .from('shares')
     .select('*')
     .eq('code', code)
     .single();
-  
-  if (error) {
-    if (error.code === 'PGRST116') {
-      return null; // Not found
-    }
-    throw error;
-  }
-  
+
+  if (error) throw error;
+  if (!share) throw new Error('Share not found');
+
   // Check if expired
-  if (data.expires_at && new Date(data.expires_at) < new Date()) {
-    return null;
+  if (share.expires_at && new Date(share.expires_at) < new Date()) {
+    throw new Error('Share has expired');
   }
-  
-  return data;
+
+  // Check download limit for files
+  if (share.type === 'file' && share.max_downloads && share.download_count >= share.max_downloads) {
+    throw new Error('Download limit reached');
+  }
+
+  return share;
 };
 
 export const downloadFile = async (share: Share): Promise<string> => {
-  if (!share.file_path) throw new Error('No file path found');
-  
+  if (share.type !== 'file' || !share.file_path) {
+    throw new Error('Invalid file share');
+  }
+
   // Increment download count
   await supabase
     .from('shares')
     .update({ download_count: share.download_count + 1 })
-    .eq('code', share.code);
-  
+    .eq('id', share.id);
+
   // Get download URL
   const { data } = await supabase.storage
     .from('shared-files')
     .createSignedUrl(share.file_path, 300); // 5 minute expiry
-  
-  if (!data?.signedUrl) throw new Error('Failed to generate download URL');
-  
+
+  if (!data?.signedUrl) {
+    throw new Error('Failed to generate download URL');
+  }
+
   return data.signedUrl;
 };
