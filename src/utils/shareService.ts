@@ -2,7 +2,7 @@
 import { supabase } from '@/integrations/supabase/client';
 
 export interface Share {
-  id: string;
+  id?: string;
   code: string;
   type: 'clipboard' | 'notepad' | 'file';
   content?: string;
@@ -15,6 +15,12 @@ export interface Share {
   expires_at?: string;
 }
 
+const generateUniqueCode = async (): Promise<string> => {
+  const { data, error } = await supabase.rpc('generate_unique_code', { code_length: 6 });
+  if (error) throw error;
+  return data;
+};
+
 export const createShare = async (data: {
   type: 'clipboard' | 'notepad';
   content: string;
@@ -23,9 +29,12 @@ export const createShare = async (data: {
   const expiresAt = new Date();
   expiresAt.setHours(expiresAt.getHours() + expirationHours);
 
+  const code = await generateUniqueCode();
+
   const { data: share, error } = await supabase
     .from('shares')
     .insert({
+      code,
       type: data.type,
       content: data.content,
       expires_at: expiresAt.toISOString(),
@@ -34,7 +43,7 @@ export const createShare = async (data: {
     .single();
 
   if (error) throw error;
-  return share;
+  return share as Share;
 };
 
 export const createFileShare = async (
@@ -56,9 +65,12 @@ export const createFileShare = async (
   const expiresAt = new Date();
   expiresAt.setHours(expiresAt.getHours() + 48); // 48 hours for files
 
+  const code = await generateUniqueCode();
+
   const { data: share, error } = await supabase
     .from('shares')
     .insert({
+      code,
       type: 'file',
       file_name: file.name,
       file_size: file.size,
@@ -70,7 +82,7 @@ export const createFileShare = async (
     .single();
 
   if (error) throw error;
-  return share;
+  return share as Share;
 };
 
 export const getShare = async (code: string): Promise<Share> => {
@@ -93,7 +105,7 @@ export const getShare = async (code: string): Promise<Share> => {
     throw new Error('Download limit reached');
   }
 
-  return share;
+  return share as Share;
 };
 
 export const downloadFile = async (share: Share): Promise<string> => {
@@ -105,7 +117,7 @@ export const downloadFile = async (share: Share): Promise<string> => {
   await supabase
     .from('shares')
     .update({ download_count: share.download_count + 1 })
-    .eq('id', share.id);
+    .eq('code', share.code);
 
   // Get download URL
   const { data } = await supabase.storage
