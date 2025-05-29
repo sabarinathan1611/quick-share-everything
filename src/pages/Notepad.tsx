@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -28,10 +27,10 @@ const Notepad = () => {
 
     setIsLoading(true);
     try {
-      const noteContent = `${title ? `# ${title}\n\n` : ''}${content}`;
+      // Just use the content directly without prepending title
       const share = await createShare({
         type: 'notepad',
-        content: noteContent
+        content: content
       });
       
       setShareCode(share.code);
@@ -93,16 +92,6 @@ const Notepad = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-2">Note Title (Optional)</label>
-                <Input
-                  placeholder="Enter a title for your note..."
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  maxLength={200}
-                />
-              </div>
-              
               <div>
                 <label className="block text-sm font-medium mb-2">Note Content</label>
                 <RichTextEditor
