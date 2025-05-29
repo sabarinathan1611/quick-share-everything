@@ -85,9 +85,9 @@ const FileShare = () => {
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">Secure File Sharing</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-6">Anonymous File Sharing</h1>
           <p className="text-xl text-gray-600">
-            Upload and share files securely with download limits and auto-expiration
+            Upload and share files securely with 4-digit codes. Anonymous, fast, and secure file share solution.
           </p>
         </div>
 
@@ -101,11 +101,11 @@ const FileShare = () => {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <Upload className="w-5 h-5" />
-                <span>Upload File</span>
+                <span>Upload File Anonymously</span>
               </CardTitle>
               <CardDescription>
                 Share files up to 50MB with automatic expiration after 48 hours 
-                or when download limit is reached.
+                or when download limit is reached. No login required.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -170,12 +170,13 @@ const FileShare = () => {
               </div>
 
               <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-900 mb-2">File Sharing Details</h4>
+                <h4 className="font-semibold text-blue-900 mb-2">Anonymous File Sharing Details</h4>
                 <ul className="text-sm text-blue-800 space-y-1">
                   <li>• Files expire after 48 hours automatically</li>
                   <li>• Files are deleted when download limit is reached</li>
                   <li>• All files are scanned for malware</li>
                   <li>• No personal information is stored</li>
+                  <li>• Receive a simple 4-digit sharing code</li>
                 </ul>
               </div>
 
@@ -184,7 +185,7 @@ const FileShare = () => {
                 disabled={!file || isLoading}
                 className="w-full"
               >
-                {isLoading ? 'Uploading...' : 'Upload & Generate Share Code'}
+                {isLoading ? 'Uploading...' : 'Upload & Generate 4-Digit Code'}
               </Button>
             </CardContent>
           </Card>
@@ -192,10 +193,10 @@ const FileShare = () => {
           <Card className="max-w-2xl mx-auto">
             <CardHeader>
               <CardTitle className="text-center text-green-600">
-                File Share Created!
+                Anonymous File Share Created!
               </CardTitle>
               <CardDescription className="text-center">
-                Your file has been uploaded successfully. Use the code below to share access.
+                Your file has been uploaded successfully. Use the 4-digit code below to share access.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">

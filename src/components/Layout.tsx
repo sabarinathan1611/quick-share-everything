@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Home, FileText, Clipboard, Upload, Menu } from 'lucide-react';
+import { Home, FileText, Copy, Upload, Menu, Zap } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const navigation = [
     { name: 'Home', href: '/', icon: Home },
-    { name: 'Clipboard', href: '/clipboard', icon: Clipboard },
+    { name: 'Clipboard', href: '/clipboard', icon: Copy },
     { name: 'Notepad', href: '/notepad', icon: FileText },
     { name: 'File Share', href: '/file-share', icon: Upload },
   ];
@@ -23,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { name: 'About', href: '/about' },
     { name: 'FAQ', href: '/faq' },
     { name: 'Blog', href: '/blog' },
-    { name: 'Privacy', href: '/privacy' },
+    { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms', href: '/terms' },
   ];
 
@@ -36,9 +36,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">A</span>
+                <Zap className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-gray-900">AnonTools</span>
+              <span className="text-xl font-bold text-gray-900">AnonShare</span>
             </Link>
 
             {/* Desktop Navigation */}
@@ -116,10 +116,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="col-span-1">
               <Link to="/" className="flex items-center space-x-2 mb-4">
                 <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">A</span>
+                  <Zap className="w-5 h-5 text-white" />
                 </div>
-                <span className="text-xl font-bold text-gray-900">AnonTools</span>
+                <span className="text-xl font-bold text-gray-900">AnonShare</span>
               </Link>
+              <p className="text-gray-600 text-sm mb-2">
+                Instant Anonymous Sharing. No Login.
+              </p>
               <p className="text-gray-600 text-sm">
                 Privacy-first anonymous sharing tools for text, notes, and files. 
                 No registration required.
@@ -128,7 +131,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
             {/* Tools */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Tools</h3>
+              <h3 className="font-semibold text-gray-900 mb-4">Anonymous Tools</h3>
               <ul className="space-y-2 text-sm">
                 {navigation.slice(1).map((item) => (
                   <li key={item.name}>
@@ -167,15 +170,16 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <li>• No registration required</li>
                 <li>• Automatic expiration</li>
                 <li>• Privacy by design</li>
-                <li>• Secure sharing codes</li>
+                <li>• 4-digit sharing codes</li>
                 <li>• Global accessibility</li>
+                <li>• Anonymous clipboard</li>
               </ul>
             </div>
           </div>
 
           <div className="border-t border-gray-200 pt-8 mt-8">
             <p className="text-center text-gray-500 text-sm">
-              © 2024 AnonTools. Privacy-first anonymous sharing platform.
+              © 2024 AnonShare. Instant Anonymous Sharing. No Login.
             </p>
           </div>
         </div>

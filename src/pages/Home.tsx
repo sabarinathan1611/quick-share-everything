@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Clipboard, FileText, Upload, Shield, Zap, Globe } from 'lucide-react';
+import { Copy, FileText, Upload, Shield, Zap, Globe, Users, Clock, Lock } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
 
 const Home = () => {
@@ -13,11 +13,11 @@ const Home = () => {
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
           <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            Anonymous Online Tools for Privacy-First Sharing
+            Share Notes, Files & Text Instantly — Anonymously
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Share text snippets, create rich notes, and upload files securely without any signup required. 
-            Your privacy is our priority with temporary, encrypted sharing solutions.
+            Use our online notepad, clipboard, and file drop — 100% private, no signup needed. 
+            Perfect for anonymous clipboard sharing, paste without login, and secure file sharing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/clipboard">
@@ -42,17 +42,20 @@ const Home = () => {
       {/* Features Section */}
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Powerful Tools for Anonymous Sharing
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
+            Anonymous Sharing Tools for Everyone
           </h2>
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Enter short codes like 3453 to receive shared content instantly. No accounts, no tracking, completely anonymous.
+          </p>
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader>
-                <Clipboard className="w-12 h-12 text-blue-600 mb-4" />
+                <Copy className="w-12 h-12 text-blue-600 mb-4" />
                 <CardTitle>Anonymous Clipboard</CardTitle>
                 <CardDescription>
-                  Share text snippets instantly with auto-generated codes. Perfect for quick text sharing 
-                  across devices or with others without leaving traces.
+                  Perfect anonymous clipboard tool. Paste text and get a 4-digit code to share instantly. 
+                  No login required - ideal for quick text sharing across devices.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -65,10 +68,10 @@ const Home = () => {
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader>
                 <FileText className="w-12 h-12 text-green-600 mb-4" />
-                <CardTitle>Rich Text Notepad</CardTitle>
+                <CardTitle>Online Notepad</CardTitle>
                 <CardDescription>
                   Create formatted notes with our rich text editor. Add headers, lists, links, and 
-                  styling to create professional-looking shared documents.
+                  styling. Share with generated codes - perfect for collaboration.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -81,10 +84,10 @@ const Home = () => {
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader>
                 <Upload className="w-12 h-12 text-purple-600 mb-4" />
-                <CardTitle>Secure File Sharing</CardTitle>
+                <CardTitle>Secure File Share</CardTitle>
                 <CardDescription>
                   Upload and share files up to 50MB with download limits and expiration dates. 
-                  Perfect for temporary file sharing without email attachments.
+                  Perfect secure file share solution without email attachments.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -97,11 +100,58 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Why Choose Us Section */}
+      {/* How Short Codes Work */}
       <section className="py-16 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Why Choose AnonTools?
+            How Short Codes Work
+          </h2>
+          <div className="grid md:grid-cols-4 gap-6">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <Upload className="w-8 h-8 text-blue-600" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">1. Share Content</h3>
+              <p className="text-gray-600 text-sm">
+                Upload text, notes, or files using our anonymous sharing tools
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-green-600 text-xl font-bold">3453</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-3">2. Get Short Code</h3>
+              <p className="text-gray-600 text-sm">
+                Receive a unique 4-digit code (e.g. 3453) for your shared content
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <Users className="w-8 h-8 text-purple-600" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">3. Share Code</h3>
+              <p className="text-gray-600 text-sm">
+                Give the code to anyone who needs access to your content
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-orange-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <Zap className="w-8 h-8 text-orange-600" />
+              </div>
+              <h3 className="text-lg font-semibold mb-3">4. Instant Access</h3>
+              <p className="text-gray-600 text-sm">
+                Enter 3453 on our homepage to instantly receive the shared content
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose AnonShare Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            Why Choose AnonShare?
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
@@ -116,7 +166,7 @@ const Home = () => {
               <Zap className="w-16 h-16 text-green-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold mb-3">Lightning Fast</h3>
               <p className="text-gray-600">
-                Share content instantly with auto-generated codes. No waiting, no complex 
+                Share content instantly with auto-generated 4-digit codes. No waiting, no complex 
                 setup - just fast, efficient sharing tools.
               </p>
             </div>
@@ -138,35 +188,55 @@ const Home = () => {
       </div>
 
       {/* Use Cases Section */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            Perfect for Every Sharing Need
+            Perfect for Every Anonymous Sharing Need
           </h2>
-          <div className="space-y-8">
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-semibold mb-3">For Developers</h3>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-gray-50 rounded-lg p-6">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                  <Copy className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold">For Developers</h3>
+              </div>
               <p className="text-gray-600">
                 Share code snippets, configuration files, and debug logs with team members 
-                instantly. No need to clutter chat apps with long code blocks.
+                instantly. Perfect anonymous clipboard for developers who need paste without login.
               </p>
             </div>
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-semibold mb-3">For Content Creators</h3>
+            <div className="bg-gray-50 rounded-lg p-6">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                  <FileText className="w-6 h-6 text-green-600" />
+                </div>
+                <h3 className="text-xl font-semibold">For Content Creators</h3>
+              </div>
               <p className="text-gray-600">
                 Share draft articles, creative briefs, and collaboration notes with clients 
                 and team members without exposing sensitive information.
               </p>
             </div>
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-semibold mb-3">For Students</h3>
+            <div className="bg-gray-50 rounded-lg p-6">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                  <Upload className="w-6 h-6 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold">For Students</h3>
+              </div>
               <p className="text-gray-600">
                 Share study notes, project files, and research materials with classmates 
                 while maintaining privacy and avoiding email limitations.
               </p>
             </div>
-            <div className="bg-white rounded-lg p-6 shadow-md">
-              <h3 className="text-xl font-semibold mb-3">For Business Professionals</h3>
+            <div className="bg-gray-50 rounded-lg p-6">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                  <Lock className="w-6 h-6 text-orange-600" />
+                </div>
+                <h3 className="text-xl font-semibold">For Business Professionals</h3>
+              </div>
               <p className="text-gray-600">
                 Share meeting notes, proposals, and documents quickly without going through 
                 complex approval processes or corporate file sharing systems.
@@ -180,14 +250,14 @@ const Home = () => {
       <section className="py-16 px-4 bg-blue-600 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold mb-6">
-            Ready to Start Sharing Anonymously?
+            Ready to Start Anonymous Sharing?
           </h2>
           <p className="text-xl mb-8">
-            Join thousands of users who trust AnonTools for their privacy-first sharing needs.
+            Join thousands of users who trust AnonShare for their privacy-first sharing needs.
           </p>
           <Link to="/clipboard">
             <Button size="lg" variant="secondary" className="text-lg px-8 py-3">
-              Get Started for Free
+              Start Sharing Now
             </Button>
           </Link>
         </div>

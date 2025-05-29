@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Copy, FileText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { createShare } from '@/utils/shareService';
@@ -9,7 +8,6 @@ import RichTextEditor from '@/components/RichTextEditor';
 import AdUnit from '@/components/AdUnit';
 
 const Notepad = () => {
-  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [shareCode, setShareCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +56,6 @@ const Notepad = () => {
   };
 
   const handleReset = () => {
-    setTitle('');
     setContent('');
     setShareCode('');
   };
@@ -68,9 +65,9 @@ const Notepad = () => {
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">Rich Text Notepad</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-6">Anonymous Online Notepad</h1>
           <p className="text-xl text-gray-600">
-            Create formatted notes with our rich text editor
+            Create formatted notes anonymously with our rich text editor. Share with 4-digit codes.
           </p>
         </div>
 
@@ -84,11 +81,11 @@ const Notepad = () => {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <FileText className="w-5 h-5" />
-                <span>Create Rich Text Note</span>
+                <span>Create Anonymous Rich Text Note</span>
               </CardTitle>
               <CardDescription>
                 Create formatted documents with headers, lists, links, and more. 
-                Content expires after 7 days.
+                Content expires after 7 days. No login required.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -111,7 +108,7 @@ const Notepad = () => {
                 disabled={!content.trim() || isLoading}
                 className="w-full"
               >
-                {isLoading ? 'Creating Note...' : 'Generate Share Code'}
+                {isLoading ? 'Creating Note...' : 'Generate 4-Digit Code'}
               </Button>
             </CardContent>
           </Card>
@@ -119,10 +116,10 @@ const Notepad = () => {
           <Card>
             <CardHeader>
               <CardTitle className="text-center text-green-600">
-                Note Share Created!
+                Anonymous Note Created!
               </CardTitle>
               <CardDescription className="text-center">
-                Your formatted note has been shared successfully. Use the code below to access it.
+                Your formatted note has been shared successfully. Use the 4-digit code below to access it.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">

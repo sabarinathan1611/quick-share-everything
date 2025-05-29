@@ -67,7 +67,7 @@ const Clipboard = () => {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-6">Anonymous Clipboard</h1>
           <p className="text-xl text-gray-600">
-            Share text snippets instantly with auto-generated codes
+            Paste text and share a 4-digit code instantly. Perfect anonymous clipboard for developers and teams.
           </p>
         </div>
 
@@ -81,11 +81,11 @@ const Clipboard = () => {
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
                 <ClipboardIcon className="w-5 h-5" />
-                <span>Create Clipboard Share</span>
+                <span>Create Anonymous Clipboard Share</span>
               </CardTitle>
               <CardDescription>
-                Paste your text below and we'll generate a secure sharing code. 
-                Content expires after 24 hours.
+                Paste your text below and we'll generate a secure 4-digit sharing code. 
+                Content expires after 24 hours. No login required.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -105,7 +105,7 @@ const Clipboard = () => {
                 disabled={!text.trim() || isLoading}
                 className="w-full"
               >
-                {isLoading ? 'Creating Share...' : 'Generate Share Code'}
+                {isLoading ? 'Creating Share...' : 'Generate 4-Digit Code'}
               </Button>
             </CardContent>
           </Card>
@@ -113,10 +113,10 @@ const Clipboard = () => {
           <Card className="max-w-2xl mx-auto">
             <CardHeader>
               <CardTitle className="text-center text-green-600">
-                Clipboard Share Created!
+                Anonymous Clipboard Created!
               </CardTitle>
               <CardDescription className="text-center">
-                Your text has been shared successfully. Use the code below to access it.
+                Your text has been shared successfully. Use the 4-digit code below to access it.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
