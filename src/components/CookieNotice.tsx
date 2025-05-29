@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { X, Cookie } from 'lucide-react';
@@ -17,7 +16,7 @@ const CookieNotice = () => {
     localStorage.setItem('cookieConsent', 'accepted');
     setIsVisible(false);
     // Initialize analytics/ads here if accepted
-    if (typeof gtag !== 'undefined') {
+    if (typeof window !== 'undefined' && 'gtag' in window) {
       gtag('consent', 'update', {
         'analytics_storage': 'granted',
         'ad_storage': 'granted'
@@ -29,7 +28,7 @@ const CookieNotice = () => {
     localStorage.setItem('cookieConsent', 'rejected');
     setIsVisible(false);
     // Disable analytics/ads here if rejected
-    if (typeof gtag !== 'undefined') {
+    if (typeof window !== 'undefined' && 'gtag' in window) {
       gtag('consent', 'update', {
         'analytics_storage': 'denied',
         'ad_storage': 'denied'
