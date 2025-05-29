@@ -1,6 +1,5 @@
-
-import React from 'react';
-import { Copy, Download, FileText, Share } from 'lucide-react';
+import React, { useState } from 'react';
+import { Copy, Download, FileText, Share, Edit, Save, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
@@ -15,15 +14,33 @@ interface ShareResultProps {
 
 const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
   const { toast } = useToast();
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState(share.content || '');
 
   const handleCopyContent = () => {
-    if (share.content) {
-      navigator.clipboard.writeText(share.content);
+    const contentToCopy = isEditing ? editedContent : share.content;
+    if (contentToCopy) {
+      navigator.clipboard.writeText(contentToCopy);
       toast({
         title: "Copied!",
         description: "Content copied to clipboard",
       });
     }
+  };
+
+  const handleSaveEdit = () => {
+    // TODO: Implement save functionality to update the share in the database
+    // For now, just show a toast message
+    toast({
+      title: "Edit saved locally",
+      description: "Note: This is a local edit only. Save to database will be implemented.",
+    });
+    setIsEditing(false);
+  };
+
+  const handleCancelEdit = () => {
+    setEditedContent(share.content || '');
+    setIsEditing(false);
   };
 
   const handleDownloadFile = async () => {
@@ -84,9 +101,32 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
       
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
-            {getIcon()}
-            <span>{getTitle()}</span>
+          <CardTitle className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              {getIcon()}
+              <span>{getTitle()}</span>
+            </div>
+            {share.type === 'notepad' && (
+              <div className="flex items-center space-x-2">
+                {!isEditing ? (
+                  <Button variant="outline" size="sm" onClick={() => setIsEditing(true)}>
+                    <Edit className="w-4 h-4 mr-2" />
+                    Edit Note
+                  </Button>
+                ) : (
+                  <div className="flex space-x-2">
+                    <Button variant="outline" size="sm" onClick={handleSaveEdit}>
+                      <Save className="w-4 h-4 mr-2" />
+                      Save
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={handleCancelEdit}>
+                      <X className="w-4 h-4 mr-2" />
+                      Cancel
+                    </Button>
+                  </div>
+                )}
+              </div>
+            )}
           </CardTitle>
           <CardDescription>
             Code: {share.code} • Created: {new Date(share.created_at).toLocaleDateString()}
@@ -114,15 +154,23 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
             <>
               <div className="border rounded-lg">
                 <RichTextEditor
-                  value={share.content || ''}
-                  onChange={() => {}} // Read-only, so no onChange needed
-                  className="pointer-events-none"
+                  value={isEditing ? editedContent : (share.content || '')}
+                  onChange={isEditing ? setEditedContent : () => {}}
+                  className={isEditing ? "" : "pointer-events-none"}
+                  placeholder={isEditing ? "Edit your note here..." : ""}
                 />
               </div>
-              <Button onClick={handleCopyContent} variant="outline">
-                <Copy className="w-4 h-4 mr-2" />
-                Copy Note
-              </Button>
+              <div className="flex space-x-2">
+                <Button onClick={handleCopyContent} variant="outline" className="flex-1">
+                  <Copy className="w-4 h-4 mr-2" />
+                  Copy Note
+                </Button>
+                {isEditing && (
+                  <div className="text-sm text-gray-500 flex items-center">
+                    Editing mode - changes are local only
+                  </div>
+                )}
+              </div>
             </>
           )}
 
