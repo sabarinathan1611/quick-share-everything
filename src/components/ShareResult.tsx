@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Share as ShareType, downloadFile } from '@/utils/shareService';
+import RichTextEditor from '@/components/RichTextEditor';
 
 interface ShareResultProps {
   share: ShareType;
@@ -111,8 +112,12 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
 
           {share.type === 'notepad' && (
             <>
-              <div className="p-4 bg-gray-50 rounded-lg border">
-                <pre className="whitespace-pre-wrap text-sm">{share.content}</pre>
+              <div className="border rounded-lg">
+                <RichTextEditor
+                  value={share.content || ''}
+                  onChange={() => {}} // Read-only, so no onChange needed
+                  className="pointer-events-none"
+                />
               </div>
               <Button onClick={handleCopyContent} variant="outline">
                 <Copy className="w-4 h-4 mr-2" />
