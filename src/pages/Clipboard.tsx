@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Clipboard as ClipboardIcon } from 'lucide-react';
+import { Clipboard as ClipboardIcon, Copy } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { createShare } from '@/utils/shareService';
 import AdUnit from '@/components/AdUnit';
