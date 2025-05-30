@@ -1,17 +1,20 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Copy, Clipboard as ClipboardIcon } from 'lucide-react';
+import { Clipboard as ClipboardIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { createShare } from '@/utils/shareService';
 import AdUnit from '@/components/AdUnit';
+import PasswordProtection from '@/components/PasswordProtection';
 
 const Clipboard = () => {
   const [text, setText] = useState('');
   const [shareCode, setShareCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isEncryptionEnabled, setIsEncryptionEnabled] = useState(false);
+  const [password, setPassword] = useState('');
+  const [recoveryEmail, setRecoveryEmail] = useState('');
   const { toast } = useToast();
 
   const handleShare = async () => {
@@ -24,11 +27,22 @@ const Clipboard = () => {
       return;
     }
 
+    if (isEncryptionEnabled && !password.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter a password for encryption",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsLoading(true);
     try {
       const share = await createShare({
         type: 'clipboard',
-        content: text
+        content: text,
+        password: isEncryptionEnabled ? password : undefined,
+        recoveryEmail: isEncryptionEnabled ? recoveryEmail : undefined
       });
       
       setShareCode(share.code);
@@ -58,6 +72,9 @@ const Clipboard = () => {
   const handleReset = () => {
     setText('');
     setShareCode('');
+    setIsEncryptionEnabled(false);
+    setPassword('');
+    setRecoveryEmail('');
   };
 
   return (
@@ -77,46 +94,58 @@ const Clipboard = () => {
         </div>
 
         {!shareCode ? (
-          <Card className="max-w-2xl mx-auto">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <ClipboardIcon className="w-5 h-5" />
-                <span>Create Anonymous Clipboard Share</span>
-              </CardTitle>
-              <CardDescription>
-                Paste your text below and we'll generate a secure 4-digit sharing code. 
-                Content expires after 24 hours. No login required.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <Textarea
-                placeholder="Paste your text here..."
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                className="min-h-[200px] resize-y"
-                maxLength={100000}
-              />
-              <div className="flex justify-between items-center text-sm text-gray-500">
-                <span>{text.length} / 100,000 characters</span>
-                <span>Expires in 24 hours</span>
-              </div>
-              <Button 
-                onClick={handleShare} 
-                disabled={!text.trim() || isLoading}
-                className="w-full"
-              >
-                {isLoading ? 'Creating Share...' : 'Generate 4-Digit Code'}
-              </Button>
-            </CardContent>
-          </Card>
+          <div className="max-w-2xl mx-auto space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <ClipboardIcon className="w-5 h-5" />
+                  <span>Create Anonymous Clipboard Share</span>
+                </CardTitle>
+                <CardDescription>
+                  Paste your text below and we'll generate a secure 4-digit sharing code. 
+                  Content expires after 24 hours. No login required.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <Textarea
+                  placeholder="Paste your text here..."
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  className="min-h-[200px] resize-y"
+                  maxLength={100000}
+                />
+                <div className="flex justify-between items-center text-sm text-gray-500">
+                  <span>{text.length} / 100,000 characters</span>
+                  <span>Expires in 24 hours</span>
+                </div>
+              </CardContent>
+            </Card>
+
+            <PasswordProtection
+              isEnabled={isEncryptionEnabled}
+              onToggle={setIsEncryptionEnabled}
+              password={password}
+              onPasswordChange={setPassword}
+              recoveryEmail={recoveryEmail}
+              onRecoveryEmailChange={setRecoveryEmail}
+            />
+
+            <Button 
+              onClick={handleShare} 
+              disabled={!text.trim() || isLoading}
+              className="w-full"
+            >
+              {isLoading ? 'Creating Share...' : 'Generate 4-Digit Code'}
+            </Button>
+          </div>
         ) : (
           <Card className="max-w-2xl mx-auto">
             <CardHeader>
               <CardTitle className="text-center text-green-600">
-                Anonymous Clipboard Created!
+                {isEncryptionEnabled ? '🔒 Encrypted ' : ''}Anonymous Clipboard Created!
               </CardTitle>
               <CardDescription className="text-center">
-                Your text has been shared successfully. Use the 4-digit code below to access it.
+                Your text has been shared successfully{isEncryptionEnabled ? ' and encrypted' : ''}. Use the 4-digit code below to access it.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -134,10 +163,25 @@ const Clipboard = () => {
                 <h3 className="font-semibold mb-2">How to access:</h3>
                 <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600">
                   <li>Share the code <strong>{shareCode}</strong> with anyone who needs access</li>
+                  {isEncryptionEnabled && (
+                    <li>Also share the password you set for decryption</li>
+                  )}
                   <li>They can enter the code on the homepage to retrieve the content</li>
                   <li>Content will automatically expire after 24 hours</li>
                 </ol>
               </div>
+
+              {isEncryptionEnabled && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-blue-900 mb-2">🔒 Encryption Active</h4>
+                  <ul className="text-sm text-blue-800 space-y-1">
+                    <li>• Content encrypted with AES-256-GCM encryption</li>
+                    <li>• Encryption happens in your browser before upload</li>
+                    <li>• Password required for decryption</li>
+                    {recoveryEmail && <li>• Recovery email: {recoveryEmail}</li>}
+                  </ul>
+                </div>
+              )}
 
               <Button onClick={handleReset} variant="outline" className="w-full">
                 Create Another Share
@@ -167,12 +211,12 @@ const Clipboard = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Auto Expiration</CardTitle>
+              <CardTitle className="text-lg">End-to-End Encryption</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 text-sm">
-                All clipboard content automatically expires after 24 hours for 
-                your security and privacy.
+                Optional client-side encryption ensures your sensitive content 
+                remains private and secure.
               </p>
             </CardContent>
           </Card>

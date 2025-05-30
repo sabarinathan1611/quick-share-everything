@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Copy, Download, FileText, Share, Edit, Save, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -5,7 +6,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Share as ShareType, downloadFile } from '@/utils/shareService';
+import { decryptContent } from '@/utils/encryption';
 import RichTextEditor from '@/components/RichTextEditor';
+import PasswordInput from '@/components/PasswordInput';
 
 interface ShareResultProps {
   share: ShareType;
@@ -16,9 +19,46 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
   const { toast } = useToast();
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(share.content || '');
+  const [isDecrypting, setIsDecrypting] = useState(false);
+  const [decryptionError, setDecryptionError] = useState('');
+  const [decryptedContent, setDecryptedContent] = useState('');
+  const [isDecrypted, setIsDecrypted] = useState(!share.is_encrypted);
+  const [decryptedFileName, setDecryptedFileName] = useState(share.file_name || '');
+
+  const handlePasswordSubmit = async (password: string) => {
+    if (!share.encrypted_payload) return;
+    
+    setIsDecrypting(true);
+    setDecryptionError('');
+    
+    try {
+      const encryptionData = JSON.parse(share.encrypted_payload);
+      const decrypted = await decryptContent({
+        ...encryptionData,
+        password
+      });
+      
+      if (share.type === 'file') {
+        setDecryptedFileName(decrypted);
+      } else {
+        setDecryptedContent(decrypted);
+        setEditedContent(decrypted);
+      }
+      
+      setIsDecrypted(true);
+      toast({
+        title: "Success!",
+        description: "Content decrypted successfully",
+      });
+    } catch (error) {
+      setDecryptionError('Incorrect password. Please try again.');
+    } finally {
+      setIsDecrypting(false);
+    }
+  };
 
   const handleCopyContent = () => {
-    const contentToCopy = isEditing ? editedContent : share.content;
+    const contentToCopy = isEditing ? editedContent : (decryptedContent || share.content);
     if (contentToCopy) {
       navigator.clipboard.writeText(contentToCopy);
       toast({
@@ -39,7 +79,7 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
   };
 
   const handleCancelEdit = () => {
-    setEditedContent(share.content || '');
+    setEditedContent(decryptedContent || share.content || '');
     setIsEditing(false);
   };
 
@@ -48,12 +88,12 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
       const downloadUrl = await downloadFile(share);
       const link = document.createElement('a');
       link.href = downloadUrl;
-      link.download = share.file_name || 'download';
+      link.download = decryptedFileName;
       link.click();
       
       toast({
         title: "Download started",
-        description: `Downloading ${share.file_name}`,
+        description: `Downloading ${decryptedFileName}`,
       });
     } catch (error) {
       toast({
@@ -83,15 +123,37 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
   };
 
   const getTitle = () => {
-    switch (share.type) {
-      case 'clipboard':
-        return 'Shared Clipboard';
-      case 'notepad':
-        return 'Shared Note';
-      case 'file':
-        return 'Shared File';
-    }
+    const baseTitle = (() => {
+      switch (share.type) {
+        case 'clipboard':
+          return 'Shared Clipboard';
+        case 'notepad':
+          return 'Shared Note';
+        case 'file':
+          return 'Shared File';
+      }
+    })();
+    
+    return share.is_encrypted ? `🔒 ${baseTitle}` : baseTitle;
   };
+
+  // Show password input if content is encrypted and not yet decrypted
+  if (share.is_encrypted && !isDecrypted) {
+    return (
+      <div className="max-w-4xl mx-auto space-y-4">
+        <Button variant="outline" onClick={onBack} className="mb-4">
+          ← Back to Home
+        </Button>
+        
+        <PasswordInput
+          onPasswordSubmit={handlePasswordSubmit}
+          isLoading={isDecrypting}
+          error={decryptionError}
+          onCancel={onBack}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto space-y-4">
@@ -106,7 +168,7 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
               {getIcon()}
               <span>{getTitle()}</span>
             </div>
-            {share.type === 'notepad' && (
+            {share.type === 'notepad' && isDecrypted && (
               <div className="flex items-center space-x-2">
                 {!isEditing ? (
                   <Button variant="outline" size="sm" onClick={() => setIsEditing(true)}>
@@ -133,13 +195,14 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
             {share.expires_at && (
               <> • Expires: {new Date(share.expires_at).toLocaleDateString()}</>
             )}
+            {share.is_encrypted && <> • Protected with E2EE</>}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {share.type === 'clipboard' && (
             <>
               <Textarea
-                value={share.content || ''}
+                value={decryptedContent || share.content || ''}
                 readOnly
                 className="min-h-[200px] resize-y"
               />
@@ -154,7 +217,7 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
             <>
               <div className="border rounded-lg">
                 <RichTextEditor
-                  value={isEditing ? editedContent : (share.content || '')}
+                  value={isEditing ? editedContent : (decryptedContent || share.content || '')}
                   onChange={isEditing ? setEditedContent : () => {}}
                   className={isEditing ? "" : "pointer-events-none"}
                   placeholder={isEditing ? "Edit your note here..." : ""}
@@ -179,7 +242,7 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
               <div className="p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium">{share.file_name}</p>
+                    <p className="font-medium">{decryptedFileName}</p>
                     <p className="text-sm text-gray-500">
                       {share.file_size && formatFileSize(share.file_size)}
                     </p>

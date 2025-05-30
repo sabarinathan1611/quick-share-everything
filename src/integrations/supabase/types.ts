@@ -15,11 +15,14 @@ export type Database = {
           content: string | null
           created_at: string
           download_count: number
+          encrypted_payload: string | null
           expires_at: string | null
           file_name: string | null
           file_path: string | null
           file_size: number | null
+          is_encrypted: boolean | null
           max_downloads: number | null
+          recovery_email: string | null
           type: Database["public"]["Enums"]["share_type"]
         }
         Insert: {
@@ -27,11 +30,14 @@ export type Database = {
           content?: string | null
           created_at?: string
           download_count?: number
+          encrypted_payload?: string | null
           expires_at?: string | null
           file_name?: string | null
           file_path?: string | null
           file_size?: number | null
+          is_encrypted?: boolean | null
           max_downloads?: number | null
+          recovery_email?: string | null
           type: Database["public"]["Enums"]["share_type"]
         }
         Update: {
@@ -39,11 +45,14 @@ export type Database = {
           content?: string | null
           created_at?: string
           download_count?: number
+          encrypted_payload?: string | null
           expires_at?: string | null
           file_name?: string | null
           file_path?: string | null
           file_size?: number | null
+          is_encrypted?: boolean | null
           max_downloads?: number | null
+          recovery_email?: string | null
           type?: Database["public"]["Enums"]["share_type"]
         }
         Relationships: []

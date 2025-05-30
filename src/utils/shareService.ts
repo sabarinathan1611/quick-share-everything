@@ -1,5 +1,6 @@
 
 import { supabase } from '@/integrations/supabase/client';
+import { encryptContent, EncryptionResult } from './encryption';
 
 export interface Share {
   id?: string;
@@ -13,6 +14,16 @@ export interface Share {
   download_count: number;
   created_at: string;
   expires_at?: string;
+  is_encrypted?: boolean;
+  encrypted_payload?: string;
+  recovery_email?: string;
+}
+
+export interface CreateShareData {
+  type: 'clipboard' | 'notepad';
+  content: string;
+  password?: string;
+  recoveryEmail?: string;
 }
 
 const generateUniqueCode = async (): Promise<string> => {
@@ -21,24 +32,34 @@ const generateUniqueCode = async (): Promise<string> => {
   return data;
 };
 
-export const createShare = async (data: {
-  type: 'clipboard' | 'notepad';
-  content: string;
-}): Promise<Share> => {
+export const createShare = async (data: CreateShareData): Promise<Share> => {
   const expirationHours = data.type === 'clipboard' ? 24 : 168; // 24h for clipboard, 7 days for notepad
   const expiresAt = new Date();
   expiresAt.setHours(expiresAt.getHours() + expirationHours);
 
   const code = await generateUniqueCode();
 
+  let shareData: any = {
+    code,
+    type: data.type,
+    expires_at: expiresAt.toISOString(),
+  };
+
+  // Handle encryption if password is provided
+  if (data.password) {
+    const encryptionResult = await encryptContent(data.content, data.password);
+    shareData.is_encrypted = true;
+    shareData.encrypted_payload = JSON.stringify(encryptionResult);
+    shareData.recovery_email = data.recoveryEmail || null;
+    // Don't store plain content when encrypted
+  } else {
+    shareData.content = data.content;
+    shareData.is_encrypted = false;
+  }
+
   const { data: share, error } = await supabase
     .from('shares')
-    .insert({
-      code,
-      type: data.type,
-      content: data.content,
-      expires_at: expiresAt.toISOString(),
-    })
+    .insert(shareData)
     .select()
     .single();
 
@@ -48,7 +69,9 @@ export const createShare = async (data: {
 
 export const createFileShare = async (
   file: File,
-  maxDownloads: number = 10
+  maxDownloads: number = 10,
+  password?: string,
+  recoveryEmail?: string
 ): Promise<Share> => {
   // Upload file to storage
   const fileExt = file.name.split('.').pop();
@@ -67,17 +90,31 @@ export const createFileShare = async (
 
   const code = await generateUniqueCode();
 
+  let shareData: any = {
+    code,
+    type: 'file',
+    file_name: file.name,
+    file_size: file.size,
+    file_path: filePath,
+    max_downloads: maxDownloads,
+    expires_at: expiresAt.toISOString(),
+  };
+
+  // Handle encryption for files (encrypt filename if password provided)
+  if (password) {
+    const encryptionResult = await encryptContent(file.name, password);
+    shareData.is_encrypted = true;
+    shareData.encrypted_payload = JSON.stringify(encryptionResult);
+    shareData.recovery_email = recoveryEmail || null;
+    // Store encrypted filename
+    shareData.file_name = 'encrypted_file';
+  } else {
+    shareData.is_encrypted = false;
+  }
+
   const { data: share, error } = await supabase
     .from('shares')
-    .insert({
-      code,
-      type: 'file',
-      file_name: file.name,
-      file_size: file.size,
-      file_path: filePath,
-      max_downloads: maxDownloads,
-      expires_at: expiresAt.toISOString(),
-    })
+    .insert(shareData)
     .select()
     .single();
 

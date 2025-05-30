@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,12 +6,16 @@ import { Copy, Upload, FileX } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { createFileShare } from '@/utils/shareService';
 import AdUnit from '@/components/AdUnit';
+import PasswordProtection from '@/components/PasswordProtection';
 
 const FileShare = () => {
   const [file, setFile] = useState<File | null>(null);
   const [maxDownloads, setMaxDownloads] = useState(10);
   const [shareCode, setShareCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isEncryptionEnabled, setIsEncryptionEnabled] = useState(false);
+  const [password, setPassword] = useState('');
+  const [recoveryEmail, setRecoveryEmail] = useState('');
   const { toast } = useToast();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,9 +43,23 @@ const FileShare = () => {
       return;
     }
 
+    if (isEncryptionEnabled && !password.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter a password for encryption",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsLoading(true);
     try {
-      const share = await createFileShare(file, maxDownloads);
+      const share = await createFileShare(
+        file, 
+        maxDownloads,
+        isEncryptionEnabled ? password : undefined,
+        isEncryptionEnabled ? recoveryEmail : undefined
+      );
       setShareCode(share.code);
       toast({
         title: "Success!",
@@ -71,6 +88,9 @@ const FileShare = () => {
     setFile(null);
     setShareCode('');
     setMaxDownloads(10);
+    setIsEncryptionEnabled(false);
+    setPassword('');
+    setRecoveryEmail('');
   };
 
   const formatFileSize = (bytes: number) => {
@@ -97,106 +117,118 @@ const FileShare = () => {
         </div>
 
         {!shareCode ? (
-          <Card className="max-w-2xl mx-auto">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <Upload className="w-5 h-5" />
-                <span>Upload File Anonymously</span>
-              </CardTitle>
-              <CardDescription>
-                Share files up to 50MB with automatic expiration after 48 hours 
-                or when download limit is reached. No login required.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium mb-2">Select File</label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
-                  <input
-                    type="file"
-                    onChange={handleFileChange}
-                    className="hidden"
-                    id="file-upload"
-                    accept="*/*"
-                  />
-                  <label htmlFor="file-upload" className="cursor-pointer">
-                    {file ? (
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-center text-green-600">
-                          <Upload className="w-8 h-8" />
+          <div className="max-w-2xl mx-auto space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <Upload className="w-5 h-5" />
+                  <span>Upload File Anonymously</span>
+                </CardTitle>
+                <CardDescription>
+                  Share files up to 50MB with automatic expiration after 48 hours 
+                  or when download limit is reached. No login required.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Select File</label>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+                    <input
+                      type="file"
+                      onChange={handleFileChange}
+                      className="hidden"
+                      id="file-upload"
+                      accept="*/*"
+                    />
+                    <label htmlFor="file-upload" className="cursor-pointer">
+                      {file ? (
+                        <div className="space-y-2">
+                          <div className="flex items-center justify-center text-green-600">
+                            <Upload className="w-8 h-8" />
+                          </div>
+                          <div>
+                            <p className="font-medium">{file.name}</p>
+                            <p className="text-sm text-gray-500">{formatFileSize(file.size)}</p>
+                          </div>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setFile(null);
+                            }}
+                          >
+                            <FileX className="w-4 h-4 mr-2" />
+                            Remove
+                          </Button>
                         </div>
-                        <div>
-                          <p className="font-medium">{file.name}</p>
-                          <p className="text-sm text-gray-500">{formatFileSize(file.size)}</p>
+                      ) : (
+                        <div className="space-y-2">
+                          <Upload className="w-12 h-12 text-gray-400 mx-auto" />
+                          <div>
+                            <p className="text-lg font-medium">Click to upload a file</p>
+                            <p className="text-sm text-gray-500">Maximum file size: 50MB</p>
+                          </div>
                         </div>
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setFile(null);
-                          }}
-                        >
-                          <FileX className="w-4 h-4 mr-2" />
-                          Remove
-                        </Button>
-                      </div>
-                    ) : (
-                      <div className="space-y-2">
-                        <Upload className="w-12 h-12 text-gray-400 mx-auto" />
-                        <div>
-                          <p className="text-lg font-medium">Click to upload a file</p>
-                          <p className="text-sm text-gray-500">Maximum file size: 50MB</p>
-                        </div>
-                      </div>
-                    )}
-                  </label>
+                      )}
+                    </label>
+                  </div>
                 </div>
-              </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-2">Download Limit</label>
-                <Input
-                  type="number"
-                  min="1"
-                  max="100"
-                  value={maxDownloads}
-                  onChange={(e) => setMaxDownloads(parseInt(e.target.value) || 1)}
-                  className="w-32"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  File will be deleted after this many downloads
-                </p>
-              </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Download Limit</label>
+                  <Input
+                    type="number"
+                    min="1"
+                    max="100"
+                    value={maxDownloads}
+                    onChange={(e) => setMaxDownloads(parseInt(e.target.value) || 1)}
+                    className="w-32"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    File will be deleted after this many downloads
+                  </p>
+                </div>
 
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-900 mb-2">Anonymous File Sharing Details</h4>
-                <ul className="text-sm text-blue-800 space-y-1">
-                  <li>• Files expire after 48 hours automatically</li>
-                  <li>• Files are deleted when download limit is reached</li>
-                  <li>• All files are scanned for malware</li>
-                  <li>• No personal information is stored</li>
-                  <li>• Receive a simple 4-digit sharing code</li>
-                </ul>
-              </div>
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-blue-900 mb-2">Anonymous File Sharing Details</h4>
+                  <ul className="text-sm text-blue-800 space-y-1">
+                    <li>• Files expire after 48 hours automatically</li>
+                    <li>• Files are deleted when download limit is reached</li>
+                    <li>• All files are scanned for malware</li>
+                    <li>• No personal information is stored</li>
+                    <li>• Receive a simple 4-digit sharing code</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
 
-              <Button 
-                onClick={handleShare} 
-                disabled={!file || isLoading}
-                className="w-full"
-              >
-                {isLoading ? 'Uploading...' : 'Upload & Generate 4-Digit Code'}
-              </Button>
-            </CardContent>
-          </Card>
+            <PasswordProtection
+              isEnabled={isEncryptionEnabled}
+              onToggle={setIsEncryptionEnabled}
+              password={password}
+              onPasswordChange={setPassword}
+              recoveryEmail={recoveryEmail}
+              onRecoveryEmailChange={setRecoveryEmail}
+              showAdvanced={true}
+            />
+
+            <Button 
+              onClick={handleShare} 
+              disabled={!file || isLoading}
+              className="w-full"
+            >
+              {isLoading ? 'Uploading...' : 'Upload & Generate 4-Digit Code'}
+            </Button>
+          </div>
         ) : (
           <Card className="max-w-2xl mx-auto">
             <CardHeader>
               <CardTitle className="text-center text-green-600">
-                Anonymous File Share Created!
+                {isEncryptionEnabled ? '🔒 Encrypted ' : ''}Anonymous File Share Created!
               </CardTitle>
               <CardDescription className="text-center">
-                Your file has been uploaded successfully. Use the 4-digit code below to share access.
+                Your file has been uploaded successfully{isEncryptionEnabled ? ' and encrypted' : ''}. Use the 4-digit code below to share access.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -226,10 +258,25 @@ const FileShare = () => {
                 <h3 className="font-semibold mb-2">How to access:</h3>
                 <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600">
                   <li>Share the code <strong>{shareCode}</strong> with anyone who needs the file</li>
+                  {isEncryptionEnabled && (
+                    <li>Also share the password you set for decryption</li>
+                  )}
                   <li>They can enter the code on the homepage to download the file</li>
                   <li>File will be deleted after {maxDownloads} downloads or 48 hours</li>
                 </ol>
               </div>
+
+              {isEncryptionEnabled && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-blue-900 mb-2">🔒 Encryption Active</h4>
+                  <ul className="text-sm text-blue-800 space-y-1">
+                    <li>• Filename encrypted with AES-256-GCM encryption</li>
+                    <li>• File stored securely with encrypted metadata</li>
+                    <li>• Password required for filename decryption and download</li>
+                    {recoveryEmail && <li>• Recovery email: {recoveryEmail}</li>}
+                  </ul>
+                </div>
+              )}
 
               <Button onClick={handleReset} variant="outline" className="w-full">
                 Upload Another File
@@ -259,12 +306,12 @@ const FileShare = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Download Control</CardTitle>
+              <CardTitle className="text-lg">End-to-End Encryption</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 text-sm">
-                Set custom download limits and automatic expiration to control 
-                how your files are accessed.
+                Optional client-side encryption protects sensitive files with 
+                military-grade AES-256 encryption.
               </p>
             </CardContent>
           </Card>
