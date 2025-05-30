@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Clipboard as ClipboardIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { createShare } from '@/utils/shareService';
+import { sendShareNotification } from '@/utils/emailService';
 import PasswordProtection from '@/components/PasswordProtection';
 
 interface ClipboardFormProps {
@@ -18,6 +19,8 @@ const ClipboardForm = ({ onSuccess }: ClipboardFormProps) => {
   const [isEncryptionEnabled, setIsEncryptionEnabled] = useState(false);
   const [password, setPassword] = useState('');
   const [recoveryEmail, setRecoveryEmail] = useState('');
+  const [notificationEmail, setNotificationEmail] = useState('');
+  const [enableNotifications, setEnableNotifications] = useState(false);
   const { toast } = useToast();
 
   const handleShare = async () => {
@@ -39,6 +42,15 @@ const ClipboardForm = ({ onSuccess }: ClipboardFormProps) => {
       return;
     }
 
+    if (enableNotifications && !notificationEmail.trim()) {
+      toast({
+        title: "Error",
+        description: "Please enter an email address for notifications",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsLoading(true);
     try {
       const share = await createShare({
@@ -48,10 +60,26 @@ const ClipboardForm = ({ onSuccess }: ClipboardFormProps) => {
         recoveryEmail: isEncryptionEnabled ? recoveryEmail : undefined
       });
       
+      // Send notification email if enabled
+      if (enableNotifications && notificationEmail.trim()) {
+        try {
+          await sendShareNotification({
+            email: notificationEmail,
+            shareCode: share.code,
+            shareType: 'clipboard',
+            isEncrypted: isEncryptionEnabled
+          });
+          console.log('Share notification sent successfully');
+        } catch (emailError) {
+          console.error('Failed to send notification email:', emailError);
+          // Don't fail the main operation if email fails
+        }
+      }
+
       onSuccess(share.code, isEncryptionEnabled, recoveryEmail);
       toast({
         title: "Success!",
-        description: `Your clipboard is ready! Code: ${share.code}`,
+        description: `Your clipboard is ready! Code: ${share.code}${enableNotifications && notificationEmail ? ' (notification sent)' : ''}`,
       });
     } catch (error) {
       toast({
@@ -99,6 +127,10 @@ const ClipboardForm = ({ onSuccess }: ClipboardFormProps) => {
         onPasswordChange={setPassword}
         recoveryEmail={recoveryEmail}
         onRecoveryEmailChange={setRecoveryEmail}
+        notificationEmail={notificationEmail}
+        onNotificationEmailChange={setNotificationEmail}
+        enableNotifications={enableNotifications}
+        onNotificationsToggle={setEnableNotifications}
       />
 
       <Button 

@@ -150,6 +150,8 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
           isLoading={isDecrypting}
           error={decryptionError}
           onCancel={onBack}
+          shareCode={share.code}
+          recoveryEmail={share.recovery_email}
         />
       </div>
     );
