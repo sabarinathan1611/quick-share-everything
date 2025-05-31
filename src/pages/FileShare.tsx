@@ -360,7 +360,7 @@ const FileShare = () => {
               </div>
             </div>
           </CardContent>
-        </div>
+        </Card>
       </div>
     </div>
   );
