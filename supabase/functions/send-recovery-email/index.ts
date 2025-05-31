@@ -66,7 +66,7 @@ const handler = async (req: Request): Promise<Response> => {
       return new Response(
         JSON.stringify({ 
           success: false, 
-          message: "We couldn't find any content linked to this email address." 
+          message: "We couldn't find any content linked to this email address and share code combination." 
         }),
         {
           status: 404,
@@ -79,7 +79,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Check if the share is encrypted and has a password
     if (!shareData.is_encrypted || !shareData.encrypted_payload) {
-      console.log(`[${timestamp}] Share is not encrypted or has no password - cannot recover`);
+      console.log(`[${timestamp}] Share is not encrypted or has no encrypted payload - cannot recover`);
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -96,13 +96,25 @@ const handler = async (req: Request): Promise<Response> => {
     let password;
     try {
       const encryptionData = JSON.parse(shareData.encrypted_payload);
+      console.log(`[${timestamp}] Parsed encryption data keys: ${Object.keys(encryptionData).join(', ')}`);
+      
       password = encryptionData.password;
       
       if (!password) {
-        throw new Error("No password found in encryption data");
+        console.log(`[${timestamp}] No password found in encryption data - password recovery not available`);
+        return new Response(
+          JSON.stringify({ 
+            success: false, 
+            message: "Password recovery is not available for this content. The content was created without recovery email backup." 
+          }),
+          {
+            status: 400,
+            headers: { "Content-Type": "application/json", ...corsHeaders },
+          }
+        );
       }
     } catch (parseError) {
-      console.log(`[${timestamp}] Failed to extract password from encrypted_payload: ${parseError.message}`);
+      console.log(`[${timestamp}] Failed to parse encrypted_payload: ${parseError.message}`);
       return new Response(
         JSON.stringify({ 
           success: false, 

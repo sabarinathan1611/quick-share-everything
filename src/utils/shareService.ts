@@ -48,8 +48,15 @@ export const createShare = async (data: CreateShareData): Promise<Share> => {
   // Handle encryption if password is provided
   if (data.password) {
     const encryptionResult = await encryptContent(data.content, data.password);
+    
+    // Create the encrypted payload with recovery information
+    const encryptedPayload = {
+      ...encryptionResult,
+      password: data.recoveryEmail ? data.password : undefined // Only store password if recovery email provided
+    };
+    
     shareData.is_encrypted = true;
-    shareData.encrypted_payload = JSON.stringify(encryptionResult);
+    shareData.encrypted_payload = JSON.stringify(encryptedPayload);
     shareData.recovery_email = data.recoveryEmail || null;
     // Don't store plain content when encrypted
   } else {
@@ -103,8 +110,15 @@ export const createFileShare = async (
   // Handle encryption for files (encrypt filename if password provided)
   if (password) {
     const encryptionResult = await encryptContent(file.name, password);
+    
+    // Create the encrypted payload with recovery information
+    const encryptedPayload = {
+      ...encryptionResult,
+      password: recoveryEmail ? password : undefined // Only store password if recovery email provided
+    };
+    
     shareData.is_encrypted = true;
-    shareData.encrypted_payload = JSON.stringify(encryptionResult);
+    shareData.encrypted_payload = JSON.stringify(encryptedPayload);
     shareData.recovery_email = recoveryEmail || null;
     // Store encrypted filename
     shareData.file_name = 'encrypted_file';
