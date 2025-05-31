@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Lock, Eye, EyeOff, AlertCircle, Mail, Send } from 'lucide-react';
+import { Lock, Eye, EyeOff, AlertCircle, Mail, Send, CheckCircle, XCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { sendRecoveryEmail } from '@/utils/emailService';
 
@@ -49,19 +49,43 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
       return;
     }
 
-    setIsRecoveryLoading(true);
-    try {
-      // This would need to be implemented in the backend to verify the recovery email
-      // and send the password. For now, we'll show a message.
-      toast({
-        title: "Recovery Request Sent",
-        description: "If this email is associated with the share, you'll receive recovery instructions shortly.",
-      });
-      setShowRecovery(false);
-    } catch (error) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(recoveryEmailInput.trim())) {
       toast({
         title: "Error",
-        description: "Failed to send recovery email. Please try again.",
+        description: "Please enter a valid email address",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsRecoveryLoading(true);
+    try {
+      const result = await sendRecoveryEmail({
+        email: recoveryEmailInput.trim(),
+        shareCode: shareCode
+      });
+
+      if (result.success) {
+        toast({
+          title: "Recovery Email Sent",
+          description: "Check your inbox for recovery information.",
+          action: <CheckCircle className="w-4 h-4 text-green-600" />
+        });
+        setShowRecovery(false);
+        setRecoveryEmailInput('');
+      } else {
+        toast({
+          title: "Recovery Failed",
+          description: result.message || "We couldn't find any content linked to this email.",
+          variant: "destructive"
+        });
+      }
+    } catch (error: any) {
+      console.error('Recovery request failed:', error);
+      toast({
+        title: "Unable to Send Email",
+        description: "Please try again later or contact support if the problem persists.",
         variant: "destructive"
       });
     } finally {
@@ -141,20 +165,18 @@ const PasswordInput: React.FC<PasswordInputProps> = ({
               )}
             </div>
 
-            {recoveryEmail && (
-              <div className="text-center">
-                <Button
-                  type="button"
-                  variant="link"
-                  size="sm"
-                  onClick={() => setShowRecovery(true)}
-                  className="text-xs text-blue-600 hover:text-blue-800"
-                >
-                  <Mail className="w-3 h-3 mr-1" />
-                  Forgot password? Request recovery
-                </Button>
-              </div>
-            )}
+            <div className="text-center">
+              <Button
+                type="button"
+                variant="link"
+                size="sm"
+                onClick={() => setShowRecovery(true)}
+                className="text-xs text-blue-600 hover:text-blue-800"
+              >
+                <Mail className="w-3 h-3 mr-1" />
+                Forgot password? Request recovery
+              </Button>
+            </div>
           </form>
         ) : (
           <div className="space-y-4">

@@ -1,5 +1,6 @@
 
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.8";
 import { Resend } from "npm:resend@2.0.0";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
@@ -13,20 +14,110 @@ const corsHeaders = {
 interface RecoveryEmailRequest {
   email: string;
   shareCode: string;
-  password: string;
 }
 
 const handler = async (req: Request): Promise<Response> => {
+  const timestamp = new Date().toISOString();
+  
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { email, shareCode, password }: RecoveryEmailRequest = await req.json();
+    const { email, shareCode }: RecoveryEmailRequest = await req.json();
+    
+    console.log(`[${timestamp}] Recovery request initiated - Email: ${email}, Share Code: ${shareCode}`);
 
-    console.log("Sending recovery email to:", email, "for share code:", shareCode);
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      console.log(`[${timestamp}] Invalid email format: ${email}`);
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          message: "Invalid email format" 
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
 
+    // Initialize Supabase client
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
+    );
+
+    // Search for matching records with the email and share code
+    console.log(`[${timestamp}] Searching for share with code: ${shareCode} and recovery email: ${email}`);
+    
+    const { data: shareData, error: shareError } = await supabase
+      .from('shares')
+      .select('*')
+      .eq('code', shareCode)
+      .eq('recovery_email', email)
+      .single();
+
+    if (shareError || !shareData) {
+      console.log(`[${timestamp}] No matching record found - Error: ${shareError?.message || 'No data'}`);
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          message: "We couldn't find any content linked to this email address." 
+        }),
+        {
+          status: 404,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    console.log(`[${timestamp}] Found matching share record - ID: ${shareData.id}, Type: ${shareData.type}, Encrypted: ${shareData.is_encrypted}`);
+
+    // Check if the share is encrypted and has a password
+    if (!shareData.is_encrypted || !shareData.encrypted_payload) {
+      console.log(`[${timestamp}] Share is not encrypted or has no password - cannot recover`);
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          message: "This content doesn't have password protection enabled." 
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Extract password from encrypted_payload
+    let password;
+    try {
+      const encryptionData = JSON.parse(shareData.encrypted_payload);
+      password = encryptionData.password;
+      
+      if (!password) {
+        throw new Error("No password found in encryption data");
+      }
+    } catch (parseError) {
+      console.log(`[${timestamp}] Failed to extract password from encrypted_payload: ${parseError.message}`);
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          message: "Unable to recover password - encryption data corrupted." 
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    console.log(`[${timestamp}] Password extracted successfully, sending recovery email to: ${email}`);
+
+    // Send recovery email
     const emailResponse = await resend.emails.send({
       from: "Anonymous Share <no-reply@anonshare.live>",
       to: [email],
@@ -151,19 +242,45 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log("Email sent successfully:", emailResponse);
+    if (emailResponse.error) {
+      console.error(`[${timestamp}] Failed to send recovery email:`, emailResponse.error);
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          message: "Unable to send email. Please try again later." 
+        }),
+        {
+          status: 500,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
 
-    return new Response(JSON.stringify({ success: true, messageId: emailResponse.data?.id }), {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-        ...corsHeaders,
-      },
-    });
-  } catch (error: any) {
-    console.error("Error in send-recovery-email function:", error);
+    console.log(`[${timestamp}] Recovery email sent successfully - Message ID: ${emailResponse.data?.id}`);
+
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        success: true, 
+        message: "Check your inbox for recovery information.",
+        messageId: emailResponse.data?.id 
+      }),
+      {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+          ...corsHeaders,
+        },
+      }
+    );
+    
+  } catch (error: any) {
+    const timestamp = new Date().toISOString();
+    console.error(`[${timestamp}] Error in send-recovery-email function:`, error);
+    return new Response(
+      JSON.stringify({ 
+        success: false, 
+        message: "An unexpected error occurred. Please try again later." 
+      }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },

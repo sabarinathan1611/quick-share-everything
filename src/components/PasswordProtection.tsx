@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { Lock, Eye, EyeOff, RefreshCw, Mail, Bell } from 'lucide-react';
+import { Lock, Eye, EyeOff, RefreshCw, Mail } from 'lucide-react';
 import { generateSecurePassword } from '@/utils/encryption';
 
 interface PasswordProtectionProps {
@@ -29,10 +29,6 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({
   onPasswordChange,
   recoveryEmail,
   onRecoveryEmailChange,
-  notificationEmail,
-  onNotificationEmailChange,
-  enableNotifications,
-  onNotificationsToggle,
   showAdvanced = true
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -111,63 +107,25 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({
             </div>
 
             {showAdvanced && (
-              <>
-                <div>
-                  <Label htmlFor="recovery-email" className="text-sm font-medium mb-2 block">
-                    Recovery Email (Optional)
-                  </Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input
-                      id="recovery-email"
-                      type="email"
-                      placeholder="your.email@example.com"
-                      value={recoveryEmail}
-                      onChange={(e) => onRecoveryEmailChange(e.target.value)}
-                      className="pl-10"
-                    />
-                  </div>
-                  <p className="text-xs text-gray-500 mt-1">
-                    We'll send password recovery information to this email if provided.
-                  </p>
+              <div>
+                <Label htmlFor="recovery-email" className="text-sm font-medium mb-2 block">
+                  Recovery Email (Optional)
+                </Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <Input
+                    id="recovery-email"
+                    type="email"
+                    placeholder="your.email@example.com"
+                    value={recoveryEmail}
+                    onChange={(e) => onRecoveryEmailChange(e.target.value)}
+                    className="pl-10"
+                  />
                 </div>
-
-                <div className="border-t pt-4">
-                  <div className="flex items-center space-x-2 mb-3">
-                    <Checkbox
-                      id="enable-notifications"
-                      checked={enableNotifications}
-                      onCheckedChange={onNotificationsToggle}
-                    />
-                    <Label htmlFor="enable-notifications" className="text-sm font-medium flex items-center space-x-2">
-                      <Bell className="w-4 h-4" />
-                      <span>Email notifications</span>
-                    </Label>
-                  </div>
-
-                  {enableNotifications && (
-                    <div>
-                      <Label htmlFor="notification-email" className="text-sm font-medium mb-2 block">
-                        Notification Email
-                      </Label>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                        <Input
-                          id="notification-email"
-                          type="email"
-                          placeholder="notifications@example.com"
-                          value={notificationEmail}
-                          onChange={(e) => onNotificationEmailChange(e.target.value)}
-                          className="pl-10"
-                        />
-                      </div>
-                      <p className="text-xs text-gray-500 mt-1">
-                        Get notified when your content is successfully shared.
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </>
+                <p className="text-xs text-gray-500 mt-1">
+                  We'll send password recovery information to this email if provided.
+                </p>
+              </div>
             )}
 
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
@@ -179,8 +137,7 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({
                     <li>Content is encrypted on your device before being sent to our servers</li>
                     <li>We cannot recover your content if you lose the password</li>
                     <li>Anyone with the password can decrypt and view the content</li>
-                    <li>Recovery email is optional and only used for password hints</li>
-                    <li>Email notifications are sent for confirmation only</li>
+                    <li>Recovery email is optional and only used for password recovery</li>
                   </ul>
                 </div>
               </div>
