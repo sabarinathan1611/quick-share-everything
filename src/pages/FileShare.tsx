@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -5,7 +6,6 @@ import { Input } from '@/components/ui/input';
 import { Copy, Upload, FileX } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { createFileShare } from '@/utils/shareService';
-import { sendShareNotification } from '@/utils/emailService';
 import AdUnit from '@/components/AdUnit';
 import PasswordProtection from '@/components/PasswordProtection';
 
@@ -17,8 +17,6 @@ const FileShare = () => {
   const [isEncryptionEnabled, setIsEncryptionEnabled] = useState(false);
   const [password, setPassword] = useState('');
   const [recoveryEmail, setRecoveryEmail] = useState('');
-  const [notificationEmail, setNotificationEmail] = useState('');
-  const [enableNotifications, setEnableNotifications] = useState(false);
   const { toast } = useToast();
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,15 +53,6 @@ const FileShare = () => {
       return;
     }
 
-    if (enableNotifications && !notificationEmail.trim()) {
-      toast({
-        title: "Error",
-        description: "Please enter an email address for notifications",
-        variant: "destructive"
-      });
-      return;
-    }
-
     setIsLoading(true);
     try {
       const share = await createFileShare(
@@ -73,27 +62,10 @@ const FileShare = () => {
         isEncryptionEnabled ? recoveryEmail : undefined
       );
 
-      // Send notification email if enabled
-      if (enableNotifications && notificationEmail.trim()) {
-        try {
-          await sendShareNotification({
-            email: notificationEmail,
-            shareCode: share.code,
-            shareType: 'file',
-            isEncrypted: isEncryptionEnabled,
-            fileName: file.name
-          });
-          console.log('Share notification sent successfully');
-        } catch (emailError) {
-          console.error('Failed to send notification email:', emailError);
-          // Don't fail the main operation if email fails
-        }
-      }
-
       setShareCode(share.code);
       toast({
         title: "Success!",
-        description: `Your file is ready! Code: ${share.code}${enableNotifications && notificationEmail ? ' (notification sent)' : ''}`,
+        description: `Your file is ready! Code: ${share.code}`,
       });
     } catch (error) {
       toast({
@@ -121,8 +93,6 @@ const FileShare = () => {
     setIsEncryptionEnabled(false);
     setPassword('');
     setRecoveryEmail('');
-    setNotificationEmail('');
-    setEnableNotifications(false);
   };
 
   const formatFileSize = (bytes: number) => {
@@ -242,11 +212,11 @@ const FileShare = () => {
               onPasswordChange={setPassword}
               recoveryEmail={recoveryEmail}
               onRecoveryEmailChange={setRecoveryEmail}
-              notificationEmail={notificationEmail}
-              onNotificationEmailChange={setNotificationEmail}
-              enableNotifications={enableNotifications}
-              onNotificationsToggle={setEnableNotifications}
-              showAdvanced={true}
+              notificationEmail=""
+              onNotificationEmailChange={() => {}}
+              enableNotifications={false}
+              onNotificationsToggle={() => {}}
+              showAdvanced={false}
             />
 
             <Button 
@@ -390,7 +360,7 @@ const FileShare = () => {
               </div>
             </div>
           </CardContent>
-        </Card>
+        </div>
       </div>
     </div>
   );
