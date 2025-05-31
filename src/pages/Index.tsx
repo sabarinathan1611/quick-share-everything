@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getShare } from "@/utils/shareService";
@@ -10,33 +9,30 @@ import { Link } from "react-router-dom";
 import AdUnit from "@/components/AdUnit";
 import CookieNotice from "@/components/CookieNotice";
 import { Copy, FileText, Upload, Zap, Shield, Globe } from "lucide-react";
-
 const Index = () => {
   const [searchCode, setSearchCode] = useState<string>("");
   const [showResult, setShowResult] = useState(false);
-
-  const { data: share, isLoading, error } = useQuery({
+  const {
+    data: share,
+    isLoading,
+    error
+  } = useQuery({
     queryKey: ["share", searchCode],
     queryFn: () => getShare(searchCode),
-    enabled: !!searchCode && searchCode.length >= 4,
+    enabled: !!searchCode && searchCode.length >= 4
   });
-
   const handleCodeSubmit = (code: string) => {
     setSearchCode(code);
     setShowResult(true);
   };
-
   const handleBack = () => {
     setShowResult(false);
     setSearchCode("");
   };
-
   if (showResult && share) {
     return <ShareResult share={share} onBack={handleBack} />;
   }
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+  return <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="container mx-auto px-4 py-16">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -78,22 +74,17 @@ const Index = () => {
               Enter your code (e.g. 3453) to access shared content
             </p>
           </div>
-          <CodeInput 
-            onCodeSubmit={handleCodeSubmit} 
-            isLoading={isLoading}
-          />
+          <CodeInput onCodeSubmit={handleCodeSubmit} isLoading={isLoading} />
         </div>
 
         {/* Error Display */}
-        {error && (
-          <div className="max-w-md mx-auto text-center mb-12">
+        {error && <div className="max-w-md mx-auto text-center mb-12">
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
               <p className="text-red-800">
                 Content not found or has expired. Please check the code and try again.
               </p>
             </div>
-          </div>
-        )}
+          </div>}
 
         {/* Ad Unit */}
         <div className="mb-12">
@@ -137,7 +128,7 @@ const Index = () => {
                     <Upload className="w-8 h-8 text-purple-600" />
                   </div>
                   <h3 className="text-xl font-semibold mb-3">File Sharing</h3>
-                  <p className="text-gray-600">Upload & share files instantly. No size limits, automatic expiration, completely secure.</p>
+                  <p className="text-gray-600">Upload &amp; share files instantly, automatic expiration, completely secure.</p>
                 </div>
               </div>
             </Link>
@@ -215,8 +206,6 @@ const Index = () => {
       </div>
       
       <CookieNotice />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
