@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, Users, Clock, Globe } from 'lucide-react';
+import { Shield, Users, Clock, Globe, Code, Zap } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
 
 const About = () => {
@@ -10,10 +10,9 @@ const About = () => {
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">About AnonTools</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-6">About AnonShare</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We believe in privacy-first digital tools that empower users to share content 
-            without compromising their personal information or digital footprint.
+            AnonShare was built to make anonymous sharing easier, safer, and private—without needing accounts.
           </p>
         </div>
 
@@ -29,23 +28,109 @@ const About = () => {
           </CardHeader>
           <CardContent className="text-gray-600 space-y-4">
             <p>
-              In an era where digital privacy is increasingly under threat, AnonTools was created 
-              to provide a safe haven for anonymous content sharing. We understand that sometimes 
-              you need to share information quickly without leaving a digital trail or going 
-              through complex registration processes.
+              In a world where digital privacy is increasingly under threat, AnonShare provides 
+              a simple solution for sharing content without compromising personal information. 
+              We believe that sharing text, notes, and files should be instant, secure, and 
+              completely anonymous.
             </p>
             <p>
-              Our platform serves developers, content creators, students, and professionals who 
-              need fast, secure, and anonymous ways to share text, notes, and files. Whether 
-              you're sharing a code snippet with a colleague, collaborating on a document, or 
-              sending a file to a client, AnonTools ensures your privacy remains intact.
+              Our platform eliminates the friction of traditional sharing methods while 
+              prioritizing user privacy. No accounts, no tracking, no data collection – 
+              just simple, code-based sharing that works for everyone.
+            </p>
+            <p>
+              Whether you're a developer sharing code snippets, a student collaborating on 
+              projects, or someone who needs to share sensitive information securely, 
+              AnonShare provides the tools you need while respecting your privacy.
             </p>
           </CardContent>
         </Card>
 
-        {/* Core Values */}
+        {/* Features Overview */}
         <div className="mb-12">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Our Core Values</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Platform Features</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card>
+              <CardHeader>
+                <Code className="w-12 h-12 text-blue-600 mb-4" />
+                <CardTitle>Anonymous Clipboard</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">
+                  Share text snippets instantly with 4-digit codes. Perfect for developers, 
+                  writers, and anyone who needs quick text sharing without email.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <Users className="w-12 h-12 text-green-600 mb-4" />
+                <CardTitle>Rich Notepad</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">
+                  Create formatted notes with our rich text editor. Add headers, lists, 
+                  and styling to share professional documents anonymously.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <Globe className="w-12 h-12 text-purple-600 mb-4" />
+                <CardTitle>Secure File Sharing</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">
+                  Upload files up to 50MB with download limits and automatic expiration. 
+                  Share documents, images, and files securely.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* How It Works */}
+        <Card className="mb-12">
+          <CardHeader>
+            <CardTitle className="text-2xl">How AnonShare Works</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div>
+              <h3 className="text-xl font-semibold mb-3">1. Share Your Content</h3>
+              <p className="text-gray-600">
+                Use our clipboard, notepad, or file share features to upload your content. 
+                Everything is processed securely and temporarily stored.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold mb-3">2. Get a Short Code</h3>
+              <p className="text-gray-600">
+                Receive a unique 4-digit code (like 3453) that provides access to your 
+                shared content. These codes are randomly generated and secure.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold mb-3">3. Share the Code</h3>
+              <p className="text-gray-600">
+                Give the code to anyone who needs access. No accounts, passwords, or 
+                personal information required from recipients.
+              </p>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold mb-3">4. Automatic Cleanup</h3>
+              <p className="text-gray-600">
+                Content expires automatically based on type and usage. Your data doesn't 
+                persist longer than necessary on our servers.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Technology & Privacy */}
+        <div className="mb-12">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">Technology & Privacy</h2>
           <div className="grid md:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
@@ -54,21 +139,21 @@ const About = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  We built our platform with privacy as the foundation. No user accounts, 
-                  no tracking cookies, no data collection. Your content is yours alone.
+                  Built with privacy as the foundation. No user tracking, minimal data 
+                  collection, and automatic content deletion ensure your privacy is protected.
                 </p>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <Users className="w-12 h-12 text-green-600 mb-4" />
-                <CardTitle>User-Centric Design</CardTitle>
+                <Zap className="w-12 h-12 text-green-600 mb-4" />
+                <CardTitle>Modern Technology</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  Every feature is designed with user experience in mind. Simple interfaces, 
-                  intuitive workflows, and powerful functionality without complexity.
+                  Built with React, TypeScript, and Supabase for a fast, reliable, and 
+                  secure user experience. Hosted on robust infrastructure for global access.
                 </p>
               </CardContent>
             </Card>
@@ -76,12 +161,12 @@ const About = () => {
             <Card>
               <CardHeader>
                 <Clock className="w-12 h-12 text-purple-600 mb-4" />
-                <CardTitle>Temporary by Nature</CardTitle>
+                <CardTitle>Temporary Storage</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  Content expires automatically to ensure your data doesn't linger on our 
-                  servers longer than necessary. Clean, secure, and temporary storage.
+                  All content has automatic expiration dates. Clipboard content expires in 
+                  24 hours, notes in 7 days, and files in 48 hours or after download limits.
                 </p>
               </CardContent>
             </Card>
@@ -93,102 +178,61 @@ const About = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600">
-                  Available worldwide with fast, reliable infrastructure. Share content 
-                  across continents with the same simple code-based system.
+                  Available worldwide with fast content delivery. Access your shared content 
+                  from anywhere with simple 4-digit codes.
                 </p>
               </CardContent>
             </Card>
           </div>
         </div>
 
-        {/* How It Works */}
-        <Card className="mb-12">
-          <CardHeader>
-            <CardTitle className="text-2xl">How AnonTools Works</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div>
-              <h3 className="text-xl font-semibold mb-3">1. Create & Share</h3>
-              <p className="text-gray-600">
-                Paste your text, write a note, or upload a file. Our system automatically 
-                generates a unique 4-6 digit code for easy sharing.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-3">2. Share the Code</h3>
-              <p className="text-gray-600">
-                Share the generated code with anyone who needs access. No usernames, 
-                passwords, or personal information required.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-3">3. Retrieve Content</h3>
-              <p className="text-gray-600">
-                Recipients enter the code on our homepage to instantly access the shared 
-                content. Simple, fast, and secure.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-3">4. Automatic Cleanup</h3>
-              <p className="text-gray-600">
-                Content automatically expires after a set period or download limit, 
-                ensuring your data doesn't persist unnecessarily on our servers.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
         {/* Ad Unit */}
         <div className="mb-12">
           <AdUnit adSlot="1234567893" adFormat="rectangle" className="text-center" />
         </div>
 
-        {/* Technology & Security */}
+        {/* Development & Open Source */}
         <Card className="mb-12">
           <CardHeader>
-            <CardTitle className="text-2xl">Technology & Security</CardTitle>
+            <CardTitle className="text-2xl">Development & Community</CardTitle>
           </CardHeader>
           <CardContent className="text-gray-600 space-y-4">
             <p>
-              AnonTools is built using modern web technologies including React, TypeScript, 
-              and Tailwind CSS for a fast, responsive user experience. Our backend 
-              infrastructure uses Supabase for secure data storage with row-level security 
-              and automatic data cleanup.
+              AnonShare is built using the Lovable platform, leveraging modern web 
+              technologies including React, TypeScript, Tailwind CSS, and Supabase. 
+              The platform is designed for scalability, security, and user privacy.
             </p>
             <p>
-              All content is stored temporarily and encrypted in transit using HTTPS. 
-              We don't track users, store personal information, or use analytics cookies. 
-              Our code-based sharing system ensures that only people with the correct 
-              code can access shared content.
+              We welcome feedback from our community of users who value privacy and 
+              anonymous sharing. The platform serves thousands of users daily, from 
+              developers and content creators to students and professionals.
             </p>
             <p>
-              File uploads are scanned for malware and stored in isolated containers. 
-              Download limits and expiration dates provide additional security layers 
-              to prevent misuse of the platform.
+              Our commitment to privacy-first design means we continuously evaluate 
+              and improve our security measures while maintaining the simplicity that 
+              makes AnonShare accessible to everyone.
             </p>
           </CardContent>
         </Card>
 
-        {/* Community & Support */}
+        {/* Contact & Support */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-2xl">Community & Support</CardTitle>
+            <CardTitle className="text-2xl">Support & Feedback</CardTitle>
           </CardHeader>
           <CardContent className="text-gray-600 space-y-4">
             <p>
-              AnonTools is maintained by a team of privacy advocates and developers who 
-              believe in the importance of anonymous, secure communication tools. We're 
-              committed to keeping the platform free, fast, and privacy-focused.
+              While we maintain minimal data collection practices, we're always 
+              interested in improving the platform based on user feedback and needs.
             </p>
             <p>
-              While we don't collect user data, we welcome feedback and suggestions 
-              for improving the platform. Our goal is to create the best possible 
-              anonymous sharing experience for users worldwide.
+              For questions about our privacy practices, terms of service, or general 
+              platform feedback, please review our documentation pages or reach out 
+              through appropriate channels.
             </p>
             <p>
-              The platform serves thousands of users daily, from individual developers 
-              sharing code snippets to teams collaborating on projects. We're proud to 
-              be part of the privacy-first movement in web applications.
+              We're committed to maintaining AnonShare as a free, privacy-focused 
+              platform that serves the global community's need for anonymous content sharing.
             </p>
           </CardContent>
         </Card>

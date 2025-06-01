@@ -1,73 +1,93 @@
-# Welcome to your Lovable project
 
-## Project info
+# AnonShare – Secure, Anonymous Data Sharing
 
-**URL**: https://lovable.dev/projects/f11d7b83-b3c7-46d9-8c51-8a2c122b2e11
+AnonShare lets users share text, files, and notes securely without login using one-time codes. Built with privacy-first principles and optional end-to-end encryption.
 
-## How can I edit this code?
+## 🌟 Features
 
-There are several ways of editing your application.
+- **Anonymous Clipboard** - Share text snippets instantly with 4-digit codes
+- **Rich Notepad** - Create formatted notes with rich text editor
+- **Secure File Share** - Upload files up to 50MB with download limits
+- **Code-based Retrieval** - Access shared content using simple numeric codes
+- **Privacy by Design** - No user accounts, minimal data collection
+- **Temporary Storage** - Content expires automatically for security
+- **Responsive Design** - Works seamlessly on all devices
 
-**Use Lovable**
+## 🚀 How It Works
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f11d7b83-b3c7-46d9-8c51-8a2c122b2e11) and start prompting.
+1. **Share Content** - Upload text, notes, or files using our anonymous tools
+2. **Get Short Code** - Receive a unique 4-digit code (e.g. 3453) for your content
+3. **Share Code** - Give the code to anyone who needs access
+4. **Instant Access** - Enter the code on our homepage to retrieve shared content
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🛠 Tech Stack
 
-**Use your preferred IDE**
+- **Frontend**: React, TypeScript, Tailwind CSS, Vite
+- **UI Components**: shadcn/ui library
+- **Backend**: Supabase (Database, Authentication, Storage)
+- **Email Service**: Resend for notifications
+- **Hosting**: Lovable platform
+- **Icons**: Lucide React
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📁 Project Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+├── components/          # Reusable UI components
+├── pages/              # Main application pages
+├── utils/              # Utility functions and services
+├── integrations/       # Supabase client and types
+└── lib/               # Shared libraries and configurations
 ```
 
-**Edit a file directly in GitHub**
+## 🌐 Live Demo
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Visit the live application at: [https://anonshare.lovable.app](https://anonshare.lovable.app)
 
-**Use GitHub Codespaces**
+## 🔧 Development
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+This project is built with Lovable - an AI-powered development platform.
 
-## What technologies are used for this project?
+### Getting Started
 
-This project is built with:
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start development server: `npm run dev`
+4. Open [http://localhost:5173](http://localhost:5173) in your browser
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Environment Setup
 
-## How can I deploy this project?
+The project uses Supabase for backend services. Configuration is handled through the Lovable platform integration.
 
-Simply open [Lovable](https://lovable.dev/projects/f11d7b83-b3c7-46d9-8c51-8a2c122b2e11) and click on Share -> Publish.
+## 📄 Pages
 
-## Can I connect a custom domain to my Lovable project?
+- **Home** (`/`) - Landing page with feature overview
+- **Clipboard** (`/clipboard`) - Anonymous text sharing
+- **Notepad** (`/notepad`) - Rich text note creation
+- **File Share** (`/file-share`) - Secure file upload and sharing
+- **About** (`/about`) - Mission and project information
+- **Privacy** (`/privacy`) - Privacy policy and data practices
+- **Terms** (`/terms`) - Terms of service and usage guidelines
 
-Yes, you can!
+## 🤝 Contributing
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+This project welcomes contributions! If you'd like to contribute:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+For major changes, please open an issue first to discuss what you would like to change.
+
+## 📞 Support
+
+For questions or support, visit our About page for more information.
+
+## 📜 License
+
+This project is open source and available under standard terms of use. See our Terms page for details.
+
+---
+
+Built with ❤️ using [Lovable](https://lovable.dev) - AI-powered web development platform.
