@@ -31,16 +31,73 @@
     <meta name="theme-color" content="#3B82F6" />
     <meta name="application-name" content="AnonShare" />
 
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7684542177727792" crossorigin="anonymous"></script>
-    
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <!-- Ketch Consent Management -->
+    <script src="https://global.ketchcdn.com/web/v2/config/anonshare/37658854/boot.js"></script>
+
+    <!-- Google AdSense - Will be loaded conditionally based on consent -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'GA_MEASUREMENT_ID');
+      // Initialize consent state
+      window.ketchConsentState = {
+        analytics: false,
+        advertising: false
+      };
+
+      // Load AdSense only if advertising consent is given
+      function loadAdSense() {
+        if (window.ketchConsentState.advertising) {
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7684542177727792';
+          script.crossOrigin = 'anonymous';
+          document.head.appendChild(script);
+        }
+      }
+
+      // Load Google Analytics only if analytics consent is given
+      function loadAnalytics() {
+        if (window.ketchConsentState.analytics) {
+          const script1 = document.createElement('script');
+          script1.async = true;
+          script1.src = 'https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID';
+          document.head.appendChild(script1);
+
+          const script2 = document.createElement('script');
+          script2.innerHTML = `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'GA_MEASUREMENT_ID');
+          `;
+          document.head.appendChild(script2);
+        }
+      }
+
+      // Listen for Ketch consent events
+      document.addEventListener('DOMContentLoaded', function() {
+        if (window.ketch) {
+          // Listen for consent changes
+          window.ketch.on('consent', function(consent) {
+            window.ketchConsentState.analytics = consent.purposes.analytics === 'granted';
+            window.ketchConsentState.advertising = consent.purposes.advertising === 'granted';
+            
+            // Load scripts based on consent
+            loadAnalytics();
+            loadAdSense();
+          });
+
+          // Get initial consent state
+          window.ketch.getConsent().then(function(consent) {
+            if (consent && consent.purposes) {
+              window.ketchConsentState.analytics = consent.purposes.analytics === 'granted';
+              window.ketchConsentState.advertising = consent.purposes.advertising === 'granted';
+              
+              // Load scripts based on initial consent
+              loadAnalytics();
+              loadAdSense();
+            }
+          });
+        }
+      });
     </script>
   </head>
 
