@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,6 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { createFileShare } from '@/utils/shareService';
 import AdUnit from '@/components/AdUnit';
 import PasswordProtection from '@/components/PasswordProtection';
+import DataRetentionInfo from '@/components/DataRetentionInfo';
 
 const FileShare = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -127,7 +127,7 @@ const FileShare = () => {
                   <span>Upload File Anonymously</span>
                 </CardTitle>
                 <CardDescription>
-                  Share files up to 50MB with automatic expiration after 48 hours 
+                  Share files up to 50MB with automatic deletion after 24 hours 
                   or when download limit is reached. No login required.
                 </CardDescription>
               </CardHeader>
@@ -193,12 +193,12 @@ const FileShare = () => {
                 </div>
 
                 <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 mb-2">Anonymous File Sharing Details</h4>
+                  <h4 className="font-semibold text-blue-900 mb-2">Smart Data Management</h4>
                   <ul className="text-sm text-blue-800 space-y-1">
-                    <li>• Files expire after 48 hours automatically</li>
-                    <li>• Files are deleted when download limit is reached</li>
-                    <li>• All files are scanned for malware</li>
-                    <li>• No personal information is stored</li>
+                    <li>• Files automatically deleted after 24 hours</li>
+                    <li>• Immediate deletion when download limit reached</li>
+                    <li>• All files scanned for malware</li>
+                    <li>• No personal information stored</li>
                     <li>• Receive a simple 4-digit sharing code</li>
                   </ul>
                 </div>
@@ -255,7 +255,7 @@ const FileShare = () => {
                     <p><strong>Name:</strong> {file.name}</p>
                     <p><strong>Size:</strong> {formatFileSize(file.size)}</p>
                     <p><strong>Download Limit:</strong> {maxDownloads}</p>
-                    <p><strong>Expires:</strong> 48 hours or after {maxDownloads} downloads</p>
+                    <p><strong>Auto-Delete:</strong> 24 hours or after {maxDownloads} downloads</p>
                   </div>
                 </div>
               )}
@@ -268,7 +268,7 @@ const FileShare = () => {
                     <li>Also share the password you set for decryption</li>
                   )}
                   <li>They can enter the code on the homepage to download the file</li>
-                  <li>File will be deleted after {maxDownloads} downloads or 48 hours</li>
+                  <li>File will be automatically deleted after {maxDownloads} downloads or 24 hours</li>
                 </ol>
               </div>
 
@@ -291,6 +291,9 @@ const FileShare = () => {
           </Card>
         )}
 
+        {/* Data Retention Information */}
+        <DataRetentionInfo />
+
         {/* Ad Unit */}
         <div className="mt-12">
           <AdUnit adSlot="1234567817" adFormat="rectangle" className="text-center" />
@@ -312,12 +315,12 @@ const FileShare = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">End-to-End Encryption</CardTitle>
+              <CardTitle className="text-lg">Smart Cleanup</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 text-sm">
-                Optional client-side encryption protects sensitive files with 
-                military-grade AES-256 encryption.
+                Automatic deletion after 24 hours or download limits ensures 
+                maximum privacy and optimal storage.
               </p>
             </CardContent>
           </Card>

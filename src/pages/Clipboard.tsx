@@ -6,6 +6,7 @@ import ClipboardForm from '@/components/ClipboardForm';
 import ClipboardSuccess from '@/components/ClipboardSuccess';
 import ClipboardFeatures from '@/components/ClipboardFeatures';
 import ClipboardUseCases from '@/components/ClipboardUseCases';
+import DataRetentionInfo from '@/components/DataRetentionInfo';
 
 const Clipboard = () => {
   const [shareCode, setShareCode] = useState('');
@@ -44,6 +45,9 @@ const Clipboard = () => {
             onReset={handleReset}
           />
         )}
+
+        {/* Data Retention Information */}
+        <DataRetentionInfo />
 
         {/* Ad Unit */}
         <div className="mt-12">

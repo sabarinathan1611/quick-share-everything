@@ -9,6 +9,33 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      cleanup_logs: {
+        Row: {
+          cleaned_at: string | null
+          cleanup_reason: string
+          file_size: number | null
+          id: string
+          share_id: string
+          share_type: string
+        }
+        Insert: {
+          cleaned_at?: string | null
+          cleanup_reason: string
+          file_size?: number | null
+          id?: string
+          share_id: string
+          share_type: string
+        }
+        Update: {
+          cleaned_at?: string | null
+          cleanup_reason?: string
+          file_size?: number | null
+          id?: string
+          share_id?: string
+          share_type?: string
+        }
+        Relationships: []
+      }
       shares: {
         Row: {
           code: string
@@ -69,6 +96,15 @@ export type Database = {
       generate_unique_code: {
         Args: { code_length?: number }
         Returns: string
+      }
+      log_cleanup: {
+        Args: {
+          p_share_id: string
+          p_share_type: string
+          p_cleanup_reason: string
+          p_file_size?: number
+        }
+        Returns: undefined
       }
     }
     Enums: {
