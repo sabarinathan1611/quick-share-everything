@@ -21,35 +21,83 @@ serve(async (req) => {
 
     console.log('Starting smart cleanup of expired shares...')
 
-    // Get all shares that should be deleted
-    const { data: expiredShares, error: fetchError } = await supabase
+    const now = new Date().toISOString()
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+
+    // Get all shares that should be deleted with separate queries for clarity
+    console.log('Fetching expired shares...')
+    
+    // 1. Get shares that are past expiry time
+    const { data: expiredByTime, error: expiredError } = await supabase
       .from('shares')
       .select('code, type, file_path, file_size, created_at, expires_at, download_count, max_downloads')
-      .or(
-        `expires_at.lt.${new Date().toISOString()},` +
-        `and(type.eq.file,download_count.gte.max_downloads),` +
-        `created_at.lt.${new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()}`
-      )
+      .lt('expires_at', now)
 
-    if (fetchError) {
-      console.error('Error fetching expired shares:', fetchError)
-      throw fetchError
+    if (expiredError) {
+      console.error('Error fetching expired shares by time:', expiredError)
+      throw expiredError
     }
 
-    console.log(`Found ${expiredShares?.length || 0} shares to cleanup`)
+    // 2. Get file shares that have reached download limit
+    const { data: expiredByDownloads, error: downloadError } = await supabase
+      .from('shares')
+      .select('code, type, file_path, file_size, created_at, expires_at, download_count, max_downloads')
+      .eq('type', 'file')
+      .not('max_downloads', 'is', null)
+      .gte('download_count', supabase.rpc('max_downloads'))
+
+    // Handle the download limit check differently
+    const { data: fileShares, error: fileError } = await supabase
+      .from('shares')
+      .select('code, type, file_path, file_size, created_at, expires_at, download_count, max_downloads')
+      .eq('type', 'file')
+      .not('max_downloads', 'is', null)
+
+    let downloadLimitReached = []
+    if (fileShares && !fileError) {
+      downloadLimitReached = fileShares.filter(share => 
+        share.max_downloads && share.download_count >= share.max_downloads
+      )
+    }
+
+    // 3. Get shares older than 24 hours (auto-cleanup rule)
+    const { data: expiredByAge, error: ageError } = await supabase
+      .from('shares')
+      .select('code, type, file_path, file_size, created_at, expires_at, download_count, max_downloads')
+      .lt('created_at', twentyFourHoursAgo)
+
+    if (ageError) {
+      console.error('Error fetching shares by age:', ageError)
+      throw ageError
+    }
+
+    // Combine all expired shares and remove duplicates
+    const allExpiredShares = [
+      ...(expiredByTime || []),
+      ...downloadLimitReached,
+      ...(expiredByAge || [])
+    ]
+
+    // Remove duplicates based on code
+    const uniqueExpiredShares = allExpiredShares.filter((share, index, self) =>
+      index === self.findIndex(s => s.code === share.code)
+    )
+
+    console.log(`Found ${uniqueExpiredShares.length} shares to cleanup`)
 
     let deletedCount = 0
     let storageFilesDeleted = 0
     let totalSizeFreed = 0
 
-    if (expiredShares && expiredShares.length > 0) {
+    if (uniqueExpiredShares.length > 0) {
       // Process file deletions
-      const fileShares = expiredShares.filter(share => share.type === 'file' && share.file_path)
+      const fileShares = uniqueExpiredShares.filter(share => share.type === 'file' && share.file_path)
       
       if (fileShares.length > 0) {
         const filePaths = fileShares.map(share => share.file_path).filter(path => path !== null)
 
         if (filePaths.length > 0) {
+          console.log(`Deleting ${filePaths.length} files from storage...`)
           const { error: storageError } = await supabase.storage
             .from('shared-files')
             .remove(filePaths)
@@ -65,21 +113,22 @@ serve(async (req) => {
       }
 
       // Log cleanup activities for each share
-      for (const share of expiredShares) {
+      for (const share of uniqueExpiredShares) {
         let reason = ''
-        const now = new Date()
+        const nowTime = new Date()
         const created = new Date(share.created_at)
-        const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000)
+        const twentyFourHoursAgoTime = new Date(nowTime.getTime() - 24 * 60 * 60 * 1000)
 
-        if (share.expires_at && new Date(share.expires_at) < now) {
+        if (share.expires_at && new Date(share.expires_at) < nowTime) {
           reason = 'expired'
         } else if (share.type === 'file' && share.max_downloads && share.download_count >= share.max_downloads) {
           reason = 'download_limit_reached'
-        } else if (created < twentyFourHoursAgo) {
+        } else if (created < twentyFourHoursAgoTime) {
           reason = 'auto_cleanup_24h'
         }
 
         if (reason) {
+          console.log(`Logging cleanup for share ${share.code} - reason: ${reason}`)
           await supabase.rpc('log_cleanup', {
             p_share_id: share.code,
             p_share_type: share.type,
@@ -90,7 +139,9 @@ serve(async (req) => {
       }
 
       // Delete share records
-      const shareCodes = expiredShares.map(share => share.code)
+      const shareCodes = uniqueExpiredShares.map(share => share.code)
+      console.log(`Deleting ${shareCodes.length} share records...`)
+      
       const { error: deleteError } = await supabase
         .from('shares')
         .delete()
@@ -101,7 +152,7 @@ serve(async (req) => {
         throw deleteError
       }
 
-      deletedCount = expiredShares.length
+      deletedCount = uniqueExpiredShares.length
     }
 
     const response = {
