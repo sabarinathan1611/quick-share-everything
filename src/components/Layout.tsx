@@ -32,10 +32,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             {/* Logo */}
             <div className="flex items-center">
               <Link to="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <Share2 className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold text-gray-900">AnonShare</span>
+                <img 
+                  src="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//anonshare-high-resolution-logo.png" 
+                  alt="AnonShare Logo" 
+                  className="h-8 w-auto"
+                />
               </Link>
             </div>
 
@@ -116,10 +117,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             {/* Brand */}
             <div className="col-span-1">
               <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <Share2 className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold text-gray-900">AnonShare</span>
+                <img 
+                  src="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//anonshare-high-resolution-logo.png" 
+                  alt="AnonShare Logo" 
+                  className="h-8 w-auto"
+                />
               </div>
               <p className="text-gray-600 text-sm">
                 Anonymous sharing made simple. No registration required.
