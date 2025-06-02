@@ -37,7 +37,7 @@ const Index = () => {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-6">
-            <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mr-3">
+            <div className="w-12 h-12 rounded-xl flex items-center justify-center mr-3 bg-blue-800">
               <Zap className="w-7 h-7 text-white" />
             </div>
             <h1 className="text-5xl font-bold text-gray-900">
