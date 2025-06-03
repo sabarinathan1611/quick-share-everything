@@ -33,7 +33,7 @@ const Index = () => {
     return <ShareResult share={share} onBack={handleBack} />;
   }
   return <div className="min-h-screen bg-slate-300">
-      <div className="container mx-auto px-4 py-16 bg-[#b7c9e3]">
+      <div className="container mx-auto px-4 py-16 bg-slate-300">
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-6">
