@@ -33,7 +33,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <div className="flex items-center">
               <Link to="/" className="flex items-center space-x-2">
                 <img 
-                  src="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//anonshare-high-resolution-logo.png" 
+                  src="/lovable-uploads/56299308-4a9d-42db-be88-f163e083a36a.png" 
                   alt="AnonShare Logo" 
                   className="h-8 w-auto"
                 />
@@ -118,7 +118,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <div className="col-span-1">
               <div className="flex items-center space-x-2 mb-4">
                 <img 
-                  src="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//anonshare-high-resolution-logo.png" 
+                  src="/lovable-uploads/56299308-4a9d-42db-be88-f163e083a36a.png" 
                   alt="AnonShare Logo" 
                   className="h-8 w-auto"
                 />
