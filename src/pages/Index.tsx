@@ -37,7 +37,7 @@ const Index = () => {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-6">
-            <img alt="AnonShare Logo" src="/lovable-uploads/5c590058-af4e-4d38-af0b-ddb8ce7e5b43.png" className="h-35w-35 rounded-full object-cover mr-4" />
+            <img alt="AnonShare Logo" src="/lovable-uploads/5c590058-af4e-4d38-af0b-ddb8ce7e5b43.png" className="h-30w-30 rounded-full mr-4 object-cover" />
             <h1 className="text-5xl font-bold text-foreground">
               AnonShare
             </h1>
