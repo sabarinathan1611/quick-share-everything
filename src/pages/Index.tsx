@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getShare } from "@/utils/shareService";
@@ -10,11 +9,9 @@ import { Link } from "react-router-dom";
 import AdUnit from "@/components/AdUnit";
 import CookieNotice from "@/components/CookieNotice";
 import { Copy, FileText, Upload, Zap, Shield, Globe } from "lucide-react";
-
 const Index = () => {
   const [searchCode, setSearchCode] = useState<string>("");
   const [showResult, setShowResult] = useState(false);
-
   const {
     data: share,
     isLoading,
@@ -24,32 +21,23 @@ const Index = () => {
     queryFn: () => getShare(searchCode),
     enabled: !!searchCode && searchCode.length >= 4
   });
-
   const handleCodeSubmit = (code: string) => {
     setSearchCode(code);
     setShowResult(true);
   };
-
   const handleBack = () => {
     setShowResult(false);
     setSearchCode("");
   };
-
   if (showResult && share) {
     return <ShareResult share={share} onBack={handleBack} />;
   }
-
-  return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-16">
+  return <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-16 bg-[#b7c9e3]">
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-6">
-            <img 
-              alt="AnonShare Logo" 
-              src="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" 
-              className="h-16 w-16 rounded-full mr-4 object-cover" 
-            />
+            <img alt="AnonShare Logo" src="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" className="h-16 w-16 rounded-full mr-4 object-cover" />
             <h1 className="text-5xl font-bold text-foreground">
               AnonShare
             </h1>
@@ -88,15 +76,13 @@ const Index = () => {
         </div>
 
         {/* Error Display */}
-        {error && (
-          <div className="max-w-md mx-auto text-center mb-12">
+        {error && <div className="max-w-md mx-auto text-center mb-12">
             <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
               <p className="text-destructive">
                 Content not found or has expired. Please check the code and try again.
               </p>
             </div>
-          </div>
-        )}
+          </div>}
 
         {/* Ad Unit */}
         <div className="mb-12">
@@ -218,8 +204,6 @@ const Index = () => {
       </div>
       
       <CookieNotice />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
