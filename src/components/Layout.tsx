@@ -31,12 +31,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <div className="flex items-center">
-              <Link to="/" className="flex items-center space-x-2">
+              <Link to="/" className="flex items-center space-x-3">
                 <img 
-                  src="/lovable-uploads/56299308-4a9d-42db-be88-f163e083a36a.png" 
+                  src="/lovable-uploads/35063799-1ed3-4793-a17b-7c700e903f6c.png" 
                   alt="AnonShare Logo" 
-                  className="h-8 w-auto"
+                  className="h-10 w-10 rounded-full object-cover"
                 />
+                <span className="text-2xl font-bold text-gray-900">AnonShare</span>
               </Link>
             </div>
 
@@ -116,12 +117,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Brand */}
             <div className="col-span-1">
-              <div className="flex items-center space-x-2 mb-4">
+              <div className="flex items-center space-x-3 mb-4">
                 <img 
-                  src="/lovable-uploads/56299308-4a9d-42db-be88-f163e083a36a.png" 
+                  src="/lovable-uploads/35063799-1ed3-4793-a17b-7c700e903f6c.png" 
                   alt="AnonShare Logo" 
-                  className="h-8 w-auto"
+                  className="h-8 w-8 rounded-full object-cover"
                 />
+                <span className="text-xl font-bold text-gray-900">AnonShare</span>
               </div>
               <p className="text-gray-600 text-sm">
                 Anonymous sharing made simple. No registration required.

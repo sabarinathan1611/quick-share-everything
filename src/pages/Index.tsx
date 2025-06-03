@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getShare } from "@/utils/shareService";
@@ -9,9 +10,11 @@ import { Link } from "react-router-dom";
 import AdUnit from "@/components/AdUnit";
 import CookieNotice from "@/components/CookieNotice";
 import { Copy, FileText, Upload, Zap, Shield, Globe } from "lucide-react";
+
 const Index = () => {
   const [searchCode, setSearchCode] = useState<string>("");
   const [showResult, setShowResult] = useState(false);
+
   const {
     data: share,
     isLoading,
@@ -21,25 +24,31 @@ const Index = () => {
     queryFn: () => getShare(searchCode),
     enabled: !!searchCode && searchCode.length >= 4
   });
+
   const handleCodeSubmit = (code: string) => {
     setSearchCode(code);
     setShowResult(true);
   };
+
   const handleBack = () => {
     setShowResult(false);
     setSearchCode("");
   };
+
   if (showResult && share) {
     return <ShareResult share={share} onBack={handleBack} />;
   }
+
   return <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="container mx-auto px-4 py-16">
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-6">
-            <div className="w-12 h-12 rounded-xl flex items-center justify-center mr-3 bg-blue-800">
-              <Zap className="w-7 h-7 text-white" />
-            </div>
+            <img 
+              src="/lovable-uploads/35063799-1ed3-4793-a17b-7c700e903f6c.png" 
+              alt="AnonShare Logo" 
+              className="h-16 w-16 rounded-full object-cover mr-4"
+            />
             <h1 className="text-5xl font-bold text-gray-900">
               AnonShare
             </h1>
@@ -208,4 +217,5 @@ const Index = () => {
       <CookieNotice />
     </div>;
 };
+
 export default Index;
