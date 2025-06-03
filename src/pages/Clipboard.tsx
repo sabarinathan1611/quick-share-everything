@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import AdUnit from '@/components/AdUnit';
 import ClipboardHeader from '@/components/ClipboardHeader';
@@ -26,7 +25,7 @@ const Clipboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-muted/50">
+    <div className="min-h-screen bg-sky-50">
       <div className="max-w-4xl mx-auto px-4 py-12">
         <ClipboardHeader />
 

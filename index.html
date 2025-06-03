@@ -1,33 +1,63 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AnonShare – Anonymous Clipboard, Notepad & File Sharing | No Login Required</title>
-    <meta name="description" content="Share text, notes, and files anonymously with AnonShare. No login needed. Get 4-digit codes for instant sharing. Secure, private, and completely free anonymous sharing tool." />
-    <meta name="keywords" content="anonymous clipboard, paste without login, secure file share, online notepad, anonymous sharing, instant file sharing, privacy tools, temporary file sharing" />
+    <title>
+      AnonShare – Anonymous Clipboard, Notepad & File Sharing | No Login
+      Required
+    </title>
+    <meta
+      name="description"
+      content="Share text, notes, and files anonymously with AnonShare. No login needed. Get 4-digit codes for instant sharing. Secure, private, and completely free anonymous sharing tool."
+    />
+    <meta
+      name="keywords"
+      content="anonymous clipboard, paste without login, secure file share, online notepad, anonymous sharing, instant file sharing, privacy tools, temporary file sharing, online clipboard, clipboard, file share, secure file share"
+    />
     <meta name="author" content="AnonShare" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://anonshare.lovable.app/" />
-    <link rel="icon" href="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png">
+    <link
+      rel="icon"
+      href="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png"
+    />
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="AnonShare – Anonymous Clipboard, Notepad & File Sharing" />
-    <meta property="og:description" content="Share text, notes, and files anonymously with AnonShare. No login needed. Secure, free, and fast sharing tool for everyone." />
+    <meta
+      property="og:title"
+      content="AnonShare – Anonymous Clipboard, Notepad & File Sharing"
+    />
+    <meta
+      property="og:description"
+      content="Share text, notes, and files anonymously with AnonShare. No login needed. Secure, free, and fast sharing tool for everyone."
+    />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://anonshare.lovable.app/" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" /> -->
     <meta property="og:site_name" content="AnonShare" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:title" content="AnonShare – Anonymous Clipboard, Notepad & File Sharing" />
-    <meta name="twitter:description" content="Share text, notes, and files anonymously with AnonShare. No login needed. Secure, free, and fast sharing tool for everyone." />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta
+      name="twitter:title"
+      content="AnonShare – Anonymous Clipboard, Notepad & File Sharing"
+    />
+    <meta
+      name="twitter:description"
+      content="Share text, notes, and files anonymously with AnonShare. No login needed. Secure, free, and fast sharing tool for everyone."
+    />
+    <meta
+      name="twitter:image"
+      content="https://lovable.dev/opengraph-image-p98pqg.png"
+    />
 
     <!-- Additional SEO Meta Tags -->
     <meta name="theme-color" content="#3B82F6" />
@@ -41,16 +71,17 @@
       // Initialize consent state
       window.ketchConsentState = {
         analytics: false,
-        advertising: false
+        advertising: false,
       };
 
       // Load AdSense only if advertising consent is given
       function loadAdSense() {
         if (window.ketchConsentState.advertising) {
-          const script = document.createElement('script');
+          const script = document.createElement("script");
           script.async = true;
-          script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7684542177727792';
-          script.crossOrigin = 'anonymous';
+          script.src =
+            "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7684542177727792";
+          script.crossOrigin = "anonymous";
           document.head.appendChild(script);
         }
       }
@@ -58,12 +89,13 @@
       // Load Google Analytics only if analytics consent is given
       function loadAnalytics() {
         if (window.ketchConsentState.analytics) {
-          const script1 = document.createElement('script');
+          const script1 = document.createElement("script");
           script1.async = true;
-          script1.src = 'https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID';
+          script1.src =
+            "https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID";
           document.head.appendChild(script1);
 
-          const script2 = document.createElement('script');
+          const script2 = document.createElement("script");
           script2.innerHTML = `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -75,24 +107,28 @@
       }
 
       // Listen for Ketch consent events
-      document.addEventListener('DOMContentLoaded', function() {
+      document.addEventListener("DOMContentLoaded", function () {
         if (window.ketch) {
           // Listen for consent changes
-          window.ketch.on('consent', function(consent) {
-            window.ketchConsentState.analytics = consent.purposes.analytics === 'granted';
-            window.ketchConsentState.advertising = consent.purposes.advertising === 'granted';
-            
+          window.ketch.on("consent", function (consent) {
+            window.ketchConsentState.analytics =
+              consent.purposes.analytics === "granted";
+            window.ketchConsentState.advertising =
+              consent.purposes.advertising === "granted";
+
             // Load scripts based on consent
             loadAnalytics();
             loadAdSense();
           });
 
           // Get initial consent state
-          window.ketch.getConsent().then(function(consent) {
+          window.ketch.getConsent().then(function (consent) {
             if (consent && consent.purposes) {
-              window.ketchConsentState.analytics = consent.purposes.analytics === 'granted';
-              window.ketchConsentState.advertising = consent.purposes.advertising === 'granted';
-              
+              window.ketchConsentState.analytics =
+                consent.purposes.analytics === "granted";
+              window.ketchConsentState.advertising =
+                consent.purposes.advertising === "granted";
+
               // Load scripts based on initial consent
               loadAnalytics();
               loadAdSense();

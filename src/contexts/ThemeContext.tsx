@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type Theme = 'light' | 'dark' | 'system';
@@ -22,7 +21,7 @@ export const useTheme = () => {
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<Theme>(() => {
     const stored = localStorage.getItem('theme');
-    return (stored as Theme) || 'system';
+    return (stored as Theme) || 'light';
   });
 
   const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('light');

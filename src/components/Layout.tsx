@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { FileText, ClipboardList, Share2, Upload, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
-import ThemeToggle from '@/components/ThemeToggle';
 const Layout = ({
   children
 }: {
@@ -60,7 +59,6 @@ const Layout = ({
 
             {/* Theme Toggle and Mobile menu button */}
             <div className="flex items-center space-x-2">
-              <ThemeToggle />
               <div className="md:hidden">
                 <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
                   {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
