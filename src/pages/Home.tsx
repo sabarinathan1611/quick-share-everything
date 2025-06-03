@@ -8,7 +8,7 @@ import AdUnit from '@/components/AdUnit';
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/10">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
@@ -101,7 +101,7 @@ const Home = () => {
       </section>
 
       {/* How Short Codes Work */}
-      <section className="py-16 px-4 bg-card">
+      <section className="py-16 px-4 bg-muted/50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-foreground mb-12">
             How Short Codes Work
@@ -188,13 +188,13 @@ const Home = () => {
       </div>
 
       {/* Use Cases Section */}
-      <section className="py-16 px-4 bg-card">
+      <section className="py-16 px-4 bg-muted/50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-foreground mb-12">
             Perfect for Every Anonymous Sharing Need
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-muted/50 rounded-lg p-6">
+            <div className="bg-card rounded-lg p-6 border">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mr-4">
                   <Copy className="w-6 h-6 text-blue-600" />
@@ -206,7 +206,7 @@ const Home = () => {
                 instantly. Perfect anonymous clipboard for developers who need paste without login.
               </p>
             </div>
-            <div className="bg-muted/50 rounded-lg p-6">
+            <div className="bg-card rounded-lg p-6 border">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center mr-4">
                   <FileText className="w-6 h-6 text-green-600" />
@@ -218,7 +218,7 @@ const Home = () => {
                 and team members without exposing sensitive information.
               </p>
             </div>
-            <div className="bg-muted/50 rounded-lg p-6">
+            <div className="bg-card rounded-lg p-6 border">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/20 rounded-lg flex items-center justify-center mr-4">
                   <Upload className="w-6 h-6 text-purple-600" />
@@ -230,7 +230,7 @@ const Home = () => {
                 while maintaining privacy and avoiding email limitations.
               </p>
             </div>
-            <div className="bg-muted/50 rounded-lg p-6">
+            <div className="bg-card rounded-lg p-6 border">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center mr-4">
                   <Lock className="w-6 h-6 text-orange-600" />
