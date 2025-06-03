@@ -34,7 +34,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <div className="flex items-center">
               <Link to="/" className="flex items-center space-x-3">
                 <img 
-                  src="/lovable-uploads/35063799-1ed3-4793-a17b-7c700e903f6c.png" 
+                  src="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" 
                   alt="AnonShare Logo" 
                   className="h-10 w-10 rounded-full object-cover"
                 />
@@ -123,7 +123,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
             <div className="col-span-1">
               <div className="flex items-center space-x-3 mb-4">
                 <img 
-                  src="/lovable-uploads/35063799-1ed3-4793-a17b-7c700e903f6c.png" 
+                  src="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" 
                   alt="AnonShare Logo" 
                   className="h-8 w-8 rounded-full object-cover"
                 />
