@@ -16,7 +16,7 @@ const PastebinAlternativeNoLogin = () => {
         <meta property="og:title" content="Pastebin Alternative No Login Required - Anonymous Text Sharing | AnonShare" />
         <meta property="og:description" content="Best Pastebin alternative with no login required. Share text and code anonymously without registration." />
         <meta property="og:type" content="article" />
-        <link rel="canonical" href="https://anonshare.app/pastebin-alternative-no-login" />
+        <link rel="canonical" href="https://anonshare.live/pastebin-alternative-no-login" />
       </Helmet>
 
       <div className="min-h-screen bg-sky-50">

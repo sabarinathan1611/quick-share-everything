@@ -16,7 +16,7 @@ const TemporaryFileSharingTool = () => {
         <meta property="og:title" content="Temporary File Sharing Tool - Anonymous & Secure File Upload | AnonShare" />
         <meta property="og:description" content="Share files temporarily with automatic deletion. Anonymous file sharing tool with no registration required." />
         <meta property="og:type" content="article" />
-        <link rel="canonical" href="https://anonshare.app/temporary-file-sharing-tool" />
+        <link rel="canonical" href="https://anonshare.live/temporary-file-sharing-tool" /> 
       </Helmet>
 
       <div className="min-h-screen bg-sky-50">

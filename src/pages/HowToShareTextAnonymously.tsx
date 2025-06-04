@@ -16,7 +16,7 @@ const HowToShareTextAnonymously = () => {
         <meta property="og:title" content="How to Share Text Anonymously - Complete Guide | AnonShare" />
         <meta property="og:description" content="Learn how to share text anonymously online without registration. Step-by-step guide to anonymous text sharing with privacy protection." />
         <meta property="og:type" content="article" />
-        <link rel="canonical" href="https://anonshare.app/how-to-share-text-anonymously" />
+        <link rel="canonical" href="https://anonshare.live/how-to-share-text-anonymously" />
       </Helmet>
 
       <div className="min-h-screen bg-sky-50">

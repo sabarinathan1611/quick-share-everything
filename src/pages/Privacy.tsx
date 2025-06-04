@@ -145,7 +145,7 @@ const Privacy = () => {
               <ul className="list-disc pl-6 space-y-2 text-gray-600">
                 <li><strong>Clipboard content:</strong> Automatically deleted after 24 hours</li>
                 <li><strong>Notepad content:</strong> Automatically deleted after 7 days</li>
-                <li><strong>File uploads:</strong> Automatically deleted after 48 hours or when download limits are reached</li>
+                <li><strong>File uploads:</strong> Automatically deleted after 24 hours or when download limits are reached</li>
                 <li><strong>Access codes:</strong> Deleted when associated content expires</li>
                 <li><strong>Email notifications:</strong> Email addresses are deleted immediately after sending</li>
                 <li><strong>Server logs:</strong> Technical logs are automatically purged after 7 days</li>
@@ -192,13 +192,7 @@ const Privacy = () => {
                     Managed according to Google's privacy policies.
                   </p>
                 </div>
-                <div>
-                  <h4 className="font-semibold text-gray-800 mb-2">Lovable Platform</h4>
-                  <p className="text-gray-600">
-                    Hosting and development platform that provides the infrastructure 
-                    for AnonShare with security and privacy protections.
-                  </p>
-                </div>
+
               </div>
             </CardContent>
           </Card>

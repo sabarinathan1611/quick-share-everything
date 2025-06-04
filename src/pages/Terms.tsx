@@ -10,7 +10,7 @@ const Terms = () => {
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-6">Terms of Service</h1>
           <p className="text-lg text-gray-600">
-            Last updated: December 15, 2024
+            Last updated: June 04, 2025
           </p>
           <p className="text-sm text-gray-500 mt-2">
             Effective immediately for all users of AnonShare

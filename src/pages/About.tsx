@@ -197,7 +197,7 @@ const About = () => {
           </CardHeader>
           <CardContent className="text-gray-600 space-y-4">
             <p>
-              AnonShare is built using the Lovable platform, leveraging modern web 
+              AnonShare is leveraging modern web 
               technologies including React, TypeScript, Tailwind CSS, and Supabase. 
               The platform is designed for scalability, security, and user privacy.
             </p>
