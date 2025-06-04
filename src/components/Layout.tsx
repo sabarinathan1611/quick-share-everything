@@ -117,13 +117,13 @@ const Layout = ({
               </ul>
             </div>
 
-            {/* Company */}
+            {/* Resources */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-4">Company</h3>
+              <h3 className="font-semibold text-gray-900 mb-4">Resources</h3>
               <ul className="space-y-2">
-                <li><Link to="/about" className="text-gray-600 hover:text-blue-600 text-sm">About Us</Link></li>
-                <li><Link to="/blog" className="text-gray-600 hover:text-blue-600 text-sm">Blog</Link></li>
-                <li><Link to="/faq" className="text-gray-600 hover:text-blue-600 text-sm">FAQ</Link></li>
+                <li><Link to="/how-to-share-text-anonymously" className="text-gray-600 hover:text-blue-600 text-sm">How to Share Text Anonymously</Link></li>
+                <li><Link to="/pastebin-alternative-no-login" className="text-gray-600 hover:text-blue-600 text-sm">Pastebin Alternative No Login</Link></li>
+                <li><Link to="/temporary-file-sharing-tool" className="text-gray-600 hover:text-blue-600 text-sm">Temporary File Sharing Tool</Link></li>
               </ul>
             </div>
 
@@ -133,6 +133,8 @@ const Layout = ({
               <ul className="space-y-2">
                 <li><Link to="/privacy" className="text-gray-600 hover:text-blue-600 text-sm">Privacy Policy</Link></li>
                 <li><Link to="/terms" className="text-gray-600 hover:text-blue-600 text-sm">Terms of Service</Link></li>
+                <li><Link to="/about" className="text-gray-600 hover:text-blue-600 text-sm">About Us</Link></li>
+                <li><Link to="/faq" className="text-gray-600 hover:text-blue-600 text-sm">FAQ</Link></li>
               </ul>
             </div>
           </div>
