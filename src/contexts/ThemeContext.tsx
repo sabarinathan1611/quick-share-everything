@@ -1,11 +1,12 @@
+
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type Theme = 'light' | 'dark' | 'system';
+type Theme = 'light';
 
 interface ThemeContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
-  actualTheme: 'light' | 'dark';
+  actualTheme: 'light';
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -19,51 +20,19 @@ export const useTheme = () => {
 };
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    const stored = localStorage.getItem('theme');
-    return (stored as Theme) || 'light';
-  });
-
-  const [actualTheme, setActualTheme] = useState<'light' | 'dark'>('light');
+  const [theme] = useState<Theme>('light');
+  const actualTheme = 'light';
 
   useEffect(() => {
     const root = window.document.documentElement;
     
-    const updateTheme = () => {
-      let resolvedTheme: 'light' | 'dark';
-      
-      if (theme === 'system') {
-        resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      } else {
-        resolvedTheme = theme;
-      }
-      
-      setActualTheme(resolvedTheme);
-      
-      root.classList.remove('light', 'dark');
-      root.classList.add(resolvedTheme);
-    };
-
-    updateTheme();
-
-    // Listen for system theme changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = () => {
-      if (theme === 'system') {
-        updateTheme();
-      }
-    };
-
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [theme]);
-
-  useEffect(() => {
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    // Always apply light theme
+    root.classList.remove('light', 'dark');
+    root.classList.add('light');
+  }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, actualTheme }}>
+    <ThemeContext.Provider value={{ theme, setTheme: () => {}, actualTheme }}>
       {children}
     </ThemeContext.Provider>
   );
