@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Layout from "@/components/Layout";
 import Index from "./pages/Index";
@@ -16,36 +17,44 @@ import Terms from "./pages/Terms";
 import Clipboard from "./pages/Clipboard";
 import Notepad from "./pages/Notepad";
 import FileShare from "./pages/FileShare";
+import HowToShareTextAnonymously from "./pages/HowToShareTextAnonymously";
+import PastebinAlternativeNoLogin from "./pages/PastebinAlternativeNoLogin";
+import TemporaryFileSharingTool from "./pages/TemporaryFileSharingTool";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <ThemeProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/terms" element={<Terms />} />
-              <Route path="/clipboard" element={<Clipboard />} />
-              <Route path="/notepad" element={<Notepad />} />
-              <Route path="/file-share" element={<FileShare />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Layout>
-        </BrowserRouter>
-      </TooltipProvider>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Layout>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/privacy" element={<Privacy />} />
+                <Route path="/terms" element={<Terms />} />
+                <Route path="/clipboard" element={<Clipboard />} />
+                <Route path="/notepad" element={<Notepad />} />
+                <Route path="/file-share" element={<FileShare />} />
+                <Route path="/how-to-share-text-anonymously" element={<HowToShareTextAnonymously />} />
+                <Route path="/pastebin-alternative-no-login" element={<PastebinAlternativeNoLogin />} />
+                <Route path="/temporary-file-sharing-tool" element={<TemporaryFileSharingTool />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Layout>
+          </BrowserRouter>
+        </TooltipProvider>
+      </ThemeProvider>
+    </HelmetProvider>
   </QueryClientProvider>
 );
 
