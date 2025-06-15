@@ -8,42 +8,42 @@ const Blog = () => {
     {
       title: "The Importance of Anonymous Communication in 2024",
       excerpt: "Exploring why privacy-first tools like AnonTools are essential in today's digital landscape and how they protect user freedom.",
-      date: "December 15, 2024",
+      date: "June 04, 2025",
       author: "Privacy Team",
       content: "In an era where digital surveillance and data collection have become the norm, the need for anonymous communication tools has never been more critical. This comprehensive guide explores why platforms like AnonTools are essential for protecting user privacy and maintaining freedom of expression online."
     },
     {
       title: "How to Share Code Snippets Securely",
       excerpt: "Best practices for developers sharing code without exposing sensitive information or creating security vulnerabilities.",
-      date: "December 10, 2024",
+      date: "June 04, 2025",
       author: "Dev Team",
       content: "Developers often need to share code snippets with colleagues, on forums, or for debugging purposes. However, sharing code can inadvertently expose sensitive information, API keys, or proprietary logic. Learn how to share code securely using anonymous platforms and what precautions to take."
     },
     {
       title: "Understanding Digital Privacy: A Beginner's Guide",
       excerpt: "Everything you need to know about protecting your digital footprint and why tools like anonymous clipboards matter.",
-      date: "December 5, 2024",
+      date: "June 04, 2025",
       author: "Privacy Team",
       content: "Digital privacy isn't just for tech experts anymore. With increasing awareness about data collection and online tracking, more people are seeking ways to protect their digital footprint. This beginner's guide covers the basics of digital privacy and how anonymous tools fit into a comprehensive privacy strategy."
     },
     {
       title: "File Sharing Without the Risks",
       excerpt: "Comparing traditional file sharing methods with anonymous alternatives and their security implications.",
-      date: "November 28, 2024",
+      date: "June 04, 2025",
       author: "Security Team",
       content: "Traditional file sharing often requires email attachments, cloud storage accounts, or complex file sharing services that track users and store data indefinitely. Learn about the risks of conventional file sharing and how anonymous alternatives provide better security and privacy protection."
     },
     {
       title: "The Evolution of Anonymous Tools",
       excerpt: "A look at how privacy-focused sharing tools have evolved and what the future holds for anonymous communication.",
-      date: "November 20, 2024",
+      date: "June 04, 2025",
       author: "Tech Team",
       content: "From simple pastebin services to sophisticated anonymous communication platforms, privacy tools have evolved significantly. This article traces the development of anonymous sharing tools and explores emerging trends in privacy-preserving technology."
     },
     {
       title: "Building Trust in Anonymous Platforms",
       excerpt: "How anonymous platforms establish user trust without compromising on privacy principles.",
-      date: "November 15, 2024",
+      date: "June 04, 2025",
       author: "Privacy Team",
       content: "Trust is essential for any platform, but it's particularly challenging for anonymous services that prioritize privacy over user identification. Learn how platforms like AnonTools build trust through transparency, security practices, and user-centric design while maintaining strict privacy standards."
     }
