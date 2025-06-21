@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +16,10 @@ import Terms from "./pages/Terms";
 import Clipboard from "./pages/Clipboard";
 import Notepad from "./pages/Notepad";
 import FileShare from "./pages/FileShare";
+import HowItWorks from "./pages/how-it-works";
+import BlogIndex from "./pages/blog/index";
+import Post1 from "./pages/blog/how-to-share-text-anonymously";
+import Post2 from "./pages/blog/pastebin-alternatives-2025";
 import HowToShareTextAnonymously from "./pages/HowToShareTextAnonymously";
 import PastebinAlternativeNoLogin from "./pages/PastebinAlternativeNoLogin";
 import TemporaryFileSharingTool from "./pages/TemporaryFileSharingTool";
@@ -38,12 +41,15 @@ const App = () => (
                 <Route path="/home" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/faq" element={<FAQ />} />
-                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog" element={<BlogIndex />} />
+                <Route path="/blog/how-to-share-text-anonymously" element={<Post1 />} />
+                <Route path="/blog/pastebin-alternatives-2025" element={<Post2 />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
                 <Route path="/clipboard" element={<Clipboard />} />
                 <Route path="/notepad" element={<Notepad />} />
                 <Route path="/file-share" element={<FileShare />} />
+                <Route path="/how-it-works" element={<HowItWorks />} />
                 <Route path="/how-to-share-text-anonymously" element={<HowToShareTextAnonymously />} />
                 <Route path="/pastebin-alternative-no-login" element={<PastebinAlternativeNoLogin />} />
                 <Route path="/temporary-file-sharing-tool" element={<TemporaryFileSharingTool />} />

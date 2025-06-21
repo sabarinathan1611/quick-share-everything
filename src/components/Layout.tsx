@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FileText, ClipboardList, Share2, Upload, Menu, X } from 'lucide-react';
@@ -20,23 +19,16 @@ const Layout = ({
     return location.pathname.startsWith(path);
   };
 
-  const navigation = [{
-    name: 'Home',
-    href: '/',
-    icon: FileText
-  }, {
-    name: 'Clipboard',
-    href: '/clipboard',
-    icon: ClipboardList
-  }, {
-    name: 'Notepad',
-    href: '/notepad',
-    icon: Share2
-  }, {
-    name: 'File Share',
-    href: '/file-share',
-    icon: Upload
-  }];
+  const navigation = [
+    { name: 'Home', href: '/', icon: FileText },
+    { name: 'Clipboard', href: '/clipboard', icon: ClipboardList },
+    { name: 'Notepad', href: '/notepad', icon: Share2 },
+    { name: 'File Share', href: '/file-share', icon: Upload },
+    { name: 'About', href: '/about' },
+    { name: 'How It Works', href: '/how-it-works' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'FAQ', href: '/faq' },
+  ];
 
   return <div className="min-h-screen bg-white text-gray-900">
       {/* Header */}
@@ -54,12 +46,14 @@ const Layout = ({
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-1">
               {navigation.map(item => {
-              const Icon = item.icon;
-              return <Link key={item.name} to={item.href} className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive(item.href) ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`}>
-                    <Icon className="w-4 h-4" />
+                const Icon = item.icon;
+                return (
+                  <Link key={item.name} to={item.href} className={`flex items-center space-x-1 px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive(item.href) ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`}>
+                    {Icon && <Icon className="w-4 h-4" />}
                     <span>{item.name}</span>
-                  </Link>;
-            })}
+                  </Link>
+                );
+              })}
             </nav>
 
             {/* Mobile menu button */}
@@ -76,12 +70,14 @@ const Layout = ({
           {mobileMenuOpen && <div className="md:hidden border-t border-gray-200">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 {navigation.map(item => {
-              const Icon = item.icon;
-              return <Link key={item.name} to={item.href} className={`flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive(item.href) ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`} onClick={() => setMobileMenuOpen(false)}>
-                      <Icon className="w-5 h-5" />
+                  const Icon = item.icon;
+                  return (
+                    <Link key={item.name} to={item.href} className={`flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium transition-colors ${isActive(item.href) ? 'bg-blue-100 text-blue-600' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}`} onClick={() => setMobileMenuOpen(false)}>
+                      {Icon && <Icon className="w-5 h-5" />}
                       <span>{item.name}</span>
-                    </Link>;
-            })}
+                    </Link>
+                  );
+                })}
               </div>
             </div>}
         </div>

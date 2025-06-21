@@ -1,11 +1,10 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Copy, Download, FileText, Share, Edit, Save, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Share as ShareType, downloadFile } from '@/utils/shareService';
+import { Share as ShareType, downloadFile, deleteShare } from '@/utils/shareService';
 import { decryptContent } from '@/utils/encryption';
 import RichTextEditor from '@/components/RichTextEditor';
 import PasswordInput from '@/components/PasswordInput';
@@ -16,44 +15,42 @@ interface ShareResultProps {
 }
 
 const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
-  const { toast } = useToast();
+  const [currentShare, setCurrentShare] = useState(share);
+  const [decryptedContent, setDecryptedContent] = useState<string | null>(null);
+  const [decryptedFileName, setDecryptedFileName] = useState(share.file_name || 'file');
   const [isEditing, setIsEditing] = useState(false);
-  const [editedContent, setEditedContent] = useState(share.content || '');
-  const [isDecrypting, setIsDecrypting] = useState(false);
-  const [decryptionError, setDecryptionError] = useState('');
-  const [decryptedContent, setDecryptedContent] = useState('');
-  const [isDecrypted, setIsDecrypted] = useState(!share.is_encrypted);
-  const [decryptedFileName, setDecryptedFileName] = useState(share.file_name || '');
+  const [editedContent, setEditedContent] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (share.is_encrypted && !decryptedContent) {
+      // Initially, don't try to decrypt. Wait for password.
+      return;
+    }
+    if (!share.is_encrypted) {
+      setDecryptedContent(share.content || '');
+    }
+  }, [share, decryptedContent]);
 
   const handlePasswordSubmit = async (password: string) => {
-    if (!share.encrypted_payload) return;
-    
-    setIsDecrypting(true);
-    setDecryptionError('');
-    
+    setIsLoading(true);
     try {
-      const encryptionData = JSON.parse(share.encrypted_payload);
-      const decrypted = await decryptContent({
-        ...encryptionData,
-        password
-      });
-      
-      if (share.type === 'file') {
-        setDecryptedFileName(decrypted);
-      } else {
-        setDecryptedContent(decrypted);
-        setEditedContent(decrypted);
+      if (share.encrypted_payload) {
+        const content = await decryptContent(share.encrypted_payload, password);
+        setDecryptedContent(content);
+        if (share.type === 'file') {
+          setDecryptedFileName(content);
+        }
       }
-      
-      setIsDecrypted(true);
-      toast({
-        title: "Success!",
-        description: "Content decrypted successfully",
-      });
     } catch (error) {
-      setDecryptionError('Incorrect password. Please try again.');
+      toast({
+        title: "Decryption failed",
+        description: "Invalid password or corrupted data.",
+        variant: "destructive"
+      });
     } finally {
-      setIsDecrypting(false);
+      setIsLoading(false);
     }
   };
 
@@ -85,7 +82,7 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
 
   const handleDownloadFile = async () => {
     try {
-      const downloadUrl = await downloadFile(share);
+      const { downloadUrl, newDownloadCount } = await downloadFile(currentShare);
       const link = document.createElement('a');
       link.href = downloadUrl;
       link.download = decryptedFileName;
@@ -95,10 +92,23 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
         title: "Download started",
         description: `Downloading ${decryptedFileName}`,
       });
+
+      const updatedShare = { ...currentShare, download_count: newDownloadCount };
+      setCurrentShare(updatedShare);
+      
+      if (updatedShare.max_downloads && newDownloadCount >= updatedShare.max_downloads) {
+        toast({
+          title: "Download limit reached",
+          description: "This file has now been deleted.",
+          variant: "destructive",
+        });
+        await deleteShare(updatedShare);
+        onBack();
+      }
     } catch (error) {
       toast({
         title: "Download failed",
-        description: "Failed to download file",
+        description: (error as Error).message || "Failed to download file",
         variant: "destructive"
       });
     }
@@ -138,7 +148,7 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
   };
 
   // Show password input if content is encrypted and not yet decrypted
-  if (share.is_encrypted && !isDecrypted) {
+  if (share.is_encrypted && !decryptedContent) {
     return (
       <div className="max-w-4xl mx-auto space-y-4">
         <Button variant="outline" onClick={onBack} className="mb-4">
@@ -147,8 +157,8 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
         
         <PasswordInput
           onPasswordSubmit={handlePasswordSubmit}
-          isLoading={isDecrypting}
-          error={decryptionError}
+          isLoading={isLoading}
+          error=""
           onCancel={onBack}
           shareCode={share.code}
           recoveryEmail={share.recovery_email}
@@ -170,25 +180,16 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
               {getIcon()}
               <span>{getTitle()}</span>
             </div>
-            {share.type === 'notepad' && isDecrypted && (
+            {share.type === 'notepad' && isEditing && (
               <div className="flex items-center space-x-2">
-                {!isEditing ? (
-                  <Button variant="outline" size="sm" onClick={() => setIsEditing(true)}>
-                    <Edit className="w-4 h-4 mr-2" />
-                    Edit Note
-                  </Button>
-                ) : (
-                  <div className="flex space-x-2">
-                    <Button variant="outline" size="sm" onClick={handleSaveEdit}>
-                      <Save className="w-4 h-4 mr-2" />
-                      Save
-                    </Button>
-                    <Button variant="outline" size="sm" onClick={handleCancelEdit}>
-                      <X className="w-4 h-4 mr-2" />
-                      Cancel
-                    </Button>
-                  </div>
-                )}
+                <Button variant="outline" size="sm" onClick={handleSaveEdit}>
+                  <Save className="w-4 h-4 mr-2" />
+                  Save
+                </Button>
+                <Button variant="outline" size="sm" onClick={handleCancelEdit}>
+                  <X className="w-4 h-4 mr-2" />
+                  Cancel
+                </Button>
               </div>
             )}
           </CardTitle>
@@ -249,8 +250,8 @@ const ShareResult: React.FC<ShareResultProps> = ({ share, onBack }) => {
                       {share.file_size && formatFileSize(share.file_size)}
                     </p>
                     <p className="text-xs text-gray-400">
-                      Downloads: {share.download_count}
-                      {share.max_downloads && ` / ${share.max_downloads}`}
+                      Downloads: {currentShare.download_count}
+                      {currentShare.max_downloads && ` / ${currentShare.max_downloads}`}
                     </p>
                   </div>
                 </div>

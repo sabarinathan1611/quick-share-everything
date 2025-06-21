@@ -1,4 +1,3 @@
-
 import { supabase } from '@/integrations/supabase/client';
 import { encryptContent, EncryptionResult } from './encryption';
 
@@ -159,25 +158,36 @@ export const getShare = async (code: string): Promise<Share> => {
   return share as Share;
 };
 
-export const downloadFile = async (share: Share): Promise<string> => {
+export const downloadFile = async (share: Share): Promise<{downloadUrl: string, newDownloadCount: number}> => {
   if (share.type !== 'file' || !share.file_path) {
     throw new Error('Invalid file share');
   }
 
-  // Increment download count
-  await supabase
-    .from('shares')
-    .update({ download_count: share.download_count + 1 })
-    .eq('code', share.code);
+  // Use RPC for atomic increment to prevent race conditions
+  const { data: newDownloadCount, error: rpcError } = await supabase.rpc('increment_download_count' as any, {
+    share_code: share.code,
+  });
+
+  if (rpcError) {
+    console.error("Failed to increment download count", rpcError);
+    throw new Error("Could not update download count.");
+  }
 
   // Get download URL
-  const { data } = await supabase.storage
+  const { data: urlData } = await supabase.storage
     .from('shared-files')
     .createSignedUrl(share.file_path, 300); // 5 minute expiry
 
-  if (!data?.signedUrl) {
+  if (!urlData?.signedUrl) {
     throw new Error('Failed to generate download URL');
   }
 
-  return data.signedUrl;
+  return { downloadUrl: urlData.signedUrl, newDownloadCount: newDownloadCount as number };
+};
+
+export const deleteShare = async (share: Share) => {
+  if (share.type === 'file' && share.file_path) {
+    await supabase.storage.from('shared-files').remove([share.file_path]);
+  }
+  await supabase.from('shares').delete().eq('code', share.code);
 };
