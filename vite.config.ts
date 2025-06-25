@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
   preview: {
-    allowedHosts: ["anonshare.live", "localhost", "127.0.0.1"],
+    allowedHosts: ["anonshare.live", "www.anonshare.live", "localhost", "127.0.0.1"],
   },
   plugins: [
     react(),
