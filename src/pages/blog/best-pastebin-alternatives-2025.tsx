@@ -5,7 +5,7 @@ import React from 'react';
 const BlogPost = () => (
   <>
     <Helmet>
-      <title>Best Pastebin Alternatives for Privacy in 2025 – AnonShare Blog</title>
+              <title>Best Pastebin Alternatives 2025 – AnonShare</title>
       <meta name="description" content="Explore the top privacy-focused alternatives to Pastebin for secure, anonymous sharing in 2025. Learn about anonymous clipboard tools and secure file sharing." />
       <meta name="robots" content="index, follow" />
     </Helmet>

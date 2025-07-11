@@ -1,47 +1,29 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Copy, FileText } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { createShare } from '@/utils/shareService';
+import { FileText, Copy, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import RichTextEditor from '@/components/RichTextEditor';
+import { createShare } from '@/utils/shareService';
 import AdUnit from '@/components/AdUnit';
 
 const Notepad = () => {
   const [content, setContent] = useState('');
   const [shareCode, setShareCode] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { toast } = useToast();
 
   const handleShare = async () => {
-    if (!content.trim()) {
-      toast({
-        title: "Error",
-        description: "Please add some content to your note",
-        variant: "destructive"
-      });
-      return;
-    }
-
+    if (!content.trim()) return;
+    
     setIsLoading(true);
     try {
-      // Just use the content directly without prepending title
-      const share = await createShare({
+      const result = await createShare({
         type: 'notepad',
         content: content
       });
-      
-      setShareCode(share.code);
-      toast({
-        title: "Success!",
-        description: `Your note is ready! Code: ${share.code}`,
-      });
+      setShareCode(result.code);
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to create note share",
-        variant: "destructive"
-      });
+      console.error('Error creating note:', error);
     } finally {
       setIsLoading(false);
     }
@@ -49,10 +31,6 @@ const Notepad = () => {
 
   const handleCopyCode = () => {
     navigator.clipboard.writeText(shareCode);
-    toast({
-      title: "Copied!",
-      description: "Share code copied to clipboard",
-    });
   };
 
   const handleReset = () => {
@@ -155,46 +133,97 @@ const Notepad = () => {
         </div>
 
         {/* Features */}
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Rich Formatting</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 text-sm">
-                Create professional documents with headers, bold text, lists, 
-                links, and code blocks.
-              </p>
-            </CardContent>
-          </Card>
+        <div className="mt-16">
+          <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
+            Rich Text Notepad Features
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Rich Formatting</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 text-sm mb-4">
+                  Create professional documents with headers, bold text, lists, 
+                  links, and code blocks. Perfect for structured content.
+                </p>
+                <Link to="/how-it-works">
+                  <Button variant="outline" size="sm" className="w-full">
+                    Learn More
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Extended Storage</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 text-sm">
-                Notes are stored for 7 days, giving you more time for 
-                collaboration and reference.
-              </p>
-            </CardContent>
-          </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Extended Storage</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 text-sm mb-4">
+                  Notes are stored for 7 days, giving you more time for 
+                  collaboration and reference compared to other tools.
+                </p>
+                <Link to="/faq">
+                  <Button variant="outline" size="sm" className="w-full">
+                    View FAQ
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Easy Sharing</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 text-sm">
-                Share formatted documents instantly with simple codes. 
-                Perfect for team collaboration.
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Easy Sharing</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 text-sm mb-4">
+                  Share formatted documents instantly with simple codes. 
+                  Perfect for team collaboration and project management.
+                </p>
+                <Link to="/about">
+                  <Button variant="outline" size="sm" className="w-full">
+                    About Us
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Other Tools Section */}
+        <div className="bg-gray-50 rounded-lg p-8 mb-12">
+          <h3 className="text-2xl font-semibold mb-6 text-center text-gray-900">
+            More Anonymous Sharing Tools
+          </h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-lg p-6">
+              <h4 className="text-lg font-semibold mb-3 text-gray-900">Anonymous Clipboard</h4>
+              <p className="text-gray-600 text-sm mb-4">
+                Share text snippets instantly with 24-hour expiration. Perfect for quick code sharing and temporary notes.
               </p>
-            </CardContent>
-          </Card>
+              <Link to="/clipboard">
+                <Button size="sm" className="w-full">
+                  Try Clipboard <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </div>
+            <div className="bg-white rounded-lg p-6">
+              <h4 className="text-lg font-semibold mb-3 text-gray-900">Secure File Sharing</h4>
+              <p className="text-gray-600 text-sm mb-4">
+                Upload and share files up to 50MB with automatic expiration and download tracking.
+              </p>
+              <Link to="/file-share">
+                <Button size="sm" className="w-full">
+                  Share Files <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
 
         {/* Formatting Guide */}
-        <Card className="mt-12">
+        <Card className="mb-12">
           <CardHeader>
             <CardTitle>Formatting Options</CardTitle>
           </CardHeader>
@@ -223,7 +252,7 @@ const Notepad = () => {
         </Card>
 
         {/* Use Cases */}
-        <Card className="mt-12">
+        <Card className="mb-12">
           <CardHeader>
             <CardTitle>Perfect For</CardTitle>
           </CardHeader>
@@ -248,6 +277,31 @@ const Notepad = () => {
             </div>
           </CardContent>
         </Card>
+
+        {/* Help Section */}
+        <div className="text-center">
+          <h3 className="text-xl font-semibold mb-4 text-gray-900">Need Help Getting Started?</h3>
+          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            Check out our comprehensive guides and frequently asked questions to learn more about anonymous sharing and privacy protection.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/how-it-works">
+              <Button variant="outline">
+                How It Works
+              </Button>
+            </Link>
+            <Link to="/faq">
+              <Button variant="outline">
+                FAQ
+              </Button>
+            </Link>
+            <Link to="/how-to-share-text-anonymously">
+              <Button variant="outline">
+                Text Sharing Guide
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

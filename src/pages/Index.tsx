@@ -42,7 +42,7 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>AnonShare – Secure, Anonymous Clipboard & File Sharing</title>
+        <title>AnonShare – Anonymous Clipboard & File Sharing</title>
         <meta name="description" content="AnonShare lets you share text, notes, and files securely and anonymously. No login required. Clipboard, notepad, and file sharing with privacy-first design." />
         <meta name="robots" content="index, follow" />
       </Helmet>

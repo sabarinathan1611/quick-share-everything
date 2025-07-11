@@ -1,16 +1,18 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar, User } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Calendar, User, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import AdUnit from '@/components/AdUnit';
 
 const Blog = () => {
   const blogPosts = [
     {
       title: "The Importance of Anonymous Communication in 2024",
-      excerpt: "Exploring why privacy-first tools like AnonTools are essential in today's digital landscape and how they protect user freedom.",
+      excerpt: "Exploring why privacy-first tools like AnonShare are essential in today's digital landscape and how they protect user freedom.",
       date: "June 04, 2025",
       author: "Privacy Team",
-      content: "In an era where digital surveillance and data collection have become the norm, the need for anonymous communication tools has never been more critical. This comprehensive guide explores why platforms like AnonTools are essential for protecting user privacy and maintaining freedom of expression online."
+      content: "In an era where digital surveillance and data collection have become the norm, the need for anonymous communication tools has never been more critical. This comprehensive guide explores why platforms like AnonShare are essential for protecting user privacy and maintaining freedom of expression online."
     },
     {
       title: "How to Share Code Snippets Securely",
@@ -45,7 +47,7 @@ const Blog = () => {
       excerpt: "How anonymous platforms establish user trust without compromising on privacy principles.",
       date: "June 04, 2025",
       author: "Privacy Team",
-      content: "Trust is essential for any platform, but it's particularly challenging for anonymous services that prioritize privacy over user identification. Learn how platforms like AnonTools build trust through transparency, security practices, and user-centric design while maintaining strict privacy standards."
+      content: "Trust is essential for any platform, but it's particularly challenging for anonymous services that prioritize privacy over user identification. Learn how platforms like AnonShare build trust through transparency, security practices, and user-centric design while maintaining strict privacy standards."
     }
   ];
 
@@ -54,10 +56,22 @@ const Blog = () => {
       <div className="max-w-4xl mx-auto px-4 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">AnonTools Blog</h1>
-          <p className="text-xl text-gray-600">
+          <h1 className="text-4xl font-bold text-gray-900 mb-6">AnonShare Blog</h1>
+          <p className="text-xl text-gray-600 mb-8">
             Insights on privacy, security, and anonymous communication in the digital age
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/clipboard">
+              <Button variant="outline">
+                Try Anonymous Clipboard
+              </Button>
+            </Link>
+            <Link to="/how-it-works">
+              <Button variant="outline">
+                How It Works
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Ad Unit */}
@@ -85,7 +99,12 @@ const Blog = () => {
           </CardHeader>
           <CardContent>
             <p className="text-gray-600 mb-4">{blogPosts[0].excerpt}</p>
-            <p className="text-gray-600">{blogPosts[0].content}</p>
+            <p className="text-gray-600 mb-4">{blogPosts[0].content}</p>
+            <Link to="/how-to-share-text-anonymously">
+              <Button variant="outline">
+                Read More About Anonymous Sharing <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
           </CardContent>
         </Card>
 
@@ -108,7 +127,19 @@ const Blog = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                <p className="text-gray-600">{post.content}</p>
+                <p className="text-gray-600 mb-4">{post.content}</p>
+                <div className="flex gap-2">
+                  <Link to="/clipboard">
+                    <Button variant="outline" size="sm">
+                      Try Clipboard
+                    </Button>
+                  </Link>
+                  <Link to="/notepad">
+                    <Button variant="outline" size="sm">
+                      Try Notepad
+                    </Button>
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           ))}
@@ -131,35 +162,80 @@ const Blog = () => {
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <h3 className="font-semibold mb-2">Privacy & Security</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 mb-3">
                   Learn about digital privacy best practices, security measures, and 
                   how to protect your data online.
                 </p>
+                <Link to="/privacy">
+                  <Button variant="outline" size="sm">
+                    Privacy Policy
+                  </Button>
+                </Link>
               </div>
               <div>
                 <h3 className="font-semibold mb-2">Developer Resources</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 mb-3">
                   Technical guides, code sharing best practices, and developer-focused 
                   privacy tools and techniques.
                 </p>
+                <Link to="/clipboard">
+                  <Button variant="outline" size="sm">
+                    Code Sharing Tool
+                  </Button>
+                </Link>
               </div>
               <div>
                 <h3 className="font-semibold mb-2">Platform Updates</h3>
-                <p className="text-sm text-gray-600">
-                  News about AnonTools features, improvements, and technical insights 
+                <p className="text-sm text-gray-600 mb-3">
+                  News about AnonShare features, improvements, and technical insights 
                   into our privacy-first architecture.
                 </p>
+                <Link to="/about">
+                  <Button variant="outline" size="sm">
+                    About AnonShare
+                  </Button>
+                </Link>
               </div>
               <div>
                 <h3 className="font-semibold mb-2">Digital Rights</h3>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 mb-3">
                   Discussions about digital rights, freedom of expression, and the 
                   importance of anonymous communication tools.
                 </p>
+                <Link to="/how-it-works">
+                  <Button variant="outline" size="sm">
+                    How It Works
+                  </Button>
+                </Link>
               </div>
             </div>
           </CardContent>
         </Card>
+
+        {/* Help Section */}
+        <div className="mt-12 text-center">
+          <h3 className="text-xl font-semibold mb-4 text-gray-900">Ready to Start Sharing Anonymously?</h3>
+          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            Try our anonymous sharing tools and experience the difference that privacy-first design makes.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/clipboard">
+              <Button size="lg">
+                Anonymous Clipboard
+              </Button>
+            </Link>
+            <Link to="/notepad">
+              <Button size="lg" variant="outline">
+                Rich Text Notepad
+              </Button>
+            </Link>
+            <Link to="/file-share">
+              <Button size="lg" variant="outline">
+                Secure File Sharing
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

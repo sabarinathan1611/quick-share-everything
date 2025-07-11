@@ -8,7 +8,7 @@ import AdUnit from '@/components/AdUnit';
 const About = () => (
   <>
     <Helmet>
-      <title>About AnonShare – Mission, Privacy, and Purpose</title>
+              <title>About AnonShare – Mission & Privacy</title>
       <meta name="description" content="Learn about AnonShare's mission, privacy-first approach, and commitment to secure, anonymous sharing. Discover our features, security measures, and how we protect your data." />
       <meta name="robots" content="index, follow" />
     </Helmet>

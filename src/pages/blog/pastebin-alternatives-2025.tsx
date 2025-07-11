@@ -6,7 +6,7 @@ import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 const Post2 = () => (
   <>
     <Helmet>
-      <title>5 Best Pastebin Alternatives for Privacy in 2025 - AnonShare</title>
+              <title>5 Best Pastebin Alternatives 2025 - AnonShare</title>
       <meta
         name="description"
         content="Looking for a privacy-focused Pastebin alternative? We review the 5 best anonymous clipboard tools for secure text and file sharing in 2025."

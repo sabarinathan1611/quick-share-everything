@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Copy, Upload, FileX } from 'lucide-react';
+import { Copy, Upload, FileX, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { createFileShare } from '@/utils/shareService';
 import AdUnit from '@/components/AdUnit';
@@ -300,42 +301,118 @@ const FileShare = () => {
         </div>
 
         {/* Features */}
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Secure Upload</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 text-sm">
-                All files are encrypted during upload and scanned for malware 
-                to ensure safe sharing.
-              </p>
-            </CardContent>
-          </Card>
+        <div className="mt-16">
+          <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
+            Secure File Sharing Features
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Secure Upload</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 text-sm mb-4">
+                  All files are encrypted during upload and scanned for malware 
+                  to ensure safe sharing. Your data is protected at every step.
+                </p>
+                <Link to="/privacy">
+                  <Button variant="outline" size="sm" className="w-full">
+                    Privacy Policy
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">Smart Cleanup</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 text-sm">
-                Automatic deletion after 24 hours or download limits ensures 
-                maximum privacy and optimal storage.
-              </p>
-            </CardContent>
-          </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Smart Cleanup</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 text-sm mb-4">
+                  Automatic deletion after 24 hours or download limits ensures 
+                  maximum privacy and optimal storage management.
+                </p>
+                <Link to="/how-it-works">
+                  <Button variant="outline" size="sm" className="w-full">
+                    Learn More
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg">No Registration</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 text-sm">
-                Upload and share files instantly without creating accounts 
-                or providing personal information.
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">No Registration</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 text-sm mb-4">
+                  Upload and share files instantly without creating accounts 
+                  or providing personal information. Complete anonymity guaranteed.
+                </p>
+                <Link to="/about">
+                  <Button variant="outline" size="sm" className="w-full">
+                    About Us
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+
+        {/* Other Tools Section */}
+        <div className="bg-gray-50 rounded-lg p-8 mb-12">
+          <h3 className="text-2xl font-semibold mb-6 text-center text-gray-900">
+            More Anonymous Sharing Tools
+          </h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white rounded-lg p-6">
+              <h4 className="text-lg font-semibold mb-3 text-gray-900">Anonymous Clipboard</h4>
+              <p className="text-gray-600 text-sm mb-4">
+                Share text snippets instantly with 24-hour expiration. Perfect for quick code sharing and temporary notes.
               </p>
-            </CardContent>
-          </Card>
+              <Link to="/clipboard">
+                <Button size="sm" className="w-full">
+                  Try Clipboard <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </div>
+            <div className="bg-white rounded-lg p-6">
+              <h4 className="text-lg font-semibold mb-3 text-gray-900">Rich Text Notepad</h4>
+              <p className="text-gray-600 text-sm mb-4">
+                Create formatted notes with headers, lists, and styling. Perfect for collaborative notes and detailed content sharing.
+              </p>
+              <Link to="/notepad">
+                <Button size="sm" className="w-full">
+                  Try Notepad <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Help Section */}
+        <div className="text-center mb-12">
+          <h3 className="text-xl font-semibold mb-4 text-gray-900">Need Help Getting Started?</h3>
+          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            Check out our comprehensive guides and frequently asked questions to learn more about anonymous sharing and privacy protection.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/how-it-works">
+              <Button variant="outline">
+                How It Works
+              </Button>
+            </Link>
+            <Link to="/faq">
+              <Button variant="outline">
+                FAQ
+              </Button>
+            </Link>
+            <Link to="/how-to-share-text-anonymously">
+              <Button variant="outline">
+                Text Sharing Guide
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Supported Files */}

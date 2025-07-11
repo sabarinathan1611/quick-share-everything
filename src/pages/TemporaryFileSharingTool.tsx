@@ -10,10 +10,10 @@ const TemporaryFileSharingTool = () => {
   return (
     <>
       <Helmet>
-        <title>Temporary File Sharing Tool - Anonymous & Secure File Upload | AnonShare</title>
+        <title>Temporary File Sharing Tool - AnonShare</title>
         <meta name="description" content="Share files temporarily with automatic deletion. Anonymous file sharing tool with no registration. Upload documents, images, and files securely with expiration dates." />
         <meta name="keywords" content="temporary file sharing, anonymous file upload, secure file sharing, file sharing no registration, temporary file upload" />
-        <meta property="og:title" content="Temporary File Sharing Tool - Anonymous & Secure File Upload | AnonShare" />
+        <meta property="og:title" content="Temporary File Sharing Tool - AnonShare" />
         <meta property="og:description" content="Share files temporarily with automatic deletion. Anonymous file sharing tool with no registration required." />
         <meta property="og:type" content="article" />
         <link rel="canonical" href="https://anonshare.live/temporary-file-sharing-tool" /> 
