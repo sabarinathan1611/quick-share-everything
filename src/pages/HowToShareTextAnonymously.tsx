@@ -1,271 +1,496 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { ClipboardList, Shield, Clock, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Shield, Zap, Globe, Users, Lock, FileText, Upload, Copy, Clock, AlertTriangle, CheckCircle, ArrowRight, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import AdUnit from '@/components/AdUnit';
 
-const HowToShareTextAnonymously = () => {
-  return (
-    <>
-      <Helmet>
-        <title>How to Share Text Anonymously - Complete Guide | AnonShare</title>
-        <meta name="description" content="Learn how to share text anonymously online without registration. Step-by-step guide to anonymous text sharing with privacy protection and secure links." />
-        <meta name="keywords" content="share text anonymously, anonymous text sharing, private text sharing, secure text sharing, no registration text sharing" />
-        <meta property="og:title" content="How to Share Text Anonymously - Complete Guide | AnonShare" />
-        <meta property="og:description" content="Learn how to share text anonymously online without registration. Step-by-step guide to anonymous text sharing with privacy protection." />
-        <meta property="og:type" content="article" />
-        <link rel="canonical" href="https://anonshare.live/how-to-share-text-anonymously" />
-      </Helmet>
+const HowToShareTextAnonymously = () => (
+  <>
+    <Helmet>
+      <title>How to Share Text Anonymously - Complete Guide</title>
+      <meta name="description" content="Learn how to share text anonymously without registration. Complete guide to secure text sharing, privacy protection, and anonymous communication tools." />
+      <meta name="robots" content="index, follow" />
+    </Helmet>
+    <main className="min-h-screen bg-sky-50">
+      <section className="max-w-4xl mx-auto px-4 py-12">
+        <header className="text-center mb-12">
+          <h1 className="text-4xl font-bold mb-4 text-foreground">How to Share Text Anonymously</h1>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            A comprehensive guide to sharing text securely and anonymously without revealing your identity. 
+            Learn the best practices for privacy-first text sharing.
+          </p>
+        </header>
 
-      <div className="min-h-screen bg-sky-50">
-        <div className="max-w-4xl mx-auto px-4 py-12">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              How to Share Text Anonymously Online
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Complete guide to sharing text anonymously without registration or personal information. 
-              Protect your privacy while sharing sensitive information securely.
-            </p>
+        {/* Why Share Anonymously */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-center mb-8 text-foreground">Why Share Text Anonymously?</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <Card>
+              <CardHeader>
+                <Shield className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                <CardTitle>Protect Your Privacy</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">
+                  Avoid leaving digital footprints and protect your personal information from being collected, stored, or sold to third parties.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <Zap className="w-12 h-12 text-green-600 mx-auto mb-4" />
+                <CardTitle>Instant Sharing</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">
+                  Share text immediately without the hassle of creating accounts, verifying emails, or dealing with complex registration processes.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <Globe className="w-12 h-12 text-purple-600 mx-auto mb-4" />
+                <CardTitle>Global Accessibility</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground">
+                  Access your shared content from anywhere in the world with simple codes that work on all devices and browsers.
+                </p>
+              </CardContent>
+            </Card>
           </div>
+        </section>
 
-          {/* Quick Start CTA */}
-          <div className="bg-white rounded-lg shadow-md p-6 mb-12 text-center">
-            <h2 className="text-2xl font-semibold mb-4">Start Sharing Anonymously Now</h2>
-            <p className="text-gray-600 mb-4">No registration required. Your text is encrypted and protected.</p>
-            <Link to="/clipboard">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                <ClipboardList className="mr-2 h-5 w-5" />
-                Anonymous Text Sharing Tool
-              </Button>
-            </Link>
-          </div>
-
-          {/* Step-by-step Guide */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Step-by-Step Guide to Anonymous Text Sharing</h2>
-            
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <span className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">1</span>
-                    Visit the Anonymous Clipboard
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Go to our <Link to="/clipboard" className="text-blue-600 hover:underline">anonymous clipboard tool</Link>. 
-                    No account creation or personal information required.
+        {/* Step-by-Step Guide */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-center mb-8 text-foreground">Step-by-Step Guide to Anonymous Text Sharing</h2>
+          <div className="space-y-8">
+            <div className="bg-white rounded-lg p-8 shadow-md border">
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <span className="text-blue-600 text-xl font-bold">1</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-semibold mb-4 text-foreground">Choose Your Sharing Method</h3>
+                  <p className="text-muted-foreground mb-6">
+                    AnonShare offers three different tools for anonymous text sharing, each optimized for specific use cases:
                   </p>
-                </CardContent>
-              </Card>
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <Card>
+                      <CardHeader>
+                        <Copy className="w-8 h-8 text-blue-600 mb-2" />
+                        <CardTitle className="text-lg">Anonymous Clipboard</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          Perfect for quick text sharing, code snippets, and temporary notes.
+                        </p>
+                        <ul className="text-xs text-muted-foreground space-y-1">
+                          <li>• 24-hour expiration</li>
+                          <li>• No character limits</li>
+                          <li>• Optional password protection</li>
+                          <li>• Instant sharing</li>
+                        </ul>
+                        <Link to="/clipboard">
+                          <Button size="sm" className="w-full mt-3">Try Clipboard</Button>
+                        </Link>
+                      </CardContent>
+                    </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <span className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">2</span>
-                    Paste Your Text
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Enter or paste the text you want to share anonymously. Your content is automatically encrypted 
-                    before being stored on our secure servers.
-                  </p>
-                </CardContent>
-              </Card>
+                    <Card>
+                      <CardHeader>
+                        <FileText className="w-8 h-8 text-green-600 mb-2" />
+                        <CardTitle className="text-lg">Rich Notepad</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          Create formatted notes with headers, lists, links, and styling.
+                        </p>
+                        <ul className="text-xs text-muted-foreground space-y-1">
+                          <li>• 7-day retention</li>
+                          <li>• Rich text editor</li>
+                          <li>• Formatting options</li>
+                          <li>• Collaborative notes</li>
+                        </ul>
+                        <Link to="/notepad">
+                          <Button size="sm" className="w-full mt-3">Create Notes</Button>
+                        </Link>
+                      </CardContent>
+                    </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <span className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">3</span>
-                    Set Privacy Options
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Choose additional privacy settings like password protection and automatic expiration. 
-                    Add extra layers of security to your anonymous text sharing.
-                  </p>
-                </CardContent>
-              </Card>
+                    <Card>
+                      <CardHeader>
+                        <Upload className="w-8 h-8 text-purple-600 mb-2" />
+                        <CardTitle className="text-lg">File Sharing</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          Upload text files and documents up to 50MB for sharing.
+                        </p>
+                        <ul className="text-xs text-muted-foreground space-y-1">
+                          <li>• 50MB file limit</li>
+                          <li>• Download limits</li>
+                          <li>• 48-hour expiration</li>
+                          <li>• All file types</li>
+                        </ul>
+                        <Link to="/file-share">
+                          <Button size="sm" className="w-full mt-3">Share Files</Button>
+                        </Link>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <span className="bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">4</span>
-                    Get Your Anonymous Link
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Receive a unique, anonymous link that you can share with anyone. The link contains no 
-                    personal information and can't be traced back to you.
+            <div className="bg-white rounded-lg p-8 shadow-md border">
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                  <span className="text-green-600 text-xl font-bold">2</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-semibold mb-4 text-foreground">Prepare Your Content</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Before sharing, consider these important factors for secure and effective anonymous text sharing:
                   </p>
-                </CardContent>
-              </Card>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold mb-3 text-foreground">Content Preparation</h4>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li className="flex items-start">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Remove any personal identifiers from your text</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Check for sensitive information that shouldn't be shared</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Format your text appropriately for the tool you're using</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Consider using password protection for sensitive content</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-3 text-foreground">Security Considerations</h4>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li className="flex items-start">
+                          <AlertTriangle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Never share passwords or sensitive credentials</span>
+                        </li>
+                        <li className="flex items-start">
+                          <AlertTriangle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Avoid sharing personal or financial information</span>
+                        </li>
+                        <li className="flex items-start">
+                          <AlertTriangle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Be aware that content will expire automatically</span>
+                        </li>
+                        <li className="flex items-start">
+                          <AlertTriangle className="w-4 h-4 text-yellow-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Keep your access codes secure and private</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg p-8 shadow-md border">
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                  <span className="text-purple-600 text-xl font-bold">3</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-semibold mb-4 text-foreground">Share and Get Your Code</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Once you've prepared your content, follow these steps to share it anonymously:
+                  </p>
+                  <div className="space-y-4">
+                    <div className="bg-gray-50 rounded-lg p-6">
+                      <h4 className="font-semibold mb-3 text-foreground">Sharing Process</h4>
+                      <ol className="space-y-3 text-sm text-muted-foreground">
+                        <li className="flex items-start">
+                          <span className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">1</span>
+                          <span>Navigate to your chosen tool (Clipboard, Notepad, or File Share)</span>
+                        </li>
+                        <li className="flex items-start">
+                          <span className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">2</span>
+                          <span>Paste or enter your text content in the provided area</span>
+                        </li>
+                        <li className="flex items-start">
+                          <span className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">3</span>
+                          <span>Optionally add a password for additional security</span>
+                        </li>
+                        <li className="flex items-start">
+                          <span className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">4</span>
+                          <span>Click the share button to generate your unique 4-digit code</span>
+                        </li>
+                        <li className="flex items-start">
+                          <span className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">5</span>
+                          <span>Copy or note down your access code (e.g., 3453)</span>
+                        </li>
+                      </ol>
+                    </div>
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                      <h4 className="font-semibold mb-2 text-foreground flex items-center">
+                        <AlertTriangle className="w-4 h-4 text-yellow-600 mr-2" />
+                        Important Security Note
+                      </h4>
+                      <p className="text-sm text-muted-foreground">
+                        Keep your access code secure. Anyone with the code can access your content until it expires. 
+                        For sensitive information, always use password protection.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg p-8 shadow-md border">
+              <div className="flex items-start gap-6">
+                <div className="flex-shrink-0 w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                  <span className="text-orange-600 text-xl font-bold">4</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-semibold mb-4 text-foreground">Distribute Your Access Code</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Share your 4-digit code with intended recipients through any communication method:
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold mb-3 text-foreground">Sharing Methods</h4>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li>• <strong>Messaging Apps:</strong> WhatsApp, Telegram, Signal, etc.</li>
+                        <li>• <strong>Email:</strong> Include the code in email body or subject</li>
+                        <li>• <strong>Team Platforms:</strong> Slack, Microsoft Teams, Discord</li>
+                        <li>• <strong>Phone:</strong> Call or text the code to recipients</li>
+                        <li>• <strong>In Person:</strong> Share the code verbally or on paper</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold mb-3 text-foreground">Best Practices</h4>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li>• <strong>Verify Recipients:</strong> Ensure you're sharing with the right person</li>
+                        <li>• <strong>Secure Channels:</strong> Use encrypted messaging when possible</li>
+                        <li>• <strong>Clear Instructions:</strong> Tell recipients to visit AnonShare homepage</li>
+                        <li>• <strong>Time Sensitivity:</strong> Remind recipients about expiration times</li>
+                        <li>• <strong>Backup Plan:</strong> Have alternative sharing methods ready</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </section>
 
-          {/* Benefits */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Why Share Text Anonymously?</h2>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Shield className="mr-3 h-6 w-6 text-green-600" />
-                    Privacy Protection
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Keep your identity private when sharing sensitive information, feedback, or confidential documents.
-                  </p>
-                </CardContent>
-              </Card>
+        {/* Best Practices */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-center mb-8 text-foreground">Best Practices for Anonymous Text Sharing</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Shield className="w-6 h-6 text-blue-600 mr-2" />
+                  Privacy Protection
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Use password protection for sensitive content</li>
+                  <li>• Avoid sharing personal or identifying information</li>
+                  <li>• Be aware of content expiration times</li>
+                  <li>• Don't reuse access codes for different content</li>
+                  <li>• Consider using VPN for additional privacy</li>
+                </ul>
+              </CardContent>
+            </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Clock className="mr-3 h-6 w-6 text-blue-600" />
-                    No Registration
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Start sharing immediately without creating accounts, providing email addresses, or personal details.
-                  </p>
-                </CardContent>
-              </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Zap className="w-6 h-6 text-green-600 mr-2" />
+                  Efficiency Tips
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Choose the right tool for your content type</li>
+                  <li>• Format text appropriately before sharing</li>
+                  <li>• Keep access codes handy for quick sharing</li>
+                  <li>• Use clear, descriptive content titles</li>
+                  <li>• Plan for content expiration in advance</li>
+                </ul>
+              </CardContent>
+            </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Users className="mr-3 h-6 w-6 text-purple-600" />
-                    Whistleblowing
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Safely report wrongdoing or share important information without fear of retaliation or identification.
-                  </p>
-                </CardContent>
-              </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Users className="w-6 h-6 text-purple-600 mr-2" />
+                  Collaboration
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Communicate expiration times to recipients</li>
+                  <li>• Provide clear instructions for accessing content</li>
+                  <li>• Use secure channels to share access codes</li>
+                  <li>• Have backup sharing methods available</li>
+                  <li>• Follow up to ensure content was received</li>
+                </ul>
+              </CardContent>
+            </Card>
 
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <ClipboardList className="mr-3 h-6 w-6 text-orange-600" />
-                    Temporary Sharing
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Share text that automatically expires, ensuring your information doesn't remain online indefinitely.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Lock className="w-6 h-6 text-orange-600 mr-2" />
+                  Security Measures
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Never share passwords or credentials</li>
+                  <li>• Avoid sharing financial information</li>
+                  <li>• Be cautious with sensitive business data</li>
+                  <li>• Monitor who has access to your codes</li>
+                  <li>• Report any security concerns immediately</li>
+                </ul>
+              </CardContent>
+            </Card>
           </div>
+        </section>
 
-          {/* Related Tools */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">More Anonymous Sharing Tools</h2>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Anonymous Notepad</CardTitle>
-                  <CardDescription>Create and share rich text documents anonymously</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Link to="/notepad">
-                    <Button variant="outline" className="w-full">
-                      Try Anonymous Notepad
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Anonymous File Sharing</CardTitle>
-                  <CardDescription>Share files securely without revealing your identity</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Link to="/file-share">
-                    <Button variant="outline" className="w-full">
-                      Share Files Anonymously
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* FAQ */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Frequently Asked Questions</h2>
-            
-            <div className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Is anonymous text sharing really secure?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Yes, all text is encrypted before storage and we don't collect any personal information. 
-                    Your content is protected and anonymous.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>How long does shared text remain available?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    You can set custom expiration times or use our default retention periods. 
-                    Text automatically expires to protect your privacy.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Can I password protect my anonymous text?</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">
-                    Yes, add an extra layer of security with password protection. Only people with the 
-                    password can access your shared text.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* Final CTA */}
-          <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Ready to Share Text Anonymously?</h2>
-            <p className="text-gray-600 mb-6">Start protecting your privacy with our secure, anonymous text sharing tool.</p>
-            <Link to="/clipboard">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                Start Anonymous Text Sharing
-              </Button>
-            </Link>
-          </div>
+        {/* Ad Unit */}
+        <div className="mb-16">
+          <AdUnit adSlot="1234567890" adFormat="horizontal" className="text-center" />
         </div>
-      </div>
-    </>
-  );
-};
+
+        {/* Use Cases */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-center mb-8 text-foreground">Common Use Cases for Anonymous Text Sharing</h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Copy className="w-6 h-6 text-blue-600 mr-2" />
+                  For Developers
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Share code snippets, configuration files, and debug logs with team members instantly.
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Code snippet sharing and reviews</li>
+                  <li>• Debug log analysis</li>
+                  <li>• Configuration file sharing</li>
+                  <li>• API documentation</li>
+                  <li>• Error message sharing</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <FileText className="w-6 h-6 text-green-600 mr-2" />
+                  For Content Creators
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Share draft articles, creative briefs, and collaboration notes with clients and team members.
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Draft article sharing</li>
+                  <li>• Creative briefs and concepts</li>
+                  <li>• Research notes and sources</li>
+                  <li>• Client feedback and revisions</li>
+                  <li>• Content collaboration</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Users className="w-6 h-6 text-purple-600 mr-2" />
+                  For Students
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Share study notes, project files, and research materials with classmates and colleagues.
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Study notes and summaries</li>
+                  <li>• Project collaboration</li>
+                  <li>• Research materials</li>
+                  <li>• Assignment submissions</li>
+                  <li>• Group project coordination</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Globe className="w-6 h-6 text-orange-600 mr-2" />
+                  For Business
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                  Share meeting notes, proposals, and documents quickly without complex approval processes.
+                </p>
+                <ul className="space-y-2 text-sm text-muted-foreground">
+                  <li>• Meeting notes and minutes</li>
+                  <li>• Business proposals</li>
+                  <li>• Document sharing</li>
+                  <li>• Quick information sharing</li>
+                  <li>• Client communication</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-white text-center">
+          <h2 className="text-2xl font-semibold mb-4">Ready to Start Sharing Text Anonymously?</h2>
+          <p className="text-lg mb-6 opacity-90">
+            Experience the simplicity and security of anonymous text sharing with AnonShare. 
+            No registration required - start sharing immediately.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/clipboard">
+              <Button size="lg" variant="secondary" className="text-lg px-8 py-3">
+                Start Sharing Now
+              </Button>
+            </Link>
+            <Link to="/how-it-works">
+              <Button size="lg" variant="outline" className="text-lg px-8 py-3 border-white text-white hover:bg-white hover:text-blue-600">
+                Learn How It Works
+              </Button>
+            </Link>
+          </div>
+        </section>
+      </section>
+    </main>
+  </>
+);
 
 export default HowToShareTextAnonymously;
