@@ -43,8 +43,43 @@ const Index = () => {
     <>
       <Helmet>
         <title>AnonShare – Anonymous Clipboard & File Sharing</title>
-        <meta name="description" content="AnonShare lets you share text, notes, and files securely and anonymously. No login required. Clipboard, notepad, and file sharing with privacy-first design." />
+        <meta name="description" content="Share text, notes, and files anonymously with AnonShare. No login needed. Get 4-digit codes for instant sharing. Secure, private, and completely free." />
         <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="AnonShare – Anonymous Clipboard & File Sharing" />
+        <meta property="og:description" content="Share text, notes, and files anonymously with AnonShare. No login needed. Get 4-digit codes for instant sharing." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://anonshare.live" />
+        <meta property="og:image" content="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" />
+        <meta property="og:site_name" content="AnonShare" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="AnonShare – Anonymous Clipboard & File Sharing" />
+        <meta name="twitter:description" content="Share text, notes, and files anonymously with AnonShare. No login needed. Get 4-digit codes for instant sharing." />
+        <meta name="twitter:image" content="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" />
+        <link rel="canonical" href="https://anonshare.live" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "AnonShare",
+            "description": "Anonymous clipboard and file sharing tool with 4-digit codes. No login required.",
+            "url": "https://anonshare.live",
+            "applicationCategory": "ProductivityApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "featureList": [
+              "Anonymous text sharing",
+              "Rich text notepad",
+              "Secure file sharing",
+              "4-digit access codes",
+              "No registration required",
+              "Automatic content expiration"
+            ]
+          })}
+        </script>
       </Helmet>
       <main className="min-h-screen bg-sky-50">
         <section className="container mx-auto px-4 py-16">

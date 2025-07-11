@@ -10,8 +10,19 @@ const HowItWorks = () => (
   <>
     <Helmet>
       <title>How It Works – AnonShare</title>
-      <meta name="description" content="Learn how AnonShare lets you share text, notes, and files anonymously. A comprehensive step-by-step guide to using our clipboard, notepad, and secure file sharing tools with privacy protection." />
-      <meta name="robots" content="index, follow" />
+              <meta name="description" content="Learn how AnonShare works. Step-by-step guide to anonymous text, notes, and file sharing with 4-digit codes. No login required." />
+        <link rel="canonical" href="https://anonshare.live/how-it-works" />
+              <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="How It Works – AnonShare" />
+        <meta property="og:description" content="Learn how AnonShare works. Step-by-step guide to anonymous text, notes, and file sharing with 4-digit codes." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://anonshare.live/how-it-works" />
+        <meta property="og:image" content="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" />
+        <meta property="og:site_name" content="AnonShare" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="How It Works – AnonShare" />
+        <meta name="twitter:description" content="Learn how AnonShare works. Step-by-step guide to anonymous text, notes, and file sharing." />
+        <meta name="twitter:image" content="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" />
     </Helmet>
     <main className="min-h-screen bg-sky-50">
       <section className="max-w-4xl mx-auto px-4 py-12">

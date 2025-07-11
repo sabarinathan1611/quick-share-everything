@@ -135,8 +135,19 @@ const FAQ = () => (
   <>
     <Helmet>
       <title>FAQ – AnonShare</title>
-      <meta name="description" content="Frequently asked questions about AnonShare, anonymous clipboard, privacy, and secure file sharing. Get answers about our features, security, and how to use our platform." />
-      <meta name="robots" content="index, follow" />
+              <meta name="description" content="FAQ about AnonShare's anonymous clipboard, privacy features, and secure file sharing. Get answers about our platform and how to use it safely." />
+        <link rel="canonical" href="https://anonshare.live/faq" />
+              <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="FAQ – AnonShare" />
+        <meta property="og:description" content="FAQ about AnonShare's anonymous clipboard, privacy features, and secure file sharing. Get answers about our platform." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://anonshare.live/faq" />
+        <meta property="og:image" content="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" />
+        <meta property="og:site_name" content="AnonShare" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="FAQ – AnonShare" />
+        <meta name="twitter:description" content="FAQ about AnonShare's anonymous clipboard, privacy features, and secure file sharing." />
+        <meta name="twitter:image" content="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" />
     </Helmet>
     <main className="min-h-screen bg-sky-50">
       <section className="max-w-4xl mx-auto px-4 py-12">

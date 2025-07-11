@@ -1,23 +1,27 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-# Allow GPT bots
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-# Global rules
 User-agent: *
-Allow: /ads.txt
-Disallow: /ads
+Allow: /
+
+# Sitemap location
+Sitemap: https://anonshare.live/sitemap.xml
+
+# Disallow admin or private areas (if any)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+
+# Allow all public pages
+Allow: /clipboard
+Allow: /notepad
+Allow: /file-share
+Allow: /about
+Allow: /faq
+Allow: /how-it-works
+Allow: /privacy
+Allow: /terms
+Allow: /blog
+Allow: /how-to-share-text-anonymously
+Allow: /pastebin-alternative-no-login
+Allow: /temporary-file-sharing-tool
+
+# Crawl delay (optional)
+Crawl-delay: 1

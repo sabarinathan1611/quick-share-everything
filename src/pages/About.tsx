@@ -8,9 +8,20 @@ import AdUnit from '@/components/AdUnit';
 const About = () => (
   <>
     <Helmet>
-              <title>About AnonShare – Mission & Privacy</title>
-      <meta name="description" content="Learn about AnonShare's mission, privacy-first approach, and commitment to secure, anonymous sharing. Discover our features, security measures, and how we protect your data." />
+      <title>About AnonShare – Mission & Privacy</title>
+      <meta name="description" content="Learn about AnonShare's mission and privacy-first approach. Discover our secure, anonymous sharing features and how we protect your data without tracking." />
       <meta name="robots" content="index, follow" />
+      <meta property="og:title" content="About AnonShare – Mission & Privacy" />
+      <meta property="og:description" content="Learn about AnonShare's mission and privacy-first approach. Discover our secure, anonymous sharing features." />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://anonshare.live/about" />
+      <meta property="og:image" content="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" />
+      <meta property="og:site_name" content="AnonShare" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="About AnonShare – Mission & Privacy" />
+      <meta name="twitter:description" content="Learn about AnonShare's mission and privacy-first approach." />
+              <meta name="twitter:image" content="https://urevqqvsadvafgqehzna.supabase.co/storage/v1/object/public/anonshare//android-chrome-512x512.png" />
+        <link rel="canonical" href="https://anonshare.live/about" />
     </Helmet>
     <main className="min-h-screen bg-sky-50">
       <section className="max-w-4xl mx-auto px-4 py-12">
