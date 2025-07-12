@@ -45,8 +45,8 @@ const Home = () => {
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
             Anonymous Sharing Tools for Everyone
           </h2>
-          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-            Enter short codes like 3453 to receive shared content instantly. No accounts, no tracking, completely anonymous.
+                      <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+            Enter 4-digit codes to receive shared content instantly. No accounts, no tracking, completely anonymous.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="hover:shadow-lg transition-shadow">
@@ -100,11 +100,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* How Short Codes Work */}
+      {/* How 4-Digit Codes Work */}
       <section className="py-16 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
-            How Short Codes Work
+            How 4-Digit Codes Work
           </h2>
           <div className="grid md:grid-cols-4 gap-6">
             <div className="text-center">
@@ -118,11 +118,11 @@ const Home = () => {
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-green-600 text-xl font-bold">3453</span>
+                <span className="text-green-600 text-xl font-bold">1234</span>
               </div>
-              <h3 className="text-lg font-semibold mb-3">2. Get Short Code</h3>
+              <h3 className="text-lg font-semibold mb-3">2. Get 4-Digit Code</h3>
               <p className="text-gray-600 text-sm">
-                Receive a unique 4-digit code (e.g. 3453) for your shared content
+                Receive a unique 4-digit code for your shared content
               </p>
             </div>
             <div className="text-center">
@@ -140,7 +140,7 @@ const Home = () => {
               </div>
               <h3 className="text-lg font-semibold mb-3">4. Instant Access</h3>
               <p className="text-gray-600 text-sm">
-                Enter 3453 on our homepage to instantly receive the shared content
+                Enter the 4-digit code on our homepage to instantly receive the shared content
               </p>
             </div>
           </div>

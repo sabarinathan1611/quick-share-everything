@@ -63,7 +63,7 @@ const Notepad = () => {
               </CardTitle>
               <CardDescription>
                 Create formatted documents with headers, lists, links, and more. 
-                Content expires after 7 days. No login required.
+                Content expires after 24 hours. No login required.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -78,7 +78,7 @@ const Notepad = () => {
 
               <div className="flex justify-between items-center text-sm text-gray-500">
                 <span>Rich formatting supported</span>
-                <span>Expires in 7 days</span>
+                <span>Expires in 24 hours</span>
               </div>
 
               <Button 
@@ -116,7 +116,7 @@ const Notepad = () => {
                 <ol className="list-decimal list-inside space-y-1 text-sm text-gray-600">
                   <li>Share the code <strong>{shareCode}</strong> with anyone who needs access</li>
                   <li>They can enter the code on the homepage to retrieve the formatted note</li>
-                  <li>Content will automatically expire after 7 days</li>
+                  <li>Content will automatically expire after 24 hours</li>
                 </ol>
               </div>
 
@@ -161,7 +161,7 @@ const Notepad = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 text-sm mb-4">
-                  Notes are stored for 7 days, giving you more time for 
+                  Notes are stored for 24 hours, giving you time for 
                   collaboration and reference compared to other tools.
                 </p>
                 <Link to="/faq">

@@ -113,7 +113,7 @@ const Index = () => {
                 Have a Share Code?
               </h2>
               <p className="text-gray-600">
-                Enter your code (e.g. 3453) to access shared content
+                Enter your 4-digit code to access shared content
               </p>
             </div>
             <CodeInput onCodeSubmit={handleCodeSubmit} isLoading={isLoading} />
@@ -131,7 +131,7 @@ const Index = () => {
           <section className="mb-12" id="what-is-anonshare">
             <h2 className="text-3xl font-bold mb-4 text-foreground">What is AnonShare?</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              AnonShare is a free, privacy-focused web app that lets you share text, notes, and files instantly using short codes. Unlike traditional sharing tools, AnonShare never asks for your email or personal details. Everything is anonymous, temporary, and protected by design. Whether you want to send a quick note, paste code, or share a file, AnonShare makes it effortless and secure.
+              AnonShare is a free, privacy-focused web app that lets you share text, notes, and files instantly using 4-digit codes. Unlike traditional sharing tools, AnonShare never asks for your email or personal details. Everything is anonymous, temporary, and protected by design. Whether you want to send a quick note, paste code, or share a file, AnonShare makes it effortless and secure.
             </p>
           </section>
 
@@ -162,7 +162,7 @@ const Index = () => {
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-card rounded-lg p-6 shadow-md border border-border">
                 <h3 className="text-xl font-semibold mb-2 text-foreground">Anonymous Clipboard</h3>
-                <p className="text-muted-foreground">Paste text and share a short code. Perfect for quick, private text sharing without email or login.</p>
+                <p className="text-muted-foreground">Paste text and share a 4-digit code. Perfect for quick, private text sharing without email or login.</p>
               </div>
               <div className="bg-card rounded-lg p-6 shadow-md border border-border">
                 <h3 className="text-xl font-semibold mb-2 text-foreground">Rich Notepad</h3>
@@ -193,7 +193,7 @@ const Index = () => {
                       <Copy className="w-8 h-8 text-blue-600" />
                     </div>
                     <h3 className="text-xl font-semibold mb-3 text-gray-900">Clipboard Share</h3>
-                    <p className="text-gray-600">Paste text and share a short code (e.g. 3453). Perfect for quick text sharing without email.</p>
+                    <p className="text-gray-600">Paste text and share a 4-digit code. Perfect for quick text sharing without email.</p>
                   </div>
                 </div>
               </Link>
@@ -227,9 +227,9 @@ const Index = () => {
           {/* How It Works */}
           <div className="mt-16 max-w-4xl mx-auto">
             <div className="bg-white rounded-lg p-8 shadow-md border border-gray-200">
-              <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
-                How Short Codes Work
-              </h2>
+                          <h2 className="text-2xl font-bold text-center text-gray-900 mb-6">
+              How 4-Digit Codes Work
+            </h2>
               <div className="grid md:grid-cols-3 gap-6 text-center">
                 <div>
                   <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
@@ -243,14 +243,14 @@ const Index = () => {
                     <span className="text-green-600 text-2xl font-bold">2</span>
                   </div>
                   <h3 className="font-semibold mb-2 text-gray-900">Share the Code</h3>
-                  <p className="text-gray-600 text-sm">Give the code (e.g. 3453) to anyone who needs access</p>
+                  <p className="text-gray-600 text-sm">Give the 4-digit code to anyone who needs access</p>
                 </div>
                 <div>
                   <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                     <span className="text-purple-600 text-2xl font-bold">3</span>
                   </div>
                   <h3 className="font-semibold mb-2 text-gray-900">Instant Access</h3>
-                  <p className="text-gray-600 text-sm">Enter the code above to instantly receive shared content</p>
+                  <p className="text-gray-600 text-sm">Enter the 4-digit code above to instantly receive shared content</p>
                 </div>
               </div>
             </div>

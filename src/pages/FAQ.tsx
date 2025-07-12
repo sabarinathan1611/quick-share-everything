@@ -21,7 +21,7 @@ const faqs = [
       },
       {
         q: 'How do I access shared content?',
-        a: 'To access shared content, simply enter the 4-digit code (like 3453) in the search box on our homepage. The content will be displayed instantly if it hasn\'t expired. No login or account required.'
+        a: 'To access shared content, simply enter the 4-digit code in the search box on our homepage. The content will be displayed instantly if it hasn\'t expired. No login or account required.'
       },
       {
         q: 'Is AnonShare free to use?',
@@ -61,7 +61,7 @@ const faqs = [
     questions: [
       {
         q: 'What are the differences between Clipboard, Notepad, and File Share?',
-        a: 'Clipboard is for quick text sharing with 24-hour expiration. Notepad offers rich text editing with formatting options and 7-day retention. File Share allows uploading files up to 50MB with download limits and 48-hour expiration. Each tool is optimized for different use cases.'
+        a: 'Clipboard is for quick text sharing. Notepad offers rich text editing with formatting options. File Share allows uploading files up to 50MB with download limits. All content is automatically deleted after 24 hours for maximum privacy.'
       },
       {
         q: 'What file types can I upload?',
@@ -69,7 +69,7 @@ const faqs = [
       },
       {
         q: 'How long does my content stay available?',
-        a: 'Content expiration varies by tool: Clipboard content expires in 24 hours, Notepad content lasts 7 days, and File Share content expires in 48 hours or after reaching download limits. All content is automatically deleted after expiration.'
+        a: 'All content is automatically deleted after 24 hours for maximum privacy. Files may also be deleted earlier if they reach their download limit. This ensures no data lingers on our servers.'
       },
       {
         q: 'Can I edit or update my shared content?',

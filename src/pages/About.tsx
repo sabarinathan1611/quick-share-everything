@@ -134,7 +134,7 @@ const About = () => (
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• Paste any text content instantly</li>
                   <li>• Optional password protection</li>
-                  <li>• 24-hour automatic expiration</li>
+                  <li>• 24-hour automatic deletion for all content</li>
                   <li>• No character limits</li>
                   <li>• Perfect for code snippets and logs</li>
                 </ul>
@@ -157,7 +157,7 @@ const About = () => (
                   <li>• WYSIWYG rich text editor</li>
                   <li>• Support for headers, lists, links</li>
                   <li>• Text formatting and styling</li>
-                  <li>• 7-day content retention</li>
+                  <li>• 24-hour content retention</li>
                   <li>• Ideal for collaborative notes</li>
                 </ul>
                 <Link to="/notepad" className="text-primary hover:underline text-sm font-medium mt-4 inline-block">
@@ -178,7 +178,7 @@ const About = () => (
                 <ul className="space-y-2 text-sm text-muted-foreground">
                   <li>• Upload files up to 50MB</li>
                   <li>• Download limits and tracking</li>
-                  <li>• 48-hour expiration period</li>
+                  <li>• 24-hour expiration period</li>
                   <li>• Secure temporary storage</li>
                   <li>• No file type restrictions</li>
                 </ul>

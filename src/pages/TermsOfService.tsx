@@ -97,12 +97,12 @@ const TermsOfService = () => (
                     <div className="bg-gray-50 rounded-lg p-4">
                       <FileText className="w-8 h-8 text-green-600 mb-2" />
                       <h4 className="font-semibold text-sm mb-1">Rich Notepad</h4>
-                      <p className="text-xs text-muted-foreground">Formatted notes with 7-day retention</p>
+                      <p className="text-xs text-muted-foreground">Formatted notes with 24-hour retention</p>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-4">
                       <Upload className="w-8 h-8 text-purple-600 mb-2" />
                       <h4 className="font-semibold text-sm mb-1">File Sharing</h4>
-                      <p className="text-xs text-muted-foreground">File uploads up to 50MB</p>
+                      <p className="text-xs text-muted-foreground">File uploads up to 50MB with 24-hour retention</p>
                     </div>
                   </div>
                 </div>

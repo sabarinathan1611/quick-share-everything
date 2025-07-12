@@ -32,7 +32,7 @@ const generateUniqueCode = async (): Promise<string> => {
 };
 
 export const createShare = async (data: CreateShareData): Promise<Share> => {
-  const expirationHours = data.type === 'clipboard' ? 24 : 168; // 24h for clipboard, 7 days for notepad
+  const expirationHours = 24; // All content expires after 24 hours
   const expiresAt = new Date();
   expiresAt.setHours(expiresAt.getHours() + expirationHours);
 
@@ -92,7 +92,7 @@ export const createFileShare = async (
 
   // Create share record
   const expiresAt = new Date();
-  expiresAt.setHours(expiresAt.getHours() + 48); // 48 hours for files
+  expiresAt.setHours(expiresAt.getHours() + 24); // 24 hours for files
 
   const code = await generateUniqueCode();
 

@@ -122,7 +122,7 @@ const TemporaryFileSharingTool = () => {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-600">
-                    Choose how long the file should remain available - from 1 hour to 7 days. 
+                    Choose how long the file should remain available - up to 24 hours maximum. 
                     Files automatically delete when the time expires.
                   </p>
                 </CardContent>

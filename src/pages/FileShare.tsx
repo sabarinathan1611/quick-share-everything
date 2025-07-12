@@ -269,7 +269,7 @@ const FileShare = () => {
                     <li>Also share the password you set for decryption</li>
                   )}
                   <li>They can enter the code on the homepage to download the file</li>
-                  <li>File will be automatically deleted after {maxDownloads} downloads or 24 hours</li>
+                                      <li>File will be automatically deleted after {maxDownloads} downloads or 24 hours</li>
                 </ol>
               </div>
 

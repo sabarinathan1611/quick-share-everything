@@ -46,7 +46,7 @@ const Post2 = () => (
           </p>
           <ul className="list-disc list-inside space-y-2">
             <li><strong>Key Feature:</strong> Offers an <strong>anonymous clipboard</strong>, a rich-text notepad, and <strong>secure file sharing</strong>.</li>
-            <li><strong>Privacy Focus:</strong> No registration, no IP logging, and all content expires automatically (from 24 hours to 7 days). Optional end-to-end encryption is available.</li>
+                            <li><strong>Privacy Focus:</strong> No registration, no IP logging, and all content expires automatically after 24 hours. Optional end-to-end encryption is available.</li>
             <li><strong>Why it's great:</strong> The use of simple 4-digit codes instead of long URLs makes sharing incredibly fast and convenient. It's the ideal choice for quick, secure sharing without a digital trail. See <Link to="/how-it-works" className="text-primary hover:underline">how it works</Link>.</li>
           </ul>
 

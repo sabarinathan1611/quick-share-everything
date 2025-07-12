@@ -144,18 +144,18 @@ const PrivacyPolicy = () => (
                   <div className="grid md:grid-cols-3 gap-4">
                     <div className="bg-gray-50 rounded-lg p-4">
                       <Clock className="w-8 h-8 text-blue-600 mb-2" />
-                      <h4 className="font-semibold text-sm mb-1">Clipboard Content</h4>
+                      <h4 className="font-semibold text-sm mb-1">All Content</h4>
                       <p className="text-xs text-muted-foreground">Automatically deleted after 24 hours</p>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-4">
                       <Clock className="w-8 h-8 text-green-600 mb-2" />
-                      <h4 className="font-semibold text-sm mb-1">Notepad Content</h4>
-                      <p className="text-xs text-muted-foreground">Automatically deleted after 7 days</p>
+                      <h4 className="font-semibold text-sm mb-1">Download Limits</h4>
+                      <p className="text-xs text-muted-foreground">Files deleted when limit reached</p>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-4">
                       <Clock className="w-8 h-8 text-purple-600 mb-2" />
-                      <h4 className="font-semibold text-sm mb-1">File Content</h4>
-                      <p className="text-xs text-muted-foreground">Automatically deleted after 48 hours</p>
+                      <h4 className="font-semibold text-sm mb-1">Custom Expiry</h4>
+                      <p className="text-xs text-muted-foreground">Content deleted at custom expiry time</p>
                     </div>
                   </div>
                 </div>

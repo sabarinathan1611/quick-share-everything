@@ -337,7 +337,7 @@ const PastebinAlternativeNoLogin = () => (
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-green-600 text-xl font-bold">3453</span>
+                  <span className="text-green-600 text-xl font-bold">1234</span>
                 </div>
                 <h3 className="font-semibold mb-2 text-foreground">2. Get Code</h3>
                 <p className="text-sm text-muted-foreground">

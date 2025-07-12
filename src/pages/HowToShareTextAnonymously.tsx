@@ -112,7 +112,7 @@ const HowToShareTextAnonymously = () => (
                           Create formatted notes with headers, lists, links, and styling.
                         </p>
                         <ul className="text-xs text-muted-foreground space-y-1">
-                          <li>• 7-day retention</li>
+                          <li>• 24-hour retention</li>
                           <li>• Rich text editor</li>
                           <li>• Formatting options</li>
                           <li>• Collaborative notes</li>
@@ -135,7 +135,7 @@ const HowToShareTextAnonymously = () => (
                         <ul className="text-xs text-muted-foreground space-y-1">
                           <li>• 50MB file limit</li>
                           <li>• Download limits</li>
-                          <li>• 48-hour expiration</li>
+                          <li>• 24-hour expiration</li>
                           <li>• All file types</li>
                         </ul>
                         <Link to="/file-share">
@@ -238,7 +238,7 @@ const HowToShareTextAnonymously = () => (
                         </li>
                         <li className="flex items-start">
                           <span className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-3 mt-0.5 flex-shrink-0">5</span>
-                          <span>Copy or note down your access code (e.g., 3453)</span>
+                          <span>Copy or note down your 4-digit access code</span>
                         </li>
                       </ol>
                     </div>

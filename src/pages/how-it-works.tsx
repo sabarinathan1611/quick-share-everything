@@ -47,11 +47,11 @@ const HowItWorks = () => (
                 <p className="text-sm text-muted-foreground">Paste text, create notes, or upload files</p>
               </div>
               <div className="text-center">
-                <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-green-600 text-xl font-bold">3453</span>
-                </div>
-                <h3 className="font-semibold mb-2 text-foreground">2. Get Code</h3>
-                <p className="text-sm text-muted-foreground">Receive unique 4-digit access code</p>
+                              <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <span className="text-green-600 text-xl font-bold">1234</span>
+              </div>
+              <h3 className="font-semibold mb-2 text-foreground">2. Get 4-Digit Code</h3>
+              <p className="text-sm text-muted-foreground">Receive unique 4-digit access code</p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
@@ -118,7 +118,7 @@ const HowItWorks = () => (
                         Create formatted notes with headers, lists, links, and styling.
                       </p>
                       <ul className="text-xs text-muted-foreground space-y-1">
-                        <li>• 7-day retention</li>
+                        <li>• 24-hour retention</li>
                         <li>• Rich text editor</li>
                         <li>• Formatting options</li>
                         <li>• Collaborative notes</li>
@@ -141,7 +141,7 @@ const HowItWorks = () => (
                       <ul className="text-xs text-muted-foreground space-y-1">
                         <li>• 50MB file limit</li>
                         <li>• Download limits</li>
-                        <li>• 48-hour expiration</li>
+                        <li>• 24-hour expiration</li>
                         <li>• All file types</li>
                       </ul>
                       <Link to="/file-share">
@@ -228,7 +228,7 @@ const HowItWorks = () => (
               <div className="flex-1">
                 <h3 className="text-2xl font-semibold mb-4 text-foreground">Get Your Unique Share Code</h3>
                 <p className="text-muted-foreground mb-6">
-                  Once you submit your content, our system generates a unique, 4-digit numeric code (e.g., 3453). This code is your content's key and is designed to be easy to share and remember.
+                  Once you submit your content, our system generates a unique, 4-digit numeric code. This code is your content's key and is designed to be easy to share and remember.
                 </p>
                 <div className="bg-gray-50 rounded-lg p-6 mb-6">
                   <h4 className="font-semibold mb-3 text-foreground">Code Generation Process</h4>
@@ -320,9 +320,9 @@ const HowItWorks = () => (
                   All content has built-in expiration periods to protect your privacy:
                 </p>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• <strong>Clipboard:</strong> 24 hours</li>
-                  <li>• <strong>Notepad:</strong> 7 days</li>
-                  <li>• <strong>Files:</strong> 48 hours</li>
+                  <li>• <strong>All Content:</strong> 24 hours maximum</li>
+                  <li>• <strong>Files:</strong> Also deleted when download limit reached</li>
+                  <li>• <strong>Custom Expiry:</strong> Content deleted at custom expiry time</li>
                 </ul>
               </CardContent>
             </Card>
