@@ -293,6 +293,21 @@ const Index = () => {
             </div>
           </div>
         </section>
+
+        {/* Footer Links */}
+        <footer className="bg-white border-t border-gray-200 py-8 mt-16">
+          <div className="container mx-auto px-4">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 text-sm text-gray-600">
+              <Link to="/privacy-policy" className="hover:text-primary transition-colors">
+                /privacy-policy
+              </Link>
+              <span className="hidden sm:inline">•</span>
+              <Link to="/terms-of-service" className="hover:text-primary transition-colors">
+                /terms-of-service
+              </Link>
+            </div>
+          </div>
+        </footer>
       </main>
       
       <CookieNotice />
