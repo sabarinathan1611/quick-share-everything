@@ -46,8 +46,6 @@ const App = () => (
                 <Route path="/blog" element={<BlogIndex />} />
                 <Route path="/blog/how-to-share-text-anonymously" element={<Post1 />} />
                 <Route path="/blog/pastebin-alternatives-2025" element={<Post2 />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="/terms" element={<Terms />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-of-service" element={<TermsOfService />} />
                 <Route path="/clipboard" element={<Clipboard />} />
