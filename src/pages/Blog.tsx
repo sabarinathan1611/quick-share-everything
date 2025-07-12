@@ -166,7 +166,7 @@ const Blog = () => {
                   Learn about digital privacy best practices, security measures, and 
                   how to protect your data online.
                 </p>
-                <Link to="/privacy">
+                <Link to="/privacy-policy">
                   <Button variant="outline" size="sm">
                     Privacy Policy
                   </Button>

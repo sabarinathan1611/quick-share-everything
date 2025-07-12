@@ -255,8 +255,8 @@ const FAQ = () => (
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>• <Link to="/privacy" className="text-primary hover:underline">Privacy Policy</Link></li>
-                  <li>• <Link to="/terms" className="text-primary hover:underline">Terms of Service</Link></li>
+                  <li>• <Link to="/privacy-policy" className="text-primary hover:underline">Privacy Policy</Link></li>
+                  <li>• <Link to="/terms-of-service" className="text-primary hover:underline">Terms of Service</Link></li>
                   <li>• <Link to="/about" className="text-primary hover:underline">About Our Mission</Link></li>
                 </ul>
               </CardContent>

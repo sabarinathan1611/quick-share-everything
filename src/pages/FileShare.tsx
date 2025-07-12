@@ -315,7 +315,7 @@ const FileShare = () => {
                   All files are encrypted during upload and scanned for malware 
                   to ensure safe sharing. Your data is protected at every step.
                 </p>
-                <Link to="/privacy">
+                <Link to="/privacy-policy">
                   <Button variant="outline" size="sm" className="w-full">
                     Privacy Policy
                   </Button>

@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 import AdUnit from '@/components/AdUnit';
 import { Button } from '@/components/ui/button';
 
-const Terms = () => (
+const TermsOfService = () => (
   <>
     <Helmet>
       <title>Terms of Service - AnonShare</title>
       <meta name="description" content="Read the comprehensive terms of service for AnonShare. Understand your rights, responsibilities, and the rules for using our anonymous sharing platform." />
-      <link rel="canonical" href="https://anonshare.live/terms" />
+      <link rel="canonical" href="https://anonshare.live/terms-of-service" />
     </Helmet>
     <main className="min-h-screen bg-sky-50">
       <div className="max-w-4xl mx-auto px-4 py-12">
@@ -21,7 +21,6 @@ const Terms = () => (
             These terms govern your use of AnonShare. By using our service, you agree to these terms and our privacy practices.
           </p>
         </header>
-
         {/* Terms Overview */}
         <section className="mb-12">
           <div className="bg-white rounded-lg p-8 shadow-md border">
@@ -51,7 +50,6 @@ const Terms = () => (
             </div>
           </div>
         </section>
-
         {/* Acceptance of Terms */}
         <section className="mb-12">
           <Card>
@@ -74,7 +72,6 @@ const Terms = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Service Description */}
         <section className="mb-12">
           <Card>
@@ -109,7 +106,6 @@ const Terms = () => (
                     </div>
                   </div>
                 </div>
-
                 <div>
                   <h3 className="font-semibold mb-3 text-foreground">Service Limitations</h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
@@ -124,7 +120,6 @@ const Terms = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* User Conduct */}
         <section className="mb-12">
           <Card>
@@ -142,7 +137,6 @@ const Terms = () => (
                     You are solely responsible for the content you share through the Service. You agree to use the Service only for lawful purposes and in accordance with these Terms.
                   </p>
                 </div>
-
                 <div>
                   <h3 className="font-semibold mb-3 text-foreground">Prohibited Content</h3>
                   <p className="text-muted-foreground mb-3">
@@ -169,7 +163,6 @@ const Terms = () => (
                     </div>
                   </div>
                 </div>
-
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                   <h4 className="font-semibold mb-2 text-foreground flex items-center">
                     <AlertTriangle className="w-4 h-4 text-yellow-600 mr-2" />
@@ -184,7 +177,6 @@ const Terms = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Privacy and Data */}
         <section className="mb-12">
           <Card>
@@ -201,7 +193,6 @@ const Terms = () => (
                   <Link to="/privacy-policy" className="text-primary hover:underline">Privacy Policy</Link>, 
                   which is incorporated into these Terms by reference.
                 </p>
-                
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-semibold mb-2 text-foreground">What We Don't Collect</h4>
@@ -226,7 +217,6 @@ const Terms = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Service Availability */}
         <section className="mb-12">
           <Card>
@@ -244,7 +234,6 @@ const Terms = () => (
                     We strive to maintain high availability but cannot guarantee uninterrupted service. The Service may be temporarily unavailable due to maintenance, updates, or technical issues.
                   </p>
                 </div>
-
                 <div>
                   <h3 className="font-semibold mb-2 text-foreground">Technical Limitations</h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
@@ -255,7 +244,6 @@ const Terms = () => (
                     <li>• <strong>No Editing:</strong> Content cannot be modified after sharing</li>
                   </ul>
                 </div>
-
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <h4 className="font-semibold mb-2 text-foreground">Service Updates</h4>
                   <p className="text-sm text-muted-foreground">
@@ -266,7 +254,6 @@ const Terms = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Advertising */}
         <section className="mb-12">
           <Card>
@@ -278,7 +265,6 @@ const Terms = () => (
                 <p className="text-muted-foreground">
                   The Service is supported by advertising revenue. We use Google AdSense to display advertisements on our platform.
                 </p>
-                
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="font-semibold mb-2 text-foreground">Advertising Practices</h4>
@@ -303,7 +289,6 @@ const Terms = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Disclaimers */}
         <section className="mb-12">
           <Card>
@@ -321,14 +306,12 @@ const Terms = () => (
                     The Service is provided "as is" and "as available" without any warranties of any kind, either express or implied. We do not guarantee that the service will be error-free, uninterrupted, or secure.
                   </p>
                 </div>
-
                 <div>
                   <h3 className="font-semibold mb-2 text-foreground">Limitation of Liability</h3>
                   <p className="text-muted-foreground">
                     In no event shall AnonShare be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses.
                   </p>
                 </div>
-
                 <div>
                   <h3 className="font-semibold mb-2 text-foreground">Content Responsibility</h3>
                   <p className="text-muted-foreground">
@@ -339,7 +322,6 @@ const Terms = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Changes to Terms */}
         <section className="mb-12">
           <Card>
@@ -351,14 +333,12 @@ const Terms = () => (
                 <p className="text-muted-foreground">
                   We reserve the right to modify these Terms at any time. When we make changes, we will update the "Last Updated" date at the bottom of this page.
                 </p>
-                
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                   <h4 className="font-semibold mb-2 text-foreground">Continued Use</h4>
                   <p className="text-sm text-muted-foreground">
                     Your continued use of the Service after any changes to these Terms constitutes your acceptance of the new terms. If you do not agree to the modified terms, you should discontinue using the Service.
                   </p>
                 </div>
-
                 <div>
                   <h4 className="font-semibold mb-2 text-foreground">Notification of Changes</h4>
                   <ul className="space-y-1 text-sm text-muted-foreground">
@@ -372,12 +352,10 @@ const Terms = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Ad Unit */}
         <div className="mb-12">
           <AdUnit adSlot="1234567890" adFormat="horizontal" className="text-center" />
         </div>
-
         {/* Contact Information */}
         <section className="mb-12">
           <Card>
@@ -404,7 +382,6 @@ const Terms = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Terms Summary */}
         <section className="mb-12">
           <Card>
@@ -435,7 +412,6 @@ const Terms = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* CTA Section */}
         <section className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-white text-center">
           <h2 className="text-2xl font-semibold mb-4">Ready to Start Sharing?</h2>
@@ -455,7 +431,6 @@ const Terms = () => (
             </Link>
           </div>
         </section>
-
         {/* Last Updated */}
         <div className="text-center text-sm text-muted-foreground">
           <p>Last Updated: January 15, 2025</p>
@@ -465,4 +440,4 @@ const Terms = () => (
   </>
 );
 
-export default Terms;
+export default TermsOfService; 

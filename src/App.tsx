@@ -24,6 +24,8 @@ import HowToShareTextAnonymously from "./pages/HowToShareTextAnonymously";
 import PastebinAlternativeNoLogin from "./pages/PastebinAlternativeNoLogin";
 import TemporaryFileSharingTool from "./pages/TemporaryFileSharingTool";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +48,8 @@ const App = () => (
                 <Route path="/blog/pastebin-alternatives-2025" element={<Post2 />} />
                 <Route path="/privacy" element={<Privacy />} />
                 <Route path="/terms" element={<Terms />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
                 <Route path="/clipboard" element={<Clipboard />} />
                 <Route path="/notepad" element={<Notepad />} />
                 <Route path="/file-share" element={<FileShare />} />

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import AdUnit from '@/components/AdUnit';
 import { Button } from '@/components/ui/button';
 
-const Privacy = () => (
+const PrivacyPolicy = () => (
   <>
     <Helmet>
       <title>Privacy Policy - AnonShare</title>
@@ -24,7 +24,6 @@ const Privacy = () => (
             Your privacy is our fundamental principle. This policy explains how we protect your data and maintain true anonymity.
           </p>
         </header>
-
         {/* Privacy Overview */}
         <section className="mb-12">
           <div className="bg-white rounded-lg p-8 shadow-md border">
@@ -54,7 +53,6 @@ const Privacy = () => (
             </div>
           </div>
         </section>
-
         {/* Information We Do Not Collect */}
         <section className="mb-12">
           <Card>
@@ -115,7 +113,6 @@ const Privacy = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Data Handling */}
         <section className="mb-12">
           <Card>
@@ -142,7 +139,6 @@ const Privacy = () => (
                     <li>• <strong>No Metadata:</strong> We don't store information about who created or accessed content</li>
                   </ul>
                 </div>
-
                 <div>
                   <h3 className="font-semibold mb-3 text-foreground">Expiration and Deletion</h3>
                   <div className="grid md:grid-cols-3 gap-4">
@@ -163,7 +159,6 @@ const Privacy = () => (
                     </div>
                   </div>
                 </div>
-
                 <div>
                   <h3 className="font-semibold mb-3 text-foreground">Security Measures</h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
@@ -177,7 +172,6 @@ const Privacy = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Third-Party Services */}
         <section className="mb-12">
           <Card>
@@ -211,7 +205,6 @@ const Privacy = () => (
                     </p>
                   </div>
                 </div>
-
                 <div>
                   <h3 className="font-semibold mb-2 text-foreground">Infrastructure Services</h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
@@ -224,7 +217,6 @@ const Privacy = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* User Rights */}
         <section className="mb-12">
           <Card>
@@ -267,7 +259,6 @@ const Privacy = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Compliance */}
         <section className="mb-12">
           <Card>
@@ -304,12 +295,10 @@ const Privacy = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Ad Unit */}
         <div className="mb-12">
           <AdUnit adSlot="1234567890" adFormat="horizontal" className="text-center" />
         </div>
-
         {/* Contact Information */}
         <section className="mb-12">
           <Card>
@@ -339,7 +328,6 @@ const Privacy = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* Policy Updates */}
         <section className="mb-12">
           <Card>
@@ -361,7 +349,6 @@ const Privacy = () => (
             </CardContent>
           </Card>
         </section>
-
         {/* CTA Section */}
         <section className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-white text-center">
           <h2 className="text-2xl font-semibold mb-4">Your Privacy is Protected</h2>
@@ -386,4 +373,4 @@ const Privacy = () => (
   </>
 );
 
-export default Privacy; 
+export default PrivacyPolicy; 

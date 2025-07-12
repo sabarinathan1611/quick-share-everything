@@ -16,8 +16,10 @@ Allow: /file-share
 Allow: /about
 Allow: /faq
 Allow: /how-it-works
-Allow: /privacy
-Allow: /terms
+Allow: /privacy-policy
+Allow: /terms-of-service
+# Allow: /privacy
+# Allow: /terms
 Allow: /blog
 Allow: /how-to-share-text-anonymously
 Allow: /pastebin-alternative-no-login

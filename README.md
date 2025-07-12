@@ -1,4 +1,3 @@
-
 # AnonShare – Secure, Anonymous Data Sharing
 
 AnonShare lets users share text, files, and notes securely without login using one-time codes. Built with privacy-first principles and optional end-to-end encryption.
@@ -66,8 +65,8 @@ The project uses Supabase for backend services. Configuration is handled through
 - **Notepad** (`/notepad`) - Rich text note creation
 - **File Share** (`/file-share`) - Secure file upload and sharing
 - **About** (`/about`) - Mission and project information
-- **Privacy** (`/privacy`) - Privacy policy and data practices
-- **Terms** (`/terms`) - Terms of service and usage guidelines
+- **Privacy Policy** (`/privacy-policy`) - Privacy policy and data practices
+- **Terms of Service** (`/terms-of-service`) - Terms of service and usage guidelines
 
 ## 🤝 Contributing
 
@@ -86,7 +85,7 @@ For questions or support, visit our About page for more information.
 
 ## 📜 License
 
-This project is open source and available under standard terms of use. See our Terms page for details.
+This project is open source and available under standard terms of use. See our Terms of Service page for details.
 
 ---
 

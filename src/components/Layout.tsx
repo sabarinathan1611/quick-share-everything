@@ -127,8 +127,8 @@ const Layout = ({
             <div>
               <h3 className="font-semibold text-gray-900 mb-4">Legal</h3>
               <ul className="space-y-2">
-                <li><Link to="/privacy" className="text-gray-600 hover:text-blue-600 text-sm">Privacy Policy</Link></li>
-                <li><Link to="/terms" className="text-gray-600 hover:text-blue-600 text-sm">Terms of Service</Link></li>
+                <li><Link to="/privacy-policy" className="text-gray-600 hover:text-blue-600 text-sm">Privacy Policy</Link></li>
+                <li><Link to="/terms-of-service" className="text-gray-600 hover:text-blue-600 text-sm">Terms of Service</Link></li>
                 <li><Link to="/about" className="text-gray-600 hover:text-blue-600 text-sm">About Us</Link></li>
                 <li><Link to="/faq" className="text-gray-600 hover:text-blue-600 text-sm">FAQ</Link></li>
               </ul>

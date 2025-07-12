@@ -44,7 +44,7 @@ const ClipboardFeatures = () => {
               Optional client-side encryption ensures your sensitive content 
               remains private and secure. Your data is protected at every step.
             </p>
-            <Link to="/privacy">
+            <Link to="/privacy-policy">
               <Button variant="outline" size="sm" className="w-full">
                 Privacy Policy
               </Button>
