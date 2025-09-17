@@ -18,8 +18,7 @@ import Notepad from "./pages/Notepad";
 import FileShare from "./pages/FileShare";
 import HowItWorks from "./pages/how-it-works";
 import BlogIndex from "./pages/blog/index";
-import Post1 from "./pages/blog/how-to-share-text-anonymously";
-import Post2 from "./pages/blog/pastebin-alternatives-2025";
+import BlogPostPage from "./pages/blog/[slug]";
 import HowToShareTextAnonymously from "./pages/HowToShareTextAnonymously";
 import PastebinAlternativeNoLogin from "./pages/PastebinAlternativeNoLogin";
 import TemporaryFileSharingTool from "./pages/TemporaryFileSharingTool";
@@ -44,8 +43,7 @@ const App = () => (
                 <Route path="/about" element={<About />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/blog" element={<BlogIndex />} />
-                <Route path="/blog/how-to-share-text-anonymously" element={<Post1 />} />
-                <Route path="/blog/pastebin-alternatives-2025" element={<Post2 />} />
+                <Route path="/blog/:slug" element={<BlogPostPage />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-of-service" element={<TermsOfService />} />
                 <Route path="/clipboard" element={<Clipboard />} />

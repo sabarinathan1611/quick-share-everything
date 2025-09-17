@@ -9,6 +9,54 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      blog: {
+        Row: {
+          id: string
+          slug: string
+          title: string
+          excerpt: string | null
+          content: string
+          author: string | null
+          cover_image_url: string | null
+          tags: string[] | null
+          published: boolean
+          published_at: string | null
+          reading_time: number | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          slug: string
+          title: string
+          excerpt?: string | null
+          content: string
+          author?: string | null
+          cover_image_url?: string | null
+          tags?: string[] | null
+          published?: boolean
+          published_at?: string | null
+          reading_time?: number | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          slug?: string
+          title?: string
+          excerpt?: string | null
+          content?: string
+          author?: string | null
+          cover_image_url?: string | null
+          tags?: string[] | null
+          published?: boolean
+          published_at?: string | null
+          reading_time?: number | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       cleanup_logs: {
         Row: {
           cleaned_at: string | null

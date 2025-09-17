@@ -1,38 +1,125 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Copy, FileText, Upload, Shield, Zap, Globe, Users, Clock, Lock } from 'lucide-react';
 import AdUnit from '@/components/AdUnit';
+import { useAnime } from '@/hooks/useAnime';
+import { 
+  AnimatedPrivacyShield, 
+  AnimatedLock, 
+  AnimatedEye, 
+  AnimatedKey,
+  AnimatedCodeDigits,
+  AnimatedFeatureIcon,
+  AnimatedParticles,
+  AnimatedTextReveal
+} from '@/components/AnimatedElements';
+import { BackgroundBeamsWithCollision } from '@/components/ui/background-beams-with-collision';
 
 const Home = () => {
+  const {
+    fadeInUp,
+    fadeInLeft,
+    fadeInRight,
+    scaleIn,
+    staggerFadeIn,
+    floatingAnimation
+  } = useAnime();
+
+  const heroRef = useRef<HTMLElement>(null);
+  const featuresRef = useRef<HTMLElement>(null);
+  const stepsRef = useRef<HTMLElement>(null);
+  const whyChooseRef = useRef<HTMLElement>(null);
+  const useCasesRef = useRef<HTMLElement>(null);
+  const ctaRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    // Hero section animations
+    if (heroRef.current) {
+      const title = heroRef.current.querySelector('h1');
+      const subtitle = heroRef.current.querySelector('p');
+      const buttons = Array.from(heroRef.current.querySelectorAll('a')).filter(x => x instanceof HTMLElement) as HTMLElement[];
+
+      if (title instanceof HTMLElement) fadeInUp(title, 200);
+      if (subtitle instanceof HTMLElement) fadeInUp(subtitle, 400);
+      staggerFadeIn(buttons, 600);
+    }
+
+    // Features section animations
+    if (featuresRef.current) {
+      const cards = Array.from(featuresRef.current.querySelectorAll('.feature-card')).filter(x => x instanceof HTMLElement) as HTMLElement[];
+      staggerFadeIn(cards, 200);
+    }
+
+    // Steps section animations
+    if (stepsRef.current) {
+      const steps = Array.from(stepsRef.current.querySelectorAll('.step-item')).filter(x => x instanceof HTMLElement) as HTMLElement[];
+      staggerFadeIn(steps, 300);
+    }
+
+    // Why Choose section animations
+    if (whyChooseRef.current) {
+      const items = Array.from(whyChooseRef.current.querySelectorAll('.why-item')).filter(x => x instanceof HTMLElement) as HTMLElement[];
+      staggerFadeIn(items, 250);
+    }
+
+    // Use Cases section animations
+    if (useCasesRef.current) {
+      const cases = Array.from(useCasesRef.current.querySelectorAll('.use-case')).filter(x => x instanceof HTMLElement) as HTMLElement[];
+      staggerFadeIn(cases, 200);
+    }
+
+    // CTA section animations
+    if (ctaRef.current) {
+      const ctaContent = ctaRef.current.querySelector('.cta-content');
+      if (ctaContent instanceof HTMLElement) scaleIn(ctaContent, 100);
+    }
+  }, []);
+
   return (
-    <div className="min-h-screen bg-sky-50">
-      {/* Hero Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            Share Notes, Files & Text Instantly — Anonymously
-          </h1>
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Use our online notepad, clipboard, and file drop — 100% private, no signup needed. 
-            Perfect for anonymous clipboard sharing, paste without login, and secure file sharing.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/clipboard">
-              <Button size="lg" className="text-lg px-8 py-3">
-                Start Sharing Now
-              </Button>
-            </Link>
-            <Link to="/about">
-              <Button variant="outline" size="lg" className="text-lg px-8 py-3">
-                Learn More
-              </Button>
-            </Link>
+    <div className="min-h-screen bg-sky-50 relative overflow-hidden">
+      {/* Animated Background Particles */}
+      <AnimatedParticles />
+
+      {/* Hero Section with Beams */}
+      <BackgroundBeamsWithCollision>
+        <section ref={heroRef} className="py-20 px-4 relative bg-transparent">
+          <div className="max-w-6xl mx-auto text-center">
+            {/* Animated Privacy Shield */}
+            <div className="flex justify-center mb-8">
+              <AnimatedPrivacyShield />
+            </div>
+            <h1 className="text-5xl font-bold text-gray-900 mb-6">
+              <AnimatedTextReveal 
+                text="Share Notes, Files & Text Instantly — Anonymously"
+                className="inline-block"
+                delay={200}
+              />
+            </h1>
+            <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+              <AnimatedTextReveal 
+                text="Use our online notepad, clipboard, and file drop — 100% private, no signup needed. Perfect for anonymous clipboard sharing, paste without login, and secure file sharing."
+                className="inline-block"
+                delay={400}
+              />
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/clipboard">
+                <Button size="lg" className="text-lg px-8 py-3 transform hover:scale-105 transition-transform">
+                  Start Sharing Now
+                </Button>
+              </Link>
+              <Link to="/about">
+                <Button variant="outline" size="lg" className="text-lg px-8 py-3 transform hover:scale-105 transition-transform">
+                  Learn More
+                </Button>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </BackgroundBeamsWithCollision>
 
       {/* Ad Unit */}
       <div className="max-w-4xl mx-auto px-4 mb-12">
@@ -40,18 +127,23 @@ const Home = () => {
       </div>
 
       {/* Features Section */}
-      <section className="py-16 px-4">
+      <section ref={featuresRef} className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
             Anonymous Sharing Tools for Everyone
           </h2>
-                      <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
             Enter 4-digit codes to receive shared content instantly. No accounts, no tracking, completely anonymous.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="feature-card hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader>
-                <Copy className="w-12 h-12 text-blue-600 mb-4" />
+                <AnimatedFeatureIcon 
+                  icon={<Copy className="w-6 h-6 text-white" />}
+                  color="bg-blue-600"
+                  delay={200}
+                  className="mb-4"
+                />
                 <CardTitle>Anonymous Clipboard</CardTitle>
                 <CardDescription>
                   Perfect anonymous clipboard tool. Paste text and get a 4-digit code to share instantly. 
@@ -65,9 +157,14 @@ const Home = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="feature-card hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader>
-                <FileText className="w-12 h-12 text-green-600 mb-4" />
+                <AnimatedFeatureIcon 
+                  icon={<FileText className="w-6 h-6 text-white" />}
+                  color="bg-green-600"
+                  delay={400}
+                  className="mb-4"
+                />
                 <CardTitle>Online Notepad</CardTitle>
                 <CardDescription>
                   Create formatted notes with our rich text editor. Add headers, lists, links, and 
@@ -81,9 +178,14 @@ const Home = () => {
               </CardContent>
             </Card>
 
-            <Card className="hover:shadow-lg transition-shadow">
+            <Card className="feature-card hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
               <CardHeader>
-                <Upload className="w-12 h-12 text-purple-600 mb-4" />
+                <AnimatedFeatureIcon 
+                  icon={<Upload className="w-6 h-6 text-white" />}
+                  color="bg-purple-600"
+                  delay={600}
+                  className="mb-4"
+                />
                 <CardTitle>Secure File Share</CardTitle>
                 <CardDescription>
                   Upload and share files up to 50MB with download limits and expiration dates. 
@@ -101,13 +203,13 @@ const Home = () => {
       </section>
 
       {/* How 4-Digit Codes Work */}
-      <section className="py-16 px-4 bg-gray-50">
+      <section ref={stepsRef} className="py-16 px-4 bg-gray-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
             How 4-Digit Codes Work
           </h2>
           <div className="grid md:grid-cols-4 gap-6">
-            <div className="text-center">
+            <div className="step-item text-center">
               <div className="w-16 h-16 bg-blue-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                 <Upload className="w-8 h-8 text-blue-600" />
               </div>
@@ -116,16 +218,16 @@ const Home = () => {
                 Upload text, notes, or files using our anonymous sharing tools
               </p>
             </div>
-            <div className="text-center">
+            <div className="step-item text-center">
               <div className="w-16 h-16 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
-                <span className="text-green-600 text-xl font-bold">1234</span>
+                <AnimatedCodeDigits code="1234" />
               </div>
               <h3 className="text-lg font-semibold mb-3">2. Get 4-Digit Code</h3>
               <p className="text-gray-600 text-sm">
                 Receive a unique 4-digit code for your shared content
               </p>
             </div>
-            <div className="text-center">
+            <div className="step-item text-center">
               <div className="w-16 h-16 bg-purple-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                 <Users className="w-8 h-8 text-purple-600" />
               </div>
@@ -134,7 +236,7 @@ const Home = () => {
                 Give the code to anyone who needs access to your content
               </p>
             </div>
-            <div className="text-center">
+            <div className="step-item text-center">
               <div className="w-16 h-16 bg-orange-100 rounded-full mx-auto mb-4 flex items-center justify-center">
                 <Zap className="w-8 h-8 text-orange-600" />
               </div>
@@ -148,30 +250,36 @@ const Home = () => {
       </section>
 
       {/* Why Choose AnonShare Section */}
-      <section className="py-16 px-4">
+      <section ref={whyChooseRef} className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
             Why Choose AnonShare?
           </h2>
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <Shield className="w-16 h-16 text-blue-600 mx-auto mb-4" />
+            <div className="why-item text-center">
+              <div className="flex justify-center mb-4">
+                <AnimatedPrivacyShield />
+              </div>
               <h3 className="text-xl font-semibold mb-3">Privacy First</h3>
               <p className="text-gray-600">
                 No registration required. No tracking. No data collection. Your privacy is 
                 guaranteed with our anonymous sharing platform.
               </p>
             </div>
-            <div className="text-center">
-              <Zap className="w-16 h-16 text-green-600 mx-auto mb-4" />
+            <div className="why-item text-center">
+              <div className="flex justify-center mb-4">
+                <AnimatedLock />
+              </div>
               <h3 className="text-xl font-semibold mb-3">Lightning Fast</h3>
               <p className="text-gray-600">
                 Share content instantly with auto-generated 4-digit codes. No waiting, no complex 
                 setup - just fast, efficient sharing tools.
               </p>
             </div>
-            <div className="text-center">
-              <Globe className="w-16 h-16 text-purple-600 mx-auto mb-4" />
+            <div className="why-item text-center">
+              <div className="flex justify-center mb-4">
+                <AnimatedEye />
+              </div>
               <h3 className="text-xl font-semibold mb-3">Globally Accessible</h3>
               <p className="text-gray-600">
                 Access your shared content from anywhere in the world with our simple 
@@ -188,13 +296,13 @@ const Home = () => {
       </div>
 
       {/* Use Cases Section */}
-      <section className="py-16 px-4 bg-gray-50">
+      <section ref={useCasesRef} className="py-16 px-4 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
             Perfect for Every Anonymous Sharing Need
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-lg p-6 border">
+            <div className="use-case bg-white rounded-lg p-6 border hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
                   <Copy className="w-6 h-6 text-blue-600" />
@@ -206,7 +314,7 @@ const Home = () => {
                 instantly. Perfect anonymous clipboard for developers who need paste without login.
               </p>
             </div>
-            <div className="bg-white rounded-lg p-6 border">
+            <div className="use-case bg-white rounded-lg p-6 border hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
                   <FileText className="w-6 h-6 text-green-600" />
@@ -218,7 +326,7 @@ const Home = () => {
                 and team members without exposing sensitive information.
               </p>
             </div>
-            <div className="bg-white rounded-lg p-6 border">
+            <div className="use-case bg-white rounded-lg p-6 border hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
                   <Upload className="w-6 h-6 text-purple-600" />
@@ -230,7 +338,7 @@ const Home = () => {
                 while maintaining privacy and avoiding email limitations.
               </p>
             </div>
-            <div className="bg-white rounded-lg p-6 border">
+            <div className="use-case bg-white rounded-lg p-6 border hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
                   <Lock className="w-6 h-6 text-orange-600" />
@@ -247,8 +355,11 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 bg-blue-600 text-white">
-        <div className="max-w-4xl mx-auto text-center">
+      <section ref={ctaRef} className="py-16 px-4 bg-blue-600 text-white">
+        <div className="max-w-4xl mx-auto text-center cta-content">
+          <div className="flex justify-center mb-6">
+            <AnimatedKey />
+          </div>
           <h2 className="text-3xl font-bold mb-6">
             Ready to Start Anonymous Sharing?
           </h2>
@@ -256,7 +367,7 @@ const Home = () => {
             Join thousands of users who trust AnonShare for their privacy-first sharing needs.
           </p>
           <Link to="/clipboard">
-            <Button size="lg" variant="secondary" className="text-lg px-8 py-3">
+            <Button size="lg" variant="secondary" className="text-lg px-8 py-3 transform hover:scale-105 transition-transform">
               Start Sharing Now
             </Button>
           </Link>
