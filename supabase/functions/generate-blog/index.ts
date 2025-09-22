@@ -124,72 +124,47 @@ async function fetchLatestTechAndSecurity(newsApiKey: string): Promise<NewsArtic
   return results.slice(0, 2);
 }
 
-async function callDeepSeek(deepseekKey: string | null, articles: NewsArticle[]): Promise<string> {
+async function callDeepSeek(_: string | null, articles: NewsArticle[]): Promise<string> {
   const OPENROUTER_API_KEY = Deno.env.get("OPENROUTER_API_KEY");
-  const useOpenRouter = Boolean(OPENROUTER_API_KEY);
+  if (!OPENROUTER_API_KEY) throw new Error("Missing OPENROUTER_API_KEY");
 
-  const prompt = `You are an expert technical writer. Write a concise, well-structured blog post in valid HTML using <h1>, <h2>, <p>, <ul>, <li>, and <blockquote>. No <script> tags, no external scripts, no inline event handlers.
+  const prompt = `You are an expert technical writer. Write a comprehensive, well-structured blog post in valid HTML using <h1>, <h2>, <p>, <ul>, <li>, and <blockquote>. No <script> tags, no external scripts, no inline event handlers.
 
-Use the following two recent news items as primary sources. Summarize, synthesize insights, and add context for developers, focusing on technology and cybersecurity implications for privacy-first sharing platforms like AnonShare.
+Use the following two recent news items as primary sources. Synthesize insights and add actionable context for developers, focusing on technology and cybersecurity implications for privacy-first sharing platforms like AnonShare.
 
 Sources:\n${articles
     .map((a, i) => `(${i + 1}) Title: ${a.title}\nDesc: ${a.description || ""}\nURL: ${a.url}\nPublished: ${a.publishedAt || ""}\nSource: ${a.source?.name || ""}`)
-    .join("\n\n")}\n\nRequirements:\n- Start with a single <h1> title.\n- Include 2-3 <h2> sections.\n- 6-10 short paragraphs total.\n- Include a short <ul> list of actionable takeaways.\n- End with a <h2> References</h2> and a <ul> of <a> links to the sources.\n- Keep it under ~900 words.\n- Use American English.\n- Do not include a <html> or <body> tag; only fragment HTML.\n`;
+    .join("\n\n")}\n\nStrict formatting requirements:\n- Length: roughly 900–1,300 words (aim for ~1,100).\n- Start with a single <h1> title summarizing the theme.\n- Include 3–4 <h2> sections (context, implications, best practices, and conclusion).\n- Use 8–14 short <p> paragraphs total; keep paragraphs concise.\n- Include one <ul> with 4–7 actionable takeaways for practitioners.\n- End with <h2>References</h2> and a <ul> of <a> links to the sources.\n- Do not include <html> or <body>; return an HTML fragment only.\n`;
 
   const messages = [
-    { role: "system", content: "You write production-ready HTML blog posts with strict formatting." },
+    { role: "system", content: "You write production-ready HTML blog posts with strict formatting and safety." },
     { role: "user", content: prompt },
   ];
 
-  if (useOpenRouter) {
-    const endpoint = "https://openrouter.ai/api/v1/chat/completions";
-    const model = Deno.env.get("OPENROUTER_MODEL") || "deepseek/deepseek-r1:free";
-    const referer = Deno.env.get("OPENROUTER_REFERER") || undefined;
-    const title = Deno.env.get("OPENROUTER_TITLE") || undefined;
+  const endpoint = "https://openrouter.ai/api/v1/chat/completions";
+  const model = Deno.env.get("OPENROUTER_MODEL") || "deepseek/deepseek-r1:free";
+  const referer = Deno.env.get("OPENROUTER_REFERER") || undefined;
+  const title = Deno.env.get("OPENROUTER_TITLE") || undefined;
 
-    const headers: Record<string, string> = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${OPENROUTER_API_KEY}`,
-    };
-    if (referer) headers["HTTP-Referer"] = referer;
-    if (title) headers["X-Title"] = title;
-
-    const res = await fetch(endpoint, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ model, messages, temperature: 0.6, max_tokens: 1500 }),
-    });
-    if (!res.ok) {
-      const errText = await res.text();
-      throw new Error(`OpenRouter error: ${res.status} ${errText}`);
-    }
-    const json = await res.json();
-    const content = json?.choices?.[0]?.message?.content;
-    if (!content) throw new Error("OpenRouter returned no content");
-    return content as string;
-  }
-
-  // Fallback to DeepSeek direct API
-  const endpoint = Deno.env.get("DEEPSEEK_API_URL") || "https://api.deepseek.com/chat/completions";
-  const model = Deno.env.get("DEEPSEEK_MODEL") || "deepseek-chat";
-  if (!deepseekKey) throw new Error("Missing DEEPSEEK_API_KEY");
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+  };
+  if (referer) headers["HTTP-Referer"] = referer;
+  if (title) headers["X-Title"] = title;
 
   const res = await fetch(endpoint, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${deepseekKey}`,
-    },
-    body: JSON.stringify({ model, messages, temperature: 0.6, max_tokens: 1500 }),
+    headers,
+    body: JSON.stringify({ model, messages, temperature: 0.7, max_tokens: 2800 }),
   });
-
   if (!res.ok) {
     const errText = await res.text();
-    throw new Error(`DeepSeek error: ${res.status} ${errText}`);
+    throw new Error(`OpenRouter error: ${res.status} ${errText}`);
   }
   const json = await res.json();
   const content = json?.choices?.[0]?.message?.content;
-  if (!content) throw new Error("DeepSeek returned no content");
+  if (!content) throw new Error("OpenRouter returned no content");
   return content as string;
 }
 
@@ -220,7 +195,6 @@ serve(async (req) => {
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const NEWSAPI_KEY = Deno.env.get("NEWSAPI_KEY");
-    const DEEPSEEK_API_KEY = Deno.env.get("DEEPSEEK_API_KEY");
     const OPENROUTER_API_KEY = Deno.env.get("OPENROUTER_API_KEY");
 
     if (!supabaseUrl || !supabaseServiceKey) {
@@ -229,8 +203,8 @@ serve(async (req) => {
     if (!NEWSAPI_KEY) {
       return new Response(JSON.stringify({ error: "Missing NEWSAPI_KEY" }), { headers: corsHeaders, status: 400 });
     }
-    if (!DEEPSEEK_API_KEY && !OPENROUTER_API_KEY) {
-      return new Response(JSON.stringify({ error: "Missing LLM key: set DEEPSEEK_API_KEY or OPENROUTER_API_KEY" }), { headers: corsHeaders, status: 400 });
+    if (!OPENROUTER_API_KEY) {
+      return new Response(JSON.stringify({ error: "Missing OPENROUTER_API_KEY" }), { headers: corsHeaders, status: 400 });
     }
 
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
@@ -259,8 +233,8 @@ serve(async (req) => {
       return new Response(JSON.stringify({ success: false, message: "Duplicate news set; blog already exists" }), { headers: corsHeaders, status: 409 });
     }
 
-    // 3) Generate blog HTML via LLM (OpenRouter preferred if configured)
-    const html = await callDeepSeek(DEEPSEEK_API_KEY, articles);
+    // 3) Generate blog HTML via OpenRouter
+    const html = await callDeepSeek(null, articles);
 
     // 4) Validate HTML
     const { valid, reason } = isLikelyValidHtml(html);
@@ -295,7 +269,6 @@ serve(async (req) => {
       .select("id, slug, title, published_at");
 
     if (insertError) {
-      // handle unique slug race
       if (insertError.code === "23505") {
         return new Response(JSON.stringify({ success: false, message: "Duplicate slug or unique constraint" }), { headers: corsHeaders, status: 409 });
       }
